@@ -1,70 +1,63 @@
 navbar_entries:
-  - title: about
+  # 主页的第一个板块：导航栏链接
+  - title: 关于
     url: about
 
-  - title: blog
+  - title: 博客
     url: blog
 
-  - title: website
-    url: https://www.abhinav.co
+  - title: 源代码网页
+    url: https://github.com/yangdanyang2005/yangdanyang2005.github.io
+
+  - title: 联系我
+    url: contact
 
 project_entries:
-  - title: Project 1
+    # 主页的第二个板块：项目展示
+    # This is an example project, configured in _data/home.yml. Projects are shown in card layout.You can control visibility from _config.yml file. You can add or remove projects from this list.
+    # This project uses highlight markup, configured in _data/home.yml. Moonwalk also has horizontal list (used in header and footer).It also has a scalable vertical list (in case you need it)
+  - title: 计算机科学与技术
     url: overview-post
-    desc: This is an example project, configured in _data/home.yml
+    desc: 记录一些计算机科学与技术的笔记（待补充）
+    highlight: 仅供参考，欢迎交流
 
-  - title: Project 2
+  - title: 文海拾贝
     url: overview-post
-    desc: Projects are shown in card layout
-
-  - title: Project 3
-    url: overview-post
-    desc: You can control visibility from _config.yml file
-
-  - title: Project 4
-    url: overview-post
-    desc: This project uses highlight markup, configured in _data/home.yml
-    highlight: WIP
-
-  - title: Project 5
-    url: overview-post
-    desc: Moonwalk also has horizontal list (used in header and footer)
-    highlight: WIP
-
-  - title: Project 6
-    url: overview-post
-    desc: It also has a scalable vertical list (in case you need it)
+    desc: 记录一些琐碎的文笔（待补充）
 
 old_project_entries:
-  - title: Soopr
-    url: https://www.soopr.co
-    desc: Delight your readers - add beautiful share and like buttons easily to your websites 
-    highlight: NEW
+  # 主页的第四个板块：已有项目
+  # Delight your readers - add beautiful share and like buttons easily to your websites 
+  # An open source landing website with supporting pages and integrated blog
+  # A fast and minimalist Jekyll blog theme with clean dark mode
+  # The better people know you, the better they collaborate
 
-  - title: Cookie
-    url: https://github.com/abhinavs/cookie
-    desc: An open source landing website with supporting pages and integrated blog
+  - title: Fusion-of-High-Resolution-Panchromatic-and-Low-Resolution-Multispectral-Images
+    url: https://github.com/yangdanyang2005/Fusion-of-High-Resolution-Panchromatic-and-Low-Resolution-Multispectral-Images
+    desc: 大二上 数字图像处理 大作业：高空间分辨率的全色遥感影像和低空间分辨率的多光谱遥感影像融合生成高空间分辨率的多光谱遥感影像
+    highlight: 等大二上数字图像处理结课之后再开源
 
-  - title: Moonwalk
-    url: https://github.com/abhinavs/moonwalk
-    desc: A fast and minimalist Jekyll blog theme with clean dark mode
+  - title: MFCApplication_20240607_cppTeamWork
+    url: https://github.com/yangdanyang2005/MFCApplication_20240607_cppTeamWork
+    desc: 大一下 “遥感应用软件设计”课程 C++ MFC 大作业
 
-  - title: Humangous
-    url: https://www.humangous.co
-    desc: The better people know you, the better they collaborate
+  - title: 20240507_Graph
+    url: https://github.com/yangdanyang2005/20240507_Graph
+    desc: 大一下 数据结构中“图”的实习
 
 footer_entries:
+  # 主页的第五个板块：联系方式链接
   - title: abhinav's homepage
     url: https://www.abhinav.co
 
   - title: twitter
     url: https://twitter.com/abhinav
 
-  - title: github
-    url: https://github.com/abhinavs
+  - title: 我的Github主页
+    url: https://github.com/yangdanyang2005
 
-  - title: feed
-    url: feed.xml
+  - title: 我的CSDN主页
+    url: https://blog.csdn.net/Zlyzjiabjw547479
 
 misc_entries:
   - title: this is an example vertical list
@@ -97,5 +90,3 @@ misc_entries:
 
           - title: it is easy to use, see _data/home.yml to see how to configure it.
             url: false
-
-
