@@ -2,7 +2,8 @@ title: 杨丹阳的赛博小屋 # 网站标题
 author: 杨丹阳 # 下方写的版权信息
 url: https://www.abhinavsaxena.com/moonwalk # root address of the site
 description: > # description of the site (multiple lines allowed)
-  天行健，君子以自强不息；地势坤，君子以厚德载物。——《周易·乾卦》\n
+  天行健，君子以自强不息；地势坤，君子以厚德载物。——《周易·乾卦》
+  <br>
   【作者暂时还没有时间更新本个人网页的内容，因此会有一些模板网站的内容，请见谅】
 
 permalink: /:slug
