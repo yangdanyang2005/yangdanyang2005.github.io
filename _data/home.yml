@@ -1,0 +1,100 @@
+# 主页上的内容在这里编辑
+# Jekyll这个静态站点生成器可以自动从这里读取数据并生成网站。
+
+# 主页的板块的名字在_config.yml文件中 theme_config: home: 下面修改
+
+# 主页的板块的具体内容在这里编辑
+navbar_entries:
+  # 主页的第一个板块：导航栏链接
+  - title: 关于
+    url: about
+
+  - title: 博客
+    url: blog
+
+  - title: 源代码网页
+    url: https://github.com/yangdanyang2005/yangdanyang2005.github.io
+
+  - title: 联系我
+    url: contact
+
+project_entries:
+    # 主页的第二个板块：赛博小屋
+    # This is an example project, configured in _data/home.yml. Projects are shown in card layout.You can control visibility from _config.yml file. You can add or remove projects from this list.
+    # This project uses highlight markup, configured in _data/home.yml. Moonwalk also has horizontal list (used in header and footer).It also has a scalable vertical list (in case you need it)
+  - title: 计算机科学与技术
+    url: overview-post
+    desc: 记录一些计算机科学与技术的笔记（待补充）
+
+  - title: 文海拾贝
+    url: overview-post
+    desc: 记录一些琐碎的文笔（待补充）
+
+old_project_entries:
+  # 主页的第四个板块：代码仓库
+  # Delight your readers - add beautiful share and like buttons easily to your websites 
+  # An open source landing website with supporting pages and integrated blog
+  # A fast and minimalist Jekyll blog theme with clean dark mode
+  # The better people know you, the better they collaborate
+  #第二个板块和第四个板块的格式在_sass/home.scss文件中修改
+
+  - title: Fusion-of-High-Resolution-Panchromatic-and-Low-Resolution-Multispectral-Images
+    url: https://github.com/yangdanyang2005/Fusion-of-High-Resolution-Panchromatic-and-Low-Resolution-Multispectral-Images
+    desc: 大二上 数字图像处理 大作业：高空间分辨率的全色遥感影像和低空间分辨率的多光谱遥感影像融合生成高空间分辨率的多光谱遥感影像
+    highlight: 等大二上数字图像处理结课之后再开源
+
+  - title: MFCApplication_20240607_cppTeamWork
+    url: https://github.com/yangdanyang2005/MFCApplication_20240607_cppTeamWork
+    desc: 大一下 “遥感应用软件设计”课程 C++ MFC 大作业
+
+  - title: 20240507_Graph
+    url: https://github.com/yangdanyang2005/20240507_Graph
+    desc: 大一下 数据结构中“图”的实习
+
+footer_entries:
+  # 主页的第五个板块：联系方式链接
+  - title: abhinav's homepage
+    url: https://www.abhinav.co
+
+  - title: twitter
+    url: https://twitter.com/abhinav
+
+  - title: 我的Github主页
+    url: https://github.com/yangdanyang2005
+
+  - title: 我的CSDN主页
+    url: https://blog.csdn.net/Zlyzjiabjw547479
+
+misc_entries:
+  - title: this is an example vertical list
+    url: false
+
+  - title: you can show or hide using a boolean flag in _config.yml
+    url: false
+
+  - title: and you can add data in _data/home.yml
+    url: false
+
+  - title: Blog posts
+    post_list: true
+    url: false
+
+  - title: moonwalk on the Internet
+    url: false
+    entries:
+      - title: on Github
+        url: https://github.com/abhinavs/moonwalk
+
+      - title: originally built for abhinav's homepage
+        url: https://www.abhinav.co
+
+      - title: this list is scalable and can be nested
+        url: false
+        entries:
+          - title: this is nested inside a nested list
+            url: false
+
+          - title: it is easy to use, see _data/home.yml to see how to configure it.
+            url: false
+
+
