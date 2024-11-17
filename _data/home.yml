@@ -1,3 +1,6 @@
+# 主页上的内容在这里编辑
+# Jekyll这个静态站点生成器可以自动从这里读取数据并生成网站。
+
 navbar_entries:
   # 主页的第一个板块：导航栏链接
   - title: 关于
@@ -30,6 +33,7 @@ old_project_entries:
   # An open source landing website with supporting pages and integrated blog
   # A fast and minimalist Jekyll blog theme with clean dark mode
   # The better people know you, the better they collaborate
+  #第二个板块和第四个板块的格式在_sass/home.scss文件中修改
 
   - title: Fusion-of-High-Resolution-Panchromatic-and-Low-Resolution-Multispectral-Images
     url: https://github.com/yangdanyang2005/Fusion-of-High-Resolution-Panchromatic-and-Low-Resolution-Multispectral-Images
@@ -89,3 +93,5 @@ misc_entries:
 
           - title: it is easy to use, see _data/home.yml to see how to configure it.
             url: false
+
+
