@@ -1,7 +1,7 @@
 # 主页上的内容在这里编辑
 # Jekyll这个静态站点生成器可以自动从这里读取数据并生成网站。
 
-# 主页的板块的名字在_config.yml文件中 theme_config: home: 下面修改
+# 主页的板块的名字在_config.yml文件中的 theme_config: home: 下面修改
 
 # 主页的板块的具体内容在这里编辑
 navbar_entries:
@@ -12,7 +12,7 @@ navbar_entries:
   - title: 博客
     url: blog
 
-  - title: 源代码网页
+  - title: 本网页源代码
     url: https://github.com/yangdanyang2005/yangdanyang2005.github.io
 
   - title: 联系我
@@ -53,11 +53,6 @@ old_project_entries:
 
 footer_entries:
   # 主页的第五个板块：联系方式链接
-  - title: abhinav's homepage
-    url: https://www.abhinav.co
-
-  - title: twitter
-    url: https://twitter.com/abhinav
 
   - title: 我的Github主页
     url: https://github.com/yangdanyang2005
