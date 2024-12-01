@@ -37,7 +37,7 @@ theme_config:
   show_tags: true # show tags in a blog posts
   # 修改 "home" page 中的标题
   home:
-    title_projects: 赛博小屋
+    title_projects: 你好，世界！
     title_misc_list: Details
     title_blog: 我的动态
     title_old_projects: 代码仓库
