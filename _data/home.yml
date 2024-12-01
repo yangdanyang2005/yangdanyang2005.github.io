@@ -38,10 +38,14 @@ old_project_entries:
   # The better people know you, the better they collaborate
   #第二个板块和第四个板块的格式在_sass/home.scss文件中修改
 
+  - title: animal_classification
+    url: https://github.com/yangdanyang2005/animal_classification
+    desc: 大二上 华中科技大学 计算机科学与技术学院 人工智能导论 深度学习实践作业：使用深度学习方法实现对动物图像的分类任务
+    highlight: 开发中
+
   - title: Fusion-of-High-Resolution-Panchromatic-and-Low-Resolution-Multispectral-Images
     url: https://github.com/yangdanyang2005/Fusion-of-High-Resolution-Panchromatic-and-Low-Resolution-Multispectral-Images
     desc: 大二上 数字图像处理 大作业：高空间分辨率的全色遥感影像和低空间分辨率的多光谱遥感影像融合生成高空间分辨率的多光谱遥感影像
-    highlight: 等大二上数字图像处理结课之后再开源
 
   - title: MFCApplication_20240607_cppTeamWork
     url: https://github.com/yangdanyang2005/MFCApplication_20240607_cppTeamWork
