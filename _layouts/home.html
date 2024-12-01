@@ -140,3 +140,60 @@ layout: default
     typeText(); // 开始打字效果
   });
 </script>
+
+{% if site.theme_config.show_footer == true %}
+<footer>
+  <div class="dashed"></div>
+  {% include horizontal_list.html collection=site.data.home.footer_entries %}
+  
+  <!-- 添加计时器和访问统计 -->
+  <div id="site-stats" style="text-align: center; margin-top: 20px;">
+    <p>本网站已连续运行：<span id="run-timer">加载中...</span></p>
+    <p>本网站访问次数：<span id="visit-count">加载中...</span></p>
+  </div>
+</footer>
+{% endif %}
+
+<script>
+  // 网站运行计时器
+  const siteStartTime = new Date('2024-11-07T16:04:00'); // 网站上线时间
+  function updateRunTimer() {
+    const now = new Date();
+    const diff = now - siteStartTime; // 时间差
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+
+    const timerElement = document.getElementById('run-timer');
+    timerElement.textContent = `${days}天 ${hours}小时 ${minutes}分钟 ${seconds}秒`;
+  }
+  setInterval(updateRunTimer, 1000);
+  updateRunTimer(); // 初始化显示
+
+  // 网站访问次数统计
+  // 初始化 Firebase
+  const firebaseConfig = {
+    apiKey: "your-api-key",
+    authDomain: "your-auth-domain",
+    databaseURL: "your-database-url",
+    projectId: "your-project-id",
+    storageBucket: "your-storage-bucket",
+    messagingSenderId: "your-sender-id",
+    appId: "your-app-id"
+  };
+  firebase.initializeApp(firebaseConfig);
+
+  const database = firebase.database();
+
+  // 更新访问次数
+  function updateVisitCount() {
+    const visitCountRef = database.ref('visitCount');
+    visitCountRef.transaction(currentCount => {
+      return (currentCount || 0) + 1;
+    });
+}
+
+updateVisitCount();
+
+</script>
