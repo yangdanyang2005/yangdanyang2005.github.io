@@ -3,15 +3,19 @@ layout: default
 ---
 
 <header>
-{% if site.theme_config.show_navbar == true %}
-  {% include horizontal_list.html collection=site.data.home.navbar_entries %}
-  <div class="dashed"></div>
-{% endif %}
+  {% if site.theme_config.show_navbar == true %}
+    {% include horizontal_list.html collection=site.data.home.navbar_entries %}
+    <div class="dashed"></div>
+  {% endif %}
 
   <h1>{{ site.title }}</h1>
   {% if site.theme_config.show_description == true %}
     <p>{{ site.description }}</p>
   {% endif %}
+
+  <!-- 新增的循环文本区域 -->
+  <div id="typing-effect-container"></div>
+
 </header>
 
 {{ content }}
@@ -36,10 +40,76 @@ layout: default
   {% include card_list.html collection=site.data.home.old_project_entries %}
 {% endif %}
 
-
 {% if site.theme_config.show_footer == true %}
   <footer>
     <div class="dashed"></div>
     {% include horizontal_list.html collection=site.data.home.footer_entries %}
   </footer>
 {% endif %}
+
+<!-- CSS for typing effect -->
+<style>
+  /* 容器样式 */
+  #typing-effect-container {
+    font-family: 'Courier New', monospace;
+    font-size: 1.5em;
+    color: #333;
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 2px solid #333; /* 模拟光标 */
+    display: inline-block;
+    margin-top: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* 使文字居中 */
+    text-align: center; /* 确保文本居中对齐 */
+  }
+</style>
+
+<!-- JavaScript for typing effect -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const texts = [
+      "高山仰止，景行行止。",
+      "蒹葭苍苍，白露为霜。",
+      "昔我往矣，杨柳依依。今我来思，雨雪霏霏。",
+      "天何所沓？十二焉分？日月安属？列星安陈？",
+      "知天之所为，知人之所为者，至矣。",
+      "天地玄黄，宇宙洪荒。日月盈昃，辰宿列张。"
+    ];
+
+    let currentTextIndex = 0;
+    let currentCharIndex = 0;
+    let typingSpeed = 150; // 打字速度（毫秒）
+    let eraseSpeed = 100;  // 删除速度（毫秒）
+    let typingEffectContainer = document.getElementById("typing-effect-container");
+
+    function typeText() {
+      let currentText = texts[currentTextIndex];
+      typingEffectContainer.textContent = currentText.substring(0, currentCharIndex + 1);
+      currentCharIndex++;
+
+      if (currentCharIndex < currentText.length) {
+        setTimeout(typeText, typingSpeed);
+      } else {
+        setTimeout(eraseText, 1000); // 打字完毕后等待一段时间，然后开始删除
+      }
+    }
+
+    function eraseText() {
+      let currentText = texts[currentTextIndex];
+      typingEffectContainer.textContent = currentText.substring(0, currentCharIndex - 1);
+      currentCharIndex--;
+
+      if (currentCharIndex >= 0) {
+        setTimeout(eraseText, eraseSpeed);
+      } else {
+        currentTextIndex = (currentTextIndex + 1) % texts.length; // 循环播放文本
+        setTimeout(typeText, 500); // 等待一段时间后再开始打字
+      }
+    }
+
+    typeText(); // 开始打字效果
+  });
+</script>
