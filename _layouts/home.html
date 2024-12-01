@@ -43,6 +43,11 @@ layout: default
   <footer>
     <div class="dashed"></div>
     {% include horizontal_list.html collection=site.data.home.footer_entries %}
+    <!-- 添加计时器和访问统计 -->
+    <div id="site-stats" style="text-align: center; margin-top: 20px;">
+      <p>本网站已连续运行：<span id="run-timer">加载中...</span></p>
+      <p>本网站访问次数：<span id="visit-count">加载中...</span></p>
+    </div>
   </footer>
 {% endif %}
 
@@ -72,13 +77,13 @@ layout: default
 
   /* 调整头部样式以适应打字效果 */
   header {
-    position: relative; 
-    padding-top: 70px; 
+    position: relative;
+    padding-top: 70px;
   }
 
   /* 光标闪烁动画 */
   #typing-effect-container::after {
-    content: ''; 
+    content: '';
     display: inline-block;
     width: 3px; /* 调整光标宽度 */
     height: 1.2em; /* 调整光标高度 */
@@ -109,7 +114,7 @@ layout: default
     let currentTextIndex = 0;
     let currentCharIndex = 0;
     const typingSpeed = 150; // 打字速度（毫秒）
-    const eraseSpeed = 80; // 删除速度（毫秒）
+    const eraseSpeed = 50; // 删除速度（毫秒）
     const typingEffectContainer = document.getElementById("typing-effect-container");
 
     function typeText() {
@@ -140,19 +145,6 @@ layout: default
     typeText(); // 开始打字效果
   });
 </script>
-
-{% if site.theme_config.show_footer == true %}
-<footer>
-  <div class="dashed"></div>
-  {% include horizontal_list.html collection=site.data.home.footer_entries %}
-  
-  <!-- 添加计时器和访问统计 -->
-  <div id="site-stats" style="text-align: center; margin-top: 20px;">
-    <p>本网站已连续运行：<span id="run-timer">加载中...</span></p>
-    <p>本网站访问次数：<span id="visit-count">加载中...</span></p>
-  </div>
-</footer>
-{% endif %}
 
 <script>
   // 网站运行计时器
@@ -192,8 +184,7 @@ layout: default
     visitCountRef.transaction(currentCount => {
       return (currentCount || 0) + 1;
     });
-}
+  }
 
-updateVisitCount();
-
+  updateVisitCount();
 </script>
