@@ -12,11 +12,10 @@ layout: default
   {% if site.theme_config.show_description == true %}
     <p>{{ site.description }}</p>
   {% endif %}
-
-  <!-- 新增的循环文本区域 -->
-  <div id="typing-effect-container"></div>
-
 </header>
+
+<!-- 新增的循环文本区域 -->
+<div id="typing-effect-container"></div>
 
 {{ content }}
 
@@ -49,21 +48,49 @@ layout: default
 
 <!-- CSS for typing effect -->
 <style>
+  :root {
+    --typing-text-color: #333; /* 默认文字颜色 */
+    --typing-cursor-color: #333; /* 默认光标颜色 */
+  }
+
+  [data-theme='dark'] {
+    --typing-text-color: #fff; /* 深色主题的文字颜色 */
+    --typing-cursor-color: #fff; /* 深色主题的光标颜色 */
+  }
+
   /* 容器样式 */
   #typing-effect-container {
     font-family: 'Courier New', monospace;
     font-size: 1.5em;
-    color: #333;
+    color: var(--typing-text-color); /* 动态文字颜色 */
     white-space: nowrap;
     overflow: hidden;
-    border-right: 2px solid #333; /* 模拟光标 */
+    display: inline-block; /* 确保文本和光标在同一行，且内容居中 */
+    border-right: 2px solid var(--typing-cursor-color); /* 动态光标颜色 */
+    text-align: center;
+    margin: 20px auto 40px;
+  }
+
+  /* 调整头部样式以适应打字效果 */
+  header {
+    position: relative; 
+    padding-top: 70px; 
+  }
+
+  /* 光标闪烁动画 */
+  #typing-effect-container::after {
+    content: ''; 
     display: inline-block;
-    margin-top: 20px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); /* 使文字居中 */
-    text-align: center; /* 确保文本居中对齐 */
+    width: 2px;
+    height: 1em;
+    background-color: var(--typing-cursor-color); /* 动态光标颜色 */
+    animation: blink 0.8s steps(2, start) infinite; /* 闪烁效果 */
+  }
+
+  @keyframes blink {
+    to {
+      visibility: hidden;
+    }
   }
 </style>
 
@@ -81,12 +108,12 @@ layout: default
 
     let currentTextIndex = 0;
     let currentCharIndex = 0;
-    let typingSpeed = 150; // 打字速度（毫秒）
-    let eraseSpeed = 100;  // 删除速度（毫秒）
-    let typingEffectContainer = document.getElementById("typing-effect-container");
+    const typingSpeed = 150; // 打字速度（毫秒）
+    const eraseSpeed = 80; // 删除速度（毫秒）
+    const typingEffectContainer = document.getElementById("typing-effect-container");
 
     function typeText() {
-      let currentText = texts[currentTextIndex];
+      const currentText = texts[currentTextIndex];
       typingEffectContainer.textContent = currentText.substring(0, currentCharIndex + 1);
       currentCharIndex++;
 
@@ -98,7 +125,7 @@ layout: default
     }
 
     function eraseText() {
-      let currentText = texts[currentTextIndex];
+      const currentText = texts[currentTextIndex];
       typingEffectContainer.textContent = currentText.substring(0, currentCharIndex - 1);
       currentCharIndex--;
 
