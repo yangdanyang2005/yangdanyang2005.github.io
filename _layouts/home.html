@@ -128,7 +128,8 @@ layout: default
       "昔我往矣，杨柳依依。今我来思，雨雪霏霏。",
       "天何所沓？十二焉分？日月安属？列星安陈？",
       "知天之所为，知人之所为者，至矣。",
-      "天地玄黄，宇宙洪荒。日月盈昃，辰宿列张。"
+      "天地玄黄，宇宙洪荒。日月盈昃，辰宿列张。",
+      "道生一，一生二，二生三，三生万物。",
     ];
 
     let currentTextIndex = 0;
@@ -158,7 +159,10 @@ layout: default
         setTimeout(eraseText, eraseSpeed);
       } else {
         currentTextIndex = (currentTextIndex + 1) % texts.length; // 循环播放文本
-        setTimeout(typeText, 500); // 等待一段时间后再开始打字
+        setTimeout(() => {
+          typeText(); // 等待一段时间后再开始打字
+          updateBackgroundImage(); // 在每句文字结束后切换背景图
+        }, 500); // 等待一段时间后再开始打字
       }
     }
 
@@ -168,59 +172,57 @@ layout: default
     loadBackgroundImages();
   });
 
-// 加载并循环显示背景图片
-function loadBackgroundImages() {
-  const folderPath = "images/home_page/"; // 图片文件夹路径
-  const imageFiles = [
-    "img1.jpg", "img2.jpg", "img3.jpg", "img4.jpg" // 替换为文件夹下的图片文件名
-  ];
+  // 加载并循环显示背景图片
+  function loadBackgroundImages() {
+    const folderPath = "images/home_page/"; // 图片文件夹路径
+    const imageFiles = [
+      "img1.jpg", "img2.jpg", "img3.jpg", "img4.jpg","img5.jpg","img6.jpg","img7.jpg","img8.jpg" // 替换为文件夹下的图片文件名
+    ];
 
-  let currentImageIndex = 0;
-  const typingEffectContainer = document.getElementById("typing-effect-container");
+    let currentImageIndex = 0;
+    const typingEffectContainer = document.getElementById("typing-effect-container");
 
-  function updateBackgroundImage() {
-  typingEffectContainer.style.backgroundImage = `url('${folderPath}${imageFiles[currentImageIndex]}')`;
-  currentImageIndex = (currentImageIndex + 1) % imageFiles.length; // 循环图片
+    function updateBackgroundImage() {
+      typingEffectContainer.style.backgroundImage = `url('${folderPath}${imageFiles[currentImageIndex]}')`;
+      currentImageIndex = (currentImageIndex + 1) % imageFiles.length; // 循环图片
 
-  // 计算并设置文字颜色为背景图的对比色
-  const img = new Image();
-  img.src = `${folderPath}${imageFiles[currentImageIndex]}`;
-  img.onload = function () {
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
-    canvas.width = img.width;
-    canvas.height = img.height;
-    ctx.drawImage(img, 0, 0, img.width, img.height);
-    
-    // 只取图像的上1/3部分
-    const cropHeight = Math.floor(img.height / 3);
-    const imgData = ctx.getImageData(0, 0, img.width, cropHeight); // 截取上1/3部分的像素数据
-    
-    let r = 0, g = 0, b = 0;
-    const pixelCount = imgData.width * imgData.height;
-    for (let i = 0; i < pixelCount; i++) {
-      r += imgData.data[i * 4];
-      g += imgData.data[i * 4 + 1];
-      b += imgData.data[i * 4 + 2];
+      // 计算并设置文字颜色为背景图的对比色
+      const img = new Image();
+      img.src = `${folderPath}${imageFiles[currentImageIndex]}`;
+      img.onload = function () {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = img.width;
+        canvas.height = img.height;
+        ctx.drawImage(img, 0, 0, img.width, img.height);
+
+        // 只取图像的上1/3部分
+        const cropHeight = Math.floor(img.height / 3);
+        const imgData = ctx.getImageData(0, 0, img.width, cropHeight); // 截取上1/3部分的像素数据
+
+        let r = 0, g = 0, b = 0;
+        const pixelCount = imgData.width * imgData.height;
+        for (let i = 0; i < pixelCount; i++) {
+          r += imgData.data[i * 4];
+          g += imgData.data[i * 4 + 1];
+          b += imgData.data[i * 4 + 2];
+        }
+        r = Math.floor(r / pixelCount);
+        g = Math.floor(g / pixelCount);
+        b = Math.floor(b / pixelCount);
+
+        // 计算亮度
+        const luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+
+        // 根据亮度选择适当的文字颜色
+        const contrastColor = luminance > 128 ? '#000' : '#fff'; // 亮度大于128选择黑色，反之选择白色
+        document.documentElement.style.setProperty('--typing-text-color', contrastColor);
+        document.documentElement.style.setProperty('--typing-cursor-color', contrastColor);
+      };
     }
-    r = Math.floor(r / pixelCount);
-    g = Math.floor(g / pixelCount);
-    b = Math.floor(b / pixelCount);
 
-    // 计算亮度
-    const luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b;
-
-    // 根据亮度选择适当的文字颜色
-    const contrastColor = luminance > 128 ? '#000' : '#fff'; // 亮度大于128选择黑色，反之选择白色
-    document.documentElement.style.setProperty('--typing-text-color', contrastColor);
-    document.documentElement.style.setProperty('--typing-cursor-color', contrastColor);
-  };
-}
-
-  updateBackgroundImage(); // 初始化显示第一张图片
-  setInterval(updateBackgroundImage, 5000); // 每5秒更新一次背景图片
-}
-
+    updateBackgroundImage(); // 初始化显示第一张图片
+  }
 
     // 网站运行计时器
     const siteStartTime = new Date('2024-11-07T16:04:00'); // 网站启动时间
