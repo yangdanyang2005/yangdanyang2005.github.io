@@ -179,41 +179,43 @@ function loadBackgroundImages() {
   const typingEffectContainer = document.getElementById("typing-effect-container");
 
   function updateBackgroundImage() {
-    typingEffectContainer.style.backgroundImage = `url('${folderPath}${imageFiles[currentImageIndex]}')`;
-    currentImageIndex = (currentImageIndex + 1) % imageFiles.length; // 循环图片
+  typingEffectContainer.style.backgroundImage = `url('${folderPath}${imageFiles[currentImageIndex]}')`;
+  currentImageIndex = (currentImageIndex + 1) % imageFiles.length; // 循环图片
 
-    // 计算并设置文字颜色为背景图的对比色
-    const img = new Image();
-    img.src = `${folderPath}${imageFiles[currentImageIndex]}`;
-    img.onload = function () {
-      const canvas = document.createElement('canvas');
-      const ctx = canvas.getContext('2d');
-      canvas.width = img.width;
-      canvas.height = img.height;
-      ctx.drawImage(img, 0, 0, img.width, img.height);
-      const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-      
-      // 使用颜色对比度公式来计算文字颜色
-      let r = 0, g = 0, b = 0;
-      const pixelCount = imgData.width * imgData.height;
-      for (let i = 0; i < pixelCount; i++) {
-        r += imgData.data[i * 4];
-        g += imgData.data[i * 4 + 1];
-        b += imgData.data[i * 4 + 2];
-      }
-      r = Math.floor(r / pixelCount);
-      g = Math.floor(g / pixelCount);
-      b = Math.floor(b / pixelCount);
+  // 计算并设置文字颜色为背景图的对比色
+  const img = new Image();
+  img.src = `${folderPath}${imageFiles[currentImageIndex]}`;
+  img.onload = function () {
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = img.width;
+    canvas.height = img.height;
+    ctx.drawImage(img, 0, 0, img.width, img.height);
+    
+    // 只取图像的上1/3部分
+    const cropHeight = Math.floor(img.height / 3);
+    const imgData = ctx.getImageData(0, 0, img.width, cropHeight); // 截取上1/3部分的像素数据
+    
+    let r = 0, g = 0, b = 0;
+    const pixelCount = imgData.width * imgData.height;
+    for (let i = 0; i < pixelCount; i++) {
+      r += imgData.data[i * 4];
+      g += imgData.data[i * 4 + 1];
+      b += imgData.data[i * 4 + 2];
+    }
+    r = Math.floor(r / pixelCount);
+    g = Math.floor(g / pixelCount);
+    b = Math.floor(b / pixelCount);
 
-      // 计算亮度
-      const luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+    // 计算亮度
+    const luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b;
 
-      // 根据亮度选择适当的文字颜色
-      const contrastColor = luminance > 128 ? '#000' : '#fff'; // 亮度大于128选择黑色，反之选择白色
-      document.documentElement.style.setProperty('--typing-text-color', contrastColor);
-      document.documentElement.style.setProperty('--typing-cursor-color', contrastColor);
-    };
-  }
+    // 根据亮度选择适当的文字颜色
+    const contrastColor = luminance > 128 ? '#000' : '#fff'; // 亮度大于128选择黑色，反之选择白色
+    document.documentElement.style.setProperty('--typing-text-color', contrastColor);
+    document.documentElement.style.setProperty('--typing-cursor-color', contrastColor);
+  };
+}
 
   updateBackgroundImage(); // 初始化显示第一张图片
   setInterval(updateBackgroundImage, 5000); // 每5秒更新一次背景图片
