@@ -96,10 +96,23 @@ audio::-webkit-media-controls-volume-slider {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4); /* 按钮的阴影效果 */
 }
 
-/* 音量按钮阴影 */
-[data-theme='dark'] audio::-webkit-media-controls-volume-button {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4); /* 音量按钮的阴影效果 */
+/* 深色主题下音量按钮和三个点按钮的阴影效果 */
+[data-theme='dark'] audio::-webkit-media-controls-volume-button,
+[data-theme='dark'] audio::-webkit-media-controls-panel {
+  box-shadow: 0 2px 8px rgba(255, 255, 255, 0.4); /* 灰白色阴影 */
 }
+
+/* 深色主题下音量滑块和进度条的阴影效果 */
+[data-theme='dark'] audio::-webkit-media-controls-volume-slider,
+[data-theme='dark'] audio::-webkit-media-controls-timeline {
+  box-shadow: 0 2px 8px rgba(255, 255, 255, 0.3); /* 灰白色阴影 */
+}
+
+/* 深色主题下播放、暂停按钮阴影效果 */
+[data-theme='dark'] audio::-webkit-media-controls-play-button {
+  box-shadow: 0 2px 8px rgba(255, 255, 255, 0.5); /* 灰白色阴影 */
+}
+
 
 /* 进度条阴影 */
 [data-theme='dark'] audio::-webkit-media-controls-timeline {
