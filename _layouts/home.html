@@ -17,8 +17,7 @@ layout: default
 <!-- 音乐播放器 -->
 <div id="music-player-container" style="text-align: center; margin-bottom: 20px;">
   <audio id="audio-player" controls>
-    <source src="path/to/your/audio-file.mp3" type="audio/mpeg">
-    您的浏览器不支持音频标签。
+    <source src="_data/music/music_home.mp3" type="audio/mpeg">
   </audio>
 </div>
 
@@ -84,6 +83,34 @@ audio {
 [data-theme='dark'] audio {
   background-color: var(--audio-bg-color-dark); /* 深色模式背景 */
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4); /* 深色主题的阴影效果 */
+}
+
+/* 深色主题下的控制面板样式 */
+[data-theme='dark'] audio::-webkit-media-controls-panel {
+  background-color: #222; /* 深色主题下的控制面板背景色 */
+}
+
+[data-theme='dark'] audio::-webkit-media-controls-play-button {
+  color: white; /* 播放按钮文字颜色 */
+}
+
+[data-theme='dark'] audio::-webkit-media-controls-volume-slider {
+  background-color: white; /* 音量滑块背景色 */
+}
+
+/* 计时器文字颜色 */
+[data-theme='dark'] #site-stats p {
+  color: white; /* 计时器和访问次数的文字颜色 */
+}
+
+/* 文字光标颜色 */
+[data-theme='dark'] #typing-effect-container::after {
+  background-color: white; /* 深色模式下光标颜色 */
+}
+
+/* 控制打字效果容器文字颜色 */
+[data-theme='dark'] #typing-effect-container {
+  color: white; /* 动态文字颜色 */
 }
 
 /* 浅色主题下的音乐播放器样式 */
