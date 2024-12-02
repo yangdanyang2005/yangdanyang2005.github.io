@@ -20,9 +20,9 @@ ul.horizontal-list {
 
 /* 定义卡片的样式 */
 .card {
-  padding: 2em; /* 内边距为 1em */
+  padding: 1.8em; /* 内边距为 1em */
   border: 1px var(--text) solid; /* 边框为 1px 实线，颜色由变量 --text 定义 */
-  width: 22em; /* 如果设置宽度为 11em，那么一行会有3个卡片 */
+  width: 20em; /* 如果设置宽度为 11em，那么一行会有3个卡片 */
   height: auto; /* 高度自动调整 */
   text-align: center; /* 文本居中对齐 */
   font-size: 1em; /* 字体大小为 1em */
