@@ -73,6 +73,23 @@ layout: default
     display: inline-block; /* 确保文本和光标在同一行，且内容居中 */
     text-align: center;
     margin: 20px auto 40px;
+    position: relative; /* 确保背景图能定位 */
+    padding: 20px;
+    
+    /* 背景图片及滚动效果 */
+    background-size: cover;
+    background-position: center center;
+    animation: scrollBackground 20s linear infinite;
+  }
+
+  /* 背景滚动动画 */
+  @keyframes scrollBackground {
+    0% {
+      background-position: 0 0;
+    }
+    100% {
+      background-position: 100% 0;
+    }
   }
 
   /* 调整头部样式以适应打字效果 */
@@ -144,6 +161,27 @@ layout: default
 
     typeText(); // 开始打字效果
   });
+
+  // 加载并循环显示背景图片
+  function loadBackgroundImages() {
+    const folderPath = "images/home_page/"; // 图片文件夹路径
+    const imageFiles = [
+      "img1.jpg", "img2.jpg", "img3.jpg", "img4.jpg" // 替换为文件夹下的图片文件名
+    ];
+
+    let currentImageIndex = 0;
+    const typingEffectContainer = document.getElementById("typing-effect-container");
+
+    function updateBackgroundImage() {
+      typingEffectContainer.style.backgroundImage = `url('${folderPath}${imageFiles[currentImageIndex]}')`;
+      currentImageIndex = (currentImageIndex + 1) % imageFiles.length; // 循环图片
+    }
+
+    updateBackgroundImage(); // 初始化显示第一张图片
+    setInterval(updateBackgroundImage, 5000); // 每5秒更新一次背景图片
+  }
+
+  loadBackgroundImages(); // 启动加载背景图
 </script>
 
 <script>
@@ -188,3 +226,4 @@ layout: default
 
   updateVisitCount();
 </script>
+
