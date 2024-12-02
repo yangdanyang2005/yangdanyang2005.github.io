@@ -14,6 +14,14 @@ layout: default
   {% endif %}
 </header>
 
+<!-- 音乐播放器 -->
+<div id="music-player-container" style="text-align: center; margin-bottom: 20px;">
+  <audio id="audio-player" controls>
+    <source src="path/to/your/audio-file.mp3" type="audio/mpeg">
+    您的浏览器不支持音频标签。
+  </audio>
+</div>
+
 <!-- 新增的循环文本区域 -->
 <div id="typing-effect-container"></div>
 
@@ -24,16 +32,16 @@ layout: default
   {% include vertical_list.html collection=site.data.home.misc_entries %}
 {% endif %}
 
-<!-- 文海泛舟 -->
-{% if site.theme_config.show_blog == true %}
-  <h2>{{ site.theme_config.home.title_blog }}</h2>
-  {% include post_list.html %}
-{% endif %}
-
 <!-- 代码项目 -->
 {% if site.theme_config.show_old_projects == true %}
   <h2>{{ site.theme_config.home.title_old_projects }}</h2>
   {% include card_list.html collection=site.data.home.old_project_entries %}
+{% endif %}
+
+<!-- 文海泛舟 -->
+{% if site.theme_config.show_blog == true %}
+  <h2>{{ site.theme_config.home.title_blog }}</h2>
+  {% include post_list.html %}
 {% endif %}
 
 <!-- 技术博客 -->
@@ -56,6 +64,50 @@ layout: default
 
 <!-- CSS for typing effect -->
 <style>
+  /* 音乐播放器容器 */
+#music-player-container {
+  text-align: center;
+  margin-bottom: 20px; /* 控制播放器与下方内容的间距 */
+}
+
+/* 音频播放器样式 */
+audio {
+  width: 80%; /* 控制播放器宽度 */
+  max-width: 600px; /* 最大宽度 */
+  border-radius: 10px; /* 圆角 */
+  background-color: var(--audio-bg-color); /* 背景色使用CSS变量 */
+  padding: 10px; /* 内边距 */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* 添加阴影 */
+}
+
+/* 深色主题下的音乐播放器样式 */
+[data-theme='dark'] audio {
+  background-color: var(--audio-bg-color-dark); /* 深色模式背景 */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4); /* 深色主题的阴影效果 */
+}
+
+/* 浅色主题下的音乐播放器样式 */
+[data-theme='light'] audio {
+  background-color: var(--audio-bg-color-light); /* 浅色模式背景 */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* 浅色主题的阴影效果 */
+}
+
+/* 定义CSS变量：浅色和深色模式下的背景颜色 */
+:root {
+  --audio-bg-color-light: #f8f8f8; /* 浅色模式下的背景色 */
+  --audio-bg-color-dark: #333; /* 深色模式下的背景色 */
+}
+
+/* 可选：可以根据不同的主题调整播放按钮颜色 */
+[data-theme='dark'] audio::-webkit-media-controls-panel {
+  background-color: #222; /* 深色主题下的控制面板背景色 */
+}
+
+[data-theme='light'] audio::-webkit-media-controls-panel {
+  background-color: #f0f0f0; /* 浅色主题下的控制面板背景色 */
+}
+
+
   :root {
     --typing-text-color: #333; /* 默认文字颜色 */
     --typing-cursor-color: #333; /* 默认光标颜色 */
@@ -254,5 +306,15 @@ function loadBackgroundImages() {
       visitCount = data.visitCount;
       visitCountElement.textContent = visitCount;
     });
+
+  // 音乐播放器
+  document.addEventListener('DOMContentLoaded', function () {
+  const audioPlayer = document.getElementById('audio-player');
+  // 自动播放
+  audioPlayer.autoplay = true;
+  // 循环播放
+  audioPlayer.loop = true;
+});
+
 
 </script>
