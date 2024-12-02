@@ -75,8 +75,8 @@ layout: default
     margin: 20px auto 40px;
     position: relative; /* 确保背景图能定位 */
     padding: 20px;
-    
-    /* 背景图片及滚动效果 */
+    width: 40em; /* 固定宽度 */
+    height: 10em; /* 高度可调整 */
     background-size: cover;
     background-position: center center;
     animation: scrollBackground 20s linear infinite;
@@ -160,6 +160,9 @@ layout: default
     }
 
     typeText(); // 开始打字效果
+
+    // 调用背景图加载和更新
+    loadBackgroundImages();
   });
 
   // 加载并循环显示背景图片
@@ -175,55 +178,69 @@ layout: default
     function updateBackgroundImage() {
       typingEffectContainer.style.backgroundImage = `url('${folderPath}${imageFiles[currentImageIndex]}')`;
       currentImageIndex = (currentImageIndex + 1) % imageFiles.length; // 循环图片
+
+      // 计算并设置文字颜色为背景图的对比色
+      // 使用简单的算法计算对比色
+      const img = new Image();
+      img.src = `${folderPath}${imageFiles[currentImageIndex]}`;
+      img.onload = function () {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = img.width;
+        canvas.height = img.height;
+        ctx.drawImage(img, 0, 0, img.width, img.height);
+        const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        let r = 0, g = 0, b = 0;
+        const pixelCount = imgData.width * imgData.height;
+        for (let i = 0; i < pixelCount; i++) {
+          r += imgData.data[i * 4];
+          g += imgData.data[i * 4 + 1];
+          b += imgData.data[i * 4 + 2];
+        }
+        r = Math.floor(r / pixelCount);
+        g = Math.floor(g / pixelCount);
+        b = Math.floor(b / pixelCount);
+        const contrastColor = (r + g + b) > 382 ? '#000' : '#fff'; // 对比色选择
+        document.documentElement.style.setProperty('--typing-text-color', contrastColor);
+        document.documentElement.style.setProperty('--typing-cursor-color', contrastColor);
+      };
     }
 
     updateBackgroundImage(); // 初始化显示第一张图片
     setInterval(updateBackgroundImage, 5000); // 每5秒更新一次背景图片
   }
 
-  loadBackgroundImages(); // 启动加载背景图
-</script>
+    // 网站运行计时器
+    const siteStartTime = new Date('2024-11-07T16:04:00'); // 网站启动时间
+  const runTimerElement = document.getElementById("run-timer");
 
-<script>
-  // 网站运行计时器
-  const siteStartTime = new Date('2024-11-07T16:04:00'); // 网站上线时间
-  function updateRunTimer() {
-    const now = new Date();
-    const diff = now - siteStartTime; // 时间差
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-    const minutes = Math.floor((diff / (1000 * 60)) % 60);
-    const seconds = Math.floor((diff / 1000) % 60);
-
-    const timerElement = document.getElementById('run-timer');
-    timerElement.textContent = `${days}天 ${hours}小时 ${minutes}分钟 ${seconds}秒`;
+  function updateRunTime() {
+    const currentTime = new Date();
+    const elapsedTime = currentTime - siteStartTime;
+    const days = Math.floor(elapsedTime / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((elapsedTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((elapsedTime % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((elapsedTime % (1000 * 60)) / 1000);
+    
+    runTimerElement.textContent = `${days}天 ${hours}小时 ${minutes}分钟 ${seconds}秒`;
   }
-  setInterval(updateRunTimer, 1000);
-  updateRunTimer(); // 初始化显示
 
-  // 网站访问次数统计
-  // 初始化 Firebase
-  const firebaseConfig = {
-    apiKey: "your-api-key",
-    authDomain: "your-auth-domain",
-    databaseURL: "your-database-url",
-    projectId: "your-project-id",
-    storageBucket: "your-storage-bucket",
-    messagingSenderId: "your-sender-id",
-    appId: "your-app-id"
-  };
-  firebase.initializeApp(firebaseConfig);
+  setInterval(updateRunTime, 1000); // 每秒更新一次运行时间
 
-  const database = firebase.database();
+  // 网站访问计数器
+  const visitCountElement = document.getElementById("visit-count");
+  
+  // // 模拟访问次数，这里你可以用真实的 API 或者计数器服务来更新访问次数
+  // let visitCount = 12345; // 示例访问次数
+  // visitCountElement.textContent = visitCount;
 
-  // 更新访问次数
-  function updateVisitCount() {
-    const visitCountRef = database.ref('visitCount');
-    visitCountRef.transaction(currentCount => {
-      return (currentCount || 0) + 1;
+  // 如果你需要从服务器获取实际的访问数据，可以使用类似的代码：
+  fetch('/api/get-visit-count')
+    .then(response => response.json())
+    .then(data => {
+      visitCount = data.visitCount;
+      visitCountElement.textContent = visitCount;
     });
-  }
-
-  updateVisitCount();
+    
 </script>
 
