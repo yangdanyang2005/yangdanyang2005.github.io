@@ -6,6 +6,8 @@ description: > # description of the site (multiple lines allowed)
   <br>
   这里是杨丹阳的个人博客，主要分享一些计算机科学与技术、个人随笔等内容。
   <br>
+  Tips: 点击右上角的切换按钮，可以更改深色/浅色模式哦！
+  <br>
   （本个人网页持续开发中，欢迎关注！）
 
 permalink: /:slug
