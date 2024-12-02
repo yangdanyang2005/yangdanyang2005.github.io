@@ -103,15 +103,16 @@ audio {
   color: white; /* 计时器和访问次数的文字颜色 */
 }
 
-/* 文字光标颜色 */
-[data-theme='dark'] #typing-effect-container::after {
-  background-color: white; /* 深色模式下光标颜色 */
+
+
+[data-theme='dark'] #typing-effect-container {
+  color: var(--typing-text-color); /* 动态文字颜色 */
 }
 
-/* 控制打字效果容器文字颜色 */
-[data-theme='dark'] #typing-effect-container {
-  color: white; /* 动态文字颜色 */
+[data-theme='dark'] #typing-effect-container::after {
+  background-color: var(--typing-cursor-color); /* 光标颜色 */
 }
+
 
 /* 浅色主题下的音乐播放器样式 */
 [data-theme='light'] audio {
@@ -293,9 +294,10 @@ function loadBackgroundImages() {
     // 根据亮度选择适当的文字颜色
     const contrastColor = luminance > 128 ? '#000' : '#fff'; // 亮度大于128选择黑色，反之选择白色
     document.documentElement.style.setProperty('--typing-text-color', contrastColor);
-    document.documentElement.style.setProperty('--typing-cursor-color', contrastColor);
+    document.documentElement.style.setProperty('--typing-cursor-color', contrastColor); // 设置光标颜色
   };
 }
+
 
   updateBackgroundImage(); // 初始化显示第一张图片
   setInterval(updateBackgroundImage, 5000); // 每5秒更新一次背景图片
