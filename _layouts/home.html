@@ -87,8 +87,39 @@ audio::-webkit-media-controls-volume-slider {
 /* 深色主题下的音乐播放器样式 */
 [data-theme='dark'] audio {
   background-color: #222; /* 深色模式背景 */
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4); /* 深色主题的阴影效果 */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4); /* 播放器的阴影效果 */
 }
+
+/* 播放/暂停按钮阴影 */
+[data-theme='dark'] audio::-webkit-media-controls-play-button {
+  color: #fff; /* 播放按钮文字颜色 */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5); /* 按钮的阴影效果 */
+}
+
+/* 音量按钮阴影 */
+[data-theme='dark'] audio::-webkit-media-controls-volume-button {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5); /* 音量按钮的阴影效果 */
+}
+
+/* 进度条阴影 */
+[data-theme='dark'] audio::-webkit-media-controls-timeline {
+  background-color: #333; /* 控制条背景色 */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4); /* 进度条的阴影效果 */
+}
+
+/* 音量滑块阴影 */
+[data-theme='dark'] audio::-webkit-media-controls-volume-slider {
+  background-color: #fff; /* 音量滑块背景色 */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5); /* 滑块的阴影效果 */
+}
+
+/* 计时器和时间显示阴影 */
+[data-theme='dark'] audio::-webkit-media-controls-current-time-display,
+[data-theme='dark'] audio::-webkit-media-controls-time-remaining-display {
+  color: #fff; /* 时间文字颜色 */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5); /* 时间显示的阴影效果 */
+}
+
 
 /* 深色主题下的控制面板样式 */
 [data-theme='dark'] audio::-webkit-media-controls-panel {
