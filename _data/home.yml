@@ -1,4 +1,5 @@
 # 主页上的内容在这里编辑
+# 典型的 Jekyll 网站数据文件配置格式
 # Jekyll这个静态站点生成器可以自动从这里读取数据并生成网站。
 
 # 主页的板块的名字在_config.yml文件中的 theme_config: home: 下面修改
@@ -22,13 +23,13 @@ project_entries:
     # 主页的第二个板块：赛博小屋
     # This is an example project, configured in _data/home.yml. Projects are shown in card layout.You can control visibility from _config.yml file. You can add or remove projects from this list.
     # This project uses highlight markup, configured in _data/home.yml. Moonwalk also has horizontal list (used in header and footer).It also has a scalable vertical list (in case you need it)
-  - title: 计算机科学与技术
-    url: overview-post
-    desc: 记录一些计算机科学与技术的笔记（待补充）
+  - title: 编译时报错“LNK2019 无法解析的外部符号”的可能原因及其解决办法
+    url: https://blog.csdn.net/Zlyzjiabjw547479/article/details/137722010
+    desc: 分析了VS2022中运行C++程序时遇到LNK2019错误的几种可能原因，包括未写主函数、构造函数/析构函数未实现、函数调用参数不匹配和头文件与源文件定义不一致。
 
-  - title: 文海拾贝
-    url: overview-post
-    desc: 记录一些琐碎的文笔（待补充）
+  - title: 编译时报错“fatal error LNK1169: 找到一个或多个多重定义的符号”的可能原因及其解决办法
+    url: https://blog.csdn.net/Zlyzjiabjw547479/article/details/138434449
+    desc: 在VS2022中遇到的C++编译错误LNK2005主要原因是头文件引用不当和编译器对象文件问题，作者分享了解决这类问题的方法，包括正确使用#include和处理编译器生成的.obj文件冲突。
 
 old_project_entries:
   # 主页的第四个板块：代码仓库
