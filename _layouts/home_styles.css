@@ -75,17 +75,17 @@
   /* 容器样式 */
   #typing-effect-container {
     font-family: 'KaiTi', '楷体', 'SimKai', 'NSimSun', 'STKaiti', 'AR PL UKai CN', 'AR PL UKai HK', 'AR PL UKai TW', monospace;
-    font-size: 4vw; /* 使用视口宽度单位，确保字体大小在手机模式下自适应 */
+    font-size: 1.5em;
     color: var(--typing-text-color); /* 动态文字颜色 */
     white-space: nowrap;
     overflow: hidden;
-    display: inline-block;
+    display: inline-block; /* 确保文本和光标在同一行，且内容居中 */
     text-align: center;
     margin: 20px auto 40px;
     position: relative; /* 确保背景图能定位 */
     padding: 20px;
-    width: 29em;
-    height: calc(29em / 2); /* 高度为宽度的一半，保持等比例 */
+    width: 29em; /* 固定图片宽度 */
+    height: 10em; /* 高度可调整 */
     background-size: cover;
     background-position: center center;
     animation: scrollBackground 20s linear infinite;
