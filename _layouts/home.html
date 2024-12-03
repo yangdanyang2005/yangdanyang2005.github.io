@@ -152,6 +152,8 @@ audio::-webkit-media-controls-panel {
   padding: 20px;
   width: 80vw; /* 宽度为视口宽度的80% */
   height: calc(80vw / 2); /* 高度为宽度的一半，保持等比例 */
+  max-width: 29em; /* 最大宽度限制 */
+  max-height: calc(29em / 2); /* 高度与最大宽度保持比例 */
   background-size: cover;
   background-position: center center;
   animation: scrollBackground 20s linear infinite;
