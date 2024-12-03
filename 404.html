@@ -11,6 +11,8 @@ layout: post
     text-align: center;
     padding: 2em;
     border-radius: 10px;
+    background-color: #fff;  /* 默认背景 */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   }
 
   h1 {
@@ -30,11 +32,11 @@ layout: post
   /* 浅色模式 */
   @media (prefers-color-scheme: light) {
     body {
-      background-color: #f9f9f9;
+      background-color: #f9f9f9 !important;  /* 浅色模式背景 */
       color: #333;
     }
     .container {
-      background-color: #fff;
+      background-color: #fff !important;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     }
     h1 {
@@ -48,11 +50,11 @@ layout: post
   /* 深色模式 */
   @media (prefers-color-scheme: dark) {
     body {
-      background-color: #333;
+      background-color: #333 !important;  /* 深色模式背景 */
       color: #f9f9f9;
     }
     .container {
-      background-color: #444;
+      background-color: #444 !important;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
     }
     h1 {
