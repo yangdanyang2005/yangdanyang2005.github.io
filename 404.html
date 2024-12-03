@@ -4,40 +4,29 @@ layout: post
 ---
 
 <style type="text/css" media="screen">
-  /* 浅色模式 */
-  @media (prefers-color-scheme: light) {
-    body {
-      background-color: #f9f9f9 !important;  /* 浅色模式背景 */
-      color: #333;
-    }
-    .container {
-      background-color: #fff !important;  /* 浅色模式下背景为白色 */
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    }
-    h1 {
-      color: #ff6347; /* 略带红色的字体 */
-    }
-    p {
-      color: #555;
-    }
+  /* 通用样式 */
+  .container {
+    margin: 1em auto;
+    max-width: 60em;
+    text-align: center;
+    padding: 2em;
+    border-radius: 10px;
+    background-color: #fff;  /* 默认背景 */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   }
 
-  /* 深色模式 */
-  @media (prefers-color-scheme: dark) {
-    body {
-      background-color: #333 !important;  /* 深色模式背景 */
-      color: #f9f9f9;
-    }
-    .container {
-      background-color: #444 !important;  /* 深色模式背景为深灰色 */
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-    }
-    h1 {
-      color: #ff6347; /* 略带红色的字体 */
-    }
-    p {
-      color: #ddd;
-    }
+  h1 {
+    margin: 30px 0;
+    font-size: 6em;
+    line-height: 1;
+    letter-spacing: -2px;
+    color: #ff6347;
+    font-weight: bold;
+  }
+
+  p {
+    font-size: 1.2em;
+    color: #555;
   }
 </style>
 
