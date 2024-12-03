@@ -84,10 +84,8 @@
     margin: 20px auto 40px;
     position: relative; /* 确保背景图能定位 */
     padding: 20px;
-    width: 80vw; /* 宽度为视口宽度的80% */
-    height: calc(80vw / 2); /* 高度为宽度的一半，保持等比例 */
-    max-width: 29em; /* 最大宽度限制 */
-    max-height: calc(29em / 2); /* 高度与最大宽度保持比例 */
+    width: 29em;
+    height: calc(29em / 2); /* 高度为宽度的一半，保持等比例 */
     background-size: cover;
     background-position: center center;
     animation: scrollBackground 20s linear infinite;
@@ -126,10 +124,13 @@
     }
   }
   
-  /* 电脑模式：大屏幕设备保持最大宽度为29em */
-  @media screen and (min-width: 601px) {
+  /* 手机模式：宽度小于等于600px时 */
+  @media screen and (max-width: 600px) {
     #typing-effect-container {
-        max-width: 29em; /* 固定最大宽度 */
-        max-height: calc(29em / 2); /* 高度与最大宽度保持比例 */
+        font-size: 6vw; /* 字体根据屏幕宽度调整 */
+        width: 90vw; /* 宽度为视口宽度的90% */
+        height: calc(90vw / 2); /* 高度与宽度成比例 */
+        max-width: none; /* 去除最大宽度限制 */
+        max-height: none; /* 去除最大高度限制 */
     }
   }
