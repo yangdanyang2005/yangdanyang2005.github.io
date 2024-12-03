@@ -123,14 +123,3 @@
       visibility: hidden;
     }
   }
-  
-  /* 手机模式：宽度小于等于600px时 */
-  @media screen and (max-width: 600px) {
-    #typing-effect-container {
-        font-size: 6vw; /* 字体根据屏幕宽度调整 */
-        width: 90vw; /* 宽度为视口宽度的90% */
-        height: calc(90vw / 2); /* 高度与宽度成比例 */
-        max-width: none; /* 去除最大宽度限制 */
-        max-height: none; /* 去除最大高度限制 */
-    }
-  }
