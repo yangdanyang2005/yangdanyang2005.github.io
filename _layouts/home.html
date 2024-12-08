@@ -165,26 +165,39 @@ layout: default
 
   /* 容器样式 */
   #typing-effect-container {
-    font-family: 'KaiTi', '楷体', 'SimKai', 'NSimSun', 'STKaiti', 'AR PL UKai CN', 'AR PL UKai HK', 'AR PL UKai TW', monospace;
-    font-size: 1.5em;
-    color: var(--typing-text-color);
-    /* 动态文字颜色 */
-    white-space: nowrap;
-    overflow: hidden;
-    display: inline-block;
-    /* 确保文本和光标在同一行，且内容居中 */
-    text-align: center;
-    margin: 20px auto 40px;
-    position: relative;
-    /* 确保背景图能定位 */
-    padding: 20px;
-    width: 29em;
-    /* 固定图片宽度 */
-    height: 10em;
-    /* 高度可调整 */
-    background-size: cover;
-    background-position: center center;
-    animation: scrollBackground 20s linear infinite;
+  font-family: 'KaiTi', '楷体', 'SimKai', 'NSimSun', 'STKaiti', 'AR PL UKai CN', 'AR PL UKai HK', 'AR PL UKai TW', monospace;
+  font-size: 1.5em;
+  color: var(--typing-text-color);
+  white-space: nowrap;
+  overflow: hidden;
+  display: inline-block;
+  text-align: center;
+  margin: 20px auto 40px;
+  position: relative;
+  padding: 20px;
+  height: 10em;
+  background-size: cover;
+  background-position: center center;
+  animation: scrollBackground 20s linear infinite;
+  width: 29em; /* 默认宽度 */
+  }
+  /*px（像素）：像素是屏幕上的一个基本单位，表示屏幕的最小可显示点。
+  它与设备的屏幕分辨率直接相关，通常用于指定固定的尺寸，不随屏幕大小或父元素的变化而变化。
+
+  em：em 是相对单位，它基于当前元素的字体大小。
+  例如，1em 等于当前元素的字体大小；
+  如果父元素的字体大小是 16px，那么 1em 就等于 16px，2em 就等于 32px。
+  如果没有设置父元素的字体大小，em 就继承浏览器默认的字体大小（通常为 16px）。
+  em 单位非常适用于响应式布局，因为它能根据父元素的字体大小动态调整。*/
+
+
+  /* 屏幕宽度小于 600px 时调整宽度，保留左右边距 */
+  @media (max-width: 600px) {
+    #typing-effect-container {
+      width: calc(100% - 40px); /* 屏幕宽度减去左右边距 */
+      margin-left: 20px;
+      margin-right: 20px;
+    }
   }
 
   /* 背景滚动动画 */
@@ -282,7 +295,8 @@ layout: default
   function loadBackgroundImages() {
     const folderPath = "images/home_page/"; // 图片文件夹路径
     const imageFiles = [
-      "img1.png", "img2.jpg", "img3.jpg", "img4.jpg", "img5.jpg", "img6.jpg", "img7.jpg", "img8.png" // 替换为文件夹下的图片文件名
+      "img1.png", "img2.jpg", "img3.jpg", "img4.jpg", 
+      "img5.jpg", "img6.jpg", "img7.jpg", "img8.png" // 替换为文件夹下的图片文件名
     ];
 
     let currentImageIndex = 0;
