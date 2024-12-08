@@ -579,6 +579,7 @@ layout: default
         i += 2; // 帧率
         size += 0.3; // 字体逐渐增大，增大幅度减小
         el.style.top = top - i + 'px'; // 向上运动
+        el.style.left = (left - size / 2) + 'px'; // 向左运动
         el.style.opacity = (120 - i) / 120; // 逐渐变透明
         el.style.fontSize = size + 'px'; // 字体逐渐变大
       }
