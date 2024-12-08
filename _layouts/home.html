@@ -552,7 +552,7 @@ layout: default
     // 设置样式
     span.style.cssText = [
       'z-index: 9999999; position: absolute; font-weight: bold; color: ', randomColor, 
-      '; top: ', y - 20, 'px; left: ', x, 'px; font-size: 20px;'
+      '; top: ', y - 20, 'px; left: ', x, 'px; font-size: 20px; font-family: "KaiTi", "楷体", sans-serif;'
     ].join('');
 
     document.body.appendChild(span);
@@ -561,7 +561,7 @@ layout: default
 
   function animate(el) { // 动画
     var i = 0,
-        size = 20, // 初始字体大小
+        size = 10, // 初始字体大小
         top = parseInt(el.style.top),
         id = setInterval(frame, 24);
 
@@ -570,8 +570,8 @@ layout: default
         clearInterval(id);
         el.parentNode.removeChild(el);
       } else {
-        i += 2;
-        size += 1; // 字体逐渐增大
+        i += 1;// 帧率
+        size += 0.1; // 字体逐渐增大
         el.style.top = top - i + 'px';
         el.style.opacity = (180 - i) / 180; // 逐渐变透明
         el.style.fontSize = size + 'px'; // 字体逐渐变大
