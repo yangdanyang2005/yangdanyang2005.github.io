@@ -53,18 +53,16 @@ layout: default
 <!-- 腾讯文档链接 -->
 <h2>{{ site.theme_config.home.title_link_contact }}</h2>
 <ul class="horizontal-list">
-  <li class="card">
-    <a href="https://docs.qq.com/form/page/DSFBMZGlGWUZlV3Rx" target="_blank" class="contact-link">
-      <span class="header">
-        【腾讯文档】个人网站反馈收集表
-      </span>
+  <!-- 腾讯文档卡片 -->
+  <li class="card single">
+    <a href="https://docs.qq.com/form/page/DSFBMZGlGWUZlV3Rx" target="_blank">
+      <span class="header">【腾讯文档】个人网站反馈收集表</span>
       <hr />
-      <p class="body">
-        点击此链接填写反馈意见，帮助我们改进个人网站。
-      </p>
+      <p class="body">点击此链接填写反馈意见，帮助我们改进个人网站。</p>
     </a>
   </li>
 </ul>
+  
 
 <!-- 网站底部信息 -->
 {% if site.theme_config.show_footer == true %}
@@ -253,48 +251,6 @@ layout: default
     to {
       visibility: hidden;
     }
-  }
-
-
-  /* -----------------------------------腾讯文档链接样式--------------------------- */
-  /* 联系链接样式 */
-  .contact-link {
-    text-decoration: none;
-    color: var(--links); /* 动态根据主题更改链接颜色 */
-    padding: 15px;
-    display: block;
-    border-radius: 8px;
-    background-color: var(--bg-secondary); /* 背景色与辅助背景色一致 */
-    transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
-
-  .contact-link:hover {
-    background-color: var(--highlight); /* 悬停时高亮背景色 */
-    color: var(--headings); /* 悬停时的文字颜色 */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* 提升悬停效果 */
-  }
-
-  /* 标题样式 */
-  .contact-link .header {
-    font-size: 1.2em;
-    font-weight: bold;
-    margin-bottom: 8px;
-  }
-
-  /* 说明文字样式 */
-  .contact-link .body {
-    font-size: 1em;
-    color: var(--text-secondary);
-  }
-
-  /* 卡片样式 */
-  .card {
-    margin: 15px;
-    padding: 20px;
-    background-color: var(--bg-secondary);
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   }
 </style>
 

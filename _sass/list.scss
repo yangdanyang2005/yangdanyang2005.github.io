@@ -48,6 +48,13 @@ ul.horizontal-list {
   }
 }
 
+/* 针对特定卡片（腾讯文档链接）的单列样式 */
+.card.single {
+  width: 100%; /* 使其占满整行 */
+  display: block; /* 强制单独显示 */
+  margin-left: 0; /* 调整边距为 0，以与容器对齐 */
+}
+
 /* 响应式卡片 - 小屏幕设备上显示为单列 */
 @media screen and (max-width: 600px) {
   ul.horizontal-list li.card { /* 当屏幕宽度小于等于 600px 时，卡片的样式 */
