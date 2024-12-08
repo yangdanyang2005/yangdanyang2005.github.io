@@ -97,25 +97,31 @@ layout: default
   /* 粒子样式 */
   .particle {
     position: absolute;
-    width: 5px;/* 粒子大小 */
-    height: 5px;/* 粒子大小 */
+    width: 5px;
+    /* 粒子大小 */
+    height: 5px;
+    /* 粒子大小 */
     border-radius: 50%;
     /* 使粒子圆形 */
     animation: move 1.5s ease-in-out infinite;
     opacity: 0.8;
   }
 
-/* 生成尾迹的动画 */
-@keyframes move {
-  0% {
-    transform: translate(0, 0) scale(1); /* 初始大小为正常 */
-    opacity: 1;
+  /* 生成尾迹的动画 */
+  @keyframes move {
+    0% {
+      transform: translate(0, 0) scale(1);
+      /* 初始大小为正常 */
+      opacity: 1;
+    }
+
+    100% {
+      transform: translate(var(--move-x), var(--move-y)) scale(1.5);
+      /* 粒子在移动过程中变大 */
+      opacity: 0;
+      /* 粒子逐渐消失 */
+    }
   }
-  100% {
-    transform: translate(var(--move-x), var(--move-y)) scale(1.5); /* 粒子在移动过程中变大 */
-    opacity: 0;  /* 粒子逐渐消失 */
-  }
-}
 
   /* 定义颜色动画 */
   @keyframes colorChange {
@@ -362,19 +368,19 @@ layout: default
 
     // 粒子动画完成后移除，确保及时清理
     setTimeout(() => {
-        particle.remove();
-      }, 1500);  // 1.5秒后粒子将被移除
-    }
+      particle.remove();
+    }, 1500);  // 1.5秒后粒子将被移除
+  }
 
-    // 随机生成颜色
-    function getRandomColor() {
-      const letters = '0123456789ABCDEF';
-      let color = '#';
-      for (let i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
-      }
-      return color;
+  // 随机生成颜色
+  function getRandomColor() {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
     }
+    return color;
+  }
 
   // ----------------------------打字效果--------------------------
   document.addEventListener('DOMContentLoaded', function () {
@@ -522,4 +528,57 @@ layout: default
     // 循环播放
     audioPlayer.loop = true;
   });
+
+  // 点击换字
+  (function () {
+  var timesOfDay = ["夜半", "鸡鸣", "平旦", "日出", "食时", "隅中", "日中", "日昳", "晡时", "日入", "黄昏", "人定"];
+  var index = Math.floor(Math.random() * timesOfDay.length);
+
+  document.body.addEventListener('click', function (e) {
+    if (e.target.tagName == 'A') {
+      return;
+    }
+    var x = e.pageX,
+        y = e.pageY,
+        span = document.createElement('span');
+
+    // 设置要显示的词
+    span.textContent = timesOfDay[index];
+    index = (index + 1) % timesOfDay.length; // 循环更新索引
+
+    // 随机生成颜色
+    var randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
+
+    // 设置样式
+    span.style.cssText = [
+      'z-index: 9999999; position: absolute; font-weight: bold; color: ', randomColor, 
+      '; top: ', y - 20, 'px; left: ', x, 'px; font-size: 20px;'
+    ].join('');
+
+    document.body.appendChild(span);
+    animate(span);
+  });
+
+  function animate(el) { // 动画
+    var i = 0,
+        size = 20, // 初始字体大小
+        top = parseInt(el.style.top),
+        id = setInterval(frame, 24);
+
+    function frame() { // 帧
+      if (i > 180) {
+        clearInterval(id);
+        el.parentNode.removeChild(el);
+      } else {
+        i += 2;
+        size += 1; // 字体逐渐增大
+        el.style.top = top - i + 'px';
+        el.style.opacity = (180 - i) / 180; // 逐渐变透明
+        el.style.fontSize = size + 'px'; // 字体逐渐变大
+      }
+    }
+  }
+}());
+
+
 </script>
