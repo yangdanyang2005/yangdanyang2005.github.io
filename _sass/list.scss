@@ -32,6 +32,7 @@ ul.horizontal-list {
   border-radius: 0.5em; /* 圆角半径为 0.5em */
   word-wrap: break-word; /* 允许长单词或 URL 自动换行 */
   word-break: break-all; /* 强制文本在任何字符处换行 */
+  transition: background-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease; /* 平滑过渡，放大更慢 */
 
   .header { /* 卡片头部的样式 */
     color: var(--links); /* 颜色由变量 --links 定义 */
