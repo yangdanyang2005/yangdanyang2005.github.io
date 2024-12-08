@@ -529,7 +529,7 @@ layout: default
     audioPlayer.loop = true;
   });
 
-  // 点击换字
+  // --------------------------点击跳出汉字效果--------------------------
   (function () {
   var timesOfDay = ["夜半", "鸡鸣", "平旦", "日出", "食时", "隅中", "日中", "日昳", "晡时", "日入", "黄昏", "人定"];
   var index = Math.floor(Math.random() * timesOfDay.length);
@@ -570,15 +570,14 @@ layout: default
         clearInterval(id);
         el.parentNode.removeChild(el);
       } else {
-        i += 2;// 帧率
+        i += 2; // 帧率
         size += 0.5; // 字体逐渐增大
-        el.style.top = top - i + 'px';
+        el.style.top = top - i + 'px'; // 向上运动
         el.style.opacity = (180 - i) / 180; // 逐渐变透明
         el.style.fontSize = size + 'px'; // 字体逐渐变大
       }
     }
   }
 }());
-
 
 </script>
