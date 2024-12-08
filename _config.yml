@@ -43,6 +43,7 @@ theme_config:
     title_misc_list: Details
     title_blog: 文海泛舟
     title_old_projects: 代码仓库
+    title_link_contact: 与我联系！
 
 soopr:
   publish_token: "" # sign up at https://www.soopr.co to get your publish token and personalize share and reaction options

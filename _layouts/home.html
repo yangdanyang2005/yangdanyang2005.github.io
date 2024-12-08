@@ -2,14 +2,16 @@
 layout: default
 ---
 
+<!-- 网页头部信息 -->
 <header>
   {% if site.theme_config.show_navbar == true %}
   {% include horizontal_list.html collection=site.data.home.navbar_entries %}
   <div class="dashed"></div>
-  {% endif %}
+{% endif %}
 
-  <h1>{{ site.title }}</h1>
-  {% if site.theme_config.show_description == true %}
+<!-- 网页描述 -->
+<h1>{{ site.title }}</h1>
+  {% if site.theme_config.show_description == true %} <!-- 这些标题的名字在_config.yml文件中配置 -->
   <p>{{ site.description }}</p>
   {% endif %}
 </header>
@@ -22,17 +24,15 @@ layout: default
   </audio>
 </div>
 
-<!-- 新增的循环文本区域 -->
+<!-- 滚动背景图-循环文本区域 -->
 <div id="typing-effect-container"></div>
-
 {{ content }}
-
 {% if site.theme_config.show_misc_list == true %}
 <h2>{{ site.theme_config.home.title_misc_list }}</h2>
 {% include vertical_list.html collection=site.data.home.misc_entries %}
 {% endif %}
 
-<!-- 代码项目 -->
+<!-- 代码仓库 -->
 {% if site.theme_config.show_old_projects == true %}
 <h2>{{ site.theme_config.home.title_old_projects }}</h2>
 {% include card_list.html collection=site.data.home.old_project_entries %}
@@ -50,6 +50,23 @@ layout: default
 {% include card_list.html collection=site.data.home.project_entries %}
 {% endif %}
 
+<!-- 腾讯文档链接 -->
+<h2>{{ site.theme_config.home.title_link_contact }}</h2>
+<ul class="horizontal-list">
+  <li class="card">
+    <a href="https://docs.qq.com/form/page/DSFBMZGlGWUZlV3Rx" target="_blank" class="contact-link">
+      <span class="header">
+        【腾讯文档】个人网站反馈收集表
+      </span>
+      <hr />
+      <p class="body">
+        点击此链接填写反馈意见，帮助我们改进个人网站。
+      </p>
+    </a>
+  </li>
+</ul>
+
+<!-- 网站底部信息 -->
 {% if site.theme_config.show_footer == true %}
 <footer>
   <div class="dashed"></div>
@@ -190,7 +207,6 @@ layout: default
   如果没有设置父元素的字体大小，em 就继承浏览器默认的字体大小（通常为 16px）。
   em 单位非常适用于响应式布局，因为它能根据父元素的字体大小动态调整。*/
 
-
   /* 屏幕宽度小于 600px 时调整宽度，保留左右边距 */
   @media (max-width: 600px) {
     #typing-effect-container {
@@ -237,8 +253,49 @@ layout: default
       visibility: hidden;
     }
   }
-</style>
 
+
+  /* -----------------------------------腾讯文档链接样式--------------------------- */
+  /* 联系链接样式 */
+  .contact-link {
+    text-decoration: none;
+    color: var(--links); /* 动态根据主题更改链接颜色 */
+    padding: 15px;
+    display: block;
+    border-radius: 8px;
+    background-color: var(--bg-secondary); /* 背景色与辅助背景色一致 */
+    transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+
+  .contact-link:hover {
+    background-color: var(--highlight); /* 悬停时高亮背景色 */
+    color: var(--headings); /* 悬停时的文字颜色 */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* 提升悬停效果 */
+  }
+
+  /* 标题样式 */
+  .contact-link .header {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+
+  /* 说明文字样式 */
+  .contact-link .body {
+    font-size: 1em;
+    color: var(--text-secondary);
+  }
+
+  /* 卡片样式 */
+  .card {
+    margin: 15px;
+    padding: 20px;
+    background-color: var(--bg-secondary);
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+</style>
 
 <!-- JavaScript for typing effect -->
 <script>
