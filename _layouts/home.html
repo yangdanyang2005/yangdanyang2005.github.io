@@ -552,8 +552,11 @@ layout: default
     // 设置样式
     span.style.cssText = [
       'z-index: 9999999; position: absolute; font-weight: bold; color: ', randomColor, 
-      '; top: ', y, 'px; left: ', x, 'px; font-size: 14px; font-family: "KaiTi", "楷体", sans-serif;'
+      '; top: ', y, 'px; left: ', x, //鼠标点击位置
+      'px; font-size: 14px; font-family: "KaiTi", "楷体", sans-serif;'
     ].join('');
+
+    span.style.userSelect = 'none';// 防止选中
 
     document.body.appendChild(span);
     animate(span);
