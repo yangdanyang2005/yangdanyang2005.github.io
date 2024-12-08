@@ -46,6 +46,13 @@ ul.horizontal-list {
   hr { /* 水平线的样式 */
     margin: 0.5em 0; /* 上下边距为 0.5em */
   }
+  
+  &:hover { /* 鼠标移上时的高亮效果 */
+    background-color: var(--highlight); /* 背景变为高亮颜色 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 添加柔和的阴影效果 */
+    transform: scale(1.02); /* 卡片稍微放大 */
+  }
+
 }
 
 /* 针对特定卡片（腾讯文档链接）的单列样式 */
