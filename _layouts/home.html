@@ -1,6 +1,8 @@
 ---
 layout: default
 ---
+<!-- 鼠标环绕 -->
+<div id="mouse-trail"></div>
 
 <!-- 网页头部信息 -->
 <header>
@@ -79,6 +81,18 @@ layout: default
 <!-- CSS for typing effect -->
  <!-- 深色模式和浅色模式的配色定义在moonwalk.scss文件中 -->
 <style>
+  /* --------------------鼠标环绕元素的样式-------------------- */
+  #mouse-trail {
+    position: fixed;
+    width: 20px; /* 环绕的大小 */
+    height: 20px;
+    border: 2px solid var(--links); /* 环绕颜色使用主题颜色 */
+    border-radius: 50%; /* 圆形效果 */
+    pointer-events: none; /* 防止阻碍鼠标点击 */
+    transition: transform 0.1s ease-out; /* 平滑移动效果 */
+    z-index: 1000; /* 保证在页面顶层 */
+  }
+
   /* --------------------音乐播放器样式-------------------- */
   #music-player-container {
     text-align: center;
@@ -255,6 +269,31 @@ layout: default
 
 <!-- JavaScript for typing effect -->
 <script>
+//  -------------------使用 JavaScript 动态更新环绕元素的位置，使其追随鼠标移动-------------------
+    // 获取环绕元素
+  const mouseTrail = document.getElementById('mouse-trail');
+
+  // 监听鼠标移动事件
+  document.addEventListener('mousemove', (event) => {
+    // 获取鼠标当前位置
+    const mouseX = event.clientX;
+    const mouseY = event.clientY;
+
+    // 更新环绕元素的位置
+    mouseTrail.style.transform = `translate(${mouseX - 10}px, ${mouseY - 10}px)`; // 偏移以居中
+  });
+
+  // 可选：监听鼠标移出窗口时隐藏环绕元素
+  document.addEventListener('mouseleave', () => {
+    mouseTrail.style.display = 'none';
+  });
+
+  // 可选：鼠标重新进入窗口时显示环绕元素
+  document.addEventListener('mouseenter', () => {
+    mouseTrail.style.display = 'block';
+  });
+
+
   document.addEventListener('DOMContentLoaded', function () {
     const texts = [
       "天行健，君子以自强不息；地势坤，君子以厚德载物。",
