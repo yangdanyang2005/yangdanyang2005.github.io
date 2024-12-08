@@ -457,6 +457,9 @@ layout: default
         canvas.height = img.height;
         ctx.drawImage(img, 0, 0, img.width, img.height);
 
+        //防止文字被选中
+        canvas.style.userSelect = 'none';
+
         // 只取图像的上1/3部分
         const cropHeight = Math.floor(img.height / 3);
         const imgData = ctx.getImageData(0, 0, img.width, cropHeight); // 截取上1/3部分的像素数据
@@ -529,8 +532,8 @@ layout: default
     audioPlayer.loop = true;
   });
 
-  // --------------------------点击跳出汉字效果--------------------------
-  (function () {
+ // --------------------------点击跳出汉字效果--------------------------
+(function () {
   var timesOfDay = ["夜半", "鸡鸣", "平旦", "日出", "食时", "隅中", "日中", "日昳", "晡时", "日入", "黄昏", "人定"];
   var index = Math.floor(Math.random() * timesOfDay.length);
 
@@ -552,11 +555,11 @@ layout: default
     // 设置样式
     span.style.cssText = [
       'z-index: 9999999; position: absolute; font-weight: bold; color: ', randomColor, 
-      '; top: ', y, 'px; left: ', x, //鼠标点击位置
+      '; top: ', y - 14, 'px; left: ', x, // 将 top 设置为 y - 字体的一半高度，以便使字的底边中点对齐点击点
       'px; font-size: 14px; font-family: "KaiTi", "楷体", sans-serif;'
     ].join('');
 
-    span.style.userSelect = 'none';// 防止选中
+    span.style.userSelect = 'none'; // 防止选中
 
     document.body.appendChild(span);
     animate(span);
@@ -569,14 +572,14 @@ layout: default
         id = setInterval(frame, 24);
 
     function frame() { // 帧
-      if (i > 180) {
+      if (i > 120) { // 将动画持续时间减少，避免字扩散得过大
         clearInterval(id);
         el.parentNode.removeChild(el);
       } else {
         i += 2; // 帧率
-        size += 0.5; // 字体逐渐增大
+        size += 0.3; // 字体逐渐增大，增大幅度减小
         el.style.top = top - i + 'px'; // 向上运动
-        el.style.opacity = (180 - i) / 180; // 逐渐变透明
+        el.style.opacity = (120 - i) / 120; // 逐渐变透明
         el.style.fontSize = size + 'px'; // 字体逐渐变大
       }
     }
