@@ -555,7 +555,7 @@ layout: default
     // 设置样式
     span.style.cssText = [
       'z-index: 9999999; position: absolute; font-weight: bold; color: ', randomColor, 
-      '; top: ', y - 7, 'px; left: ', x, // 将 top 设置为 y - 字体的一半高度，以便使字的底边中点对齐点击点
+      '; top: ', y - 14, 'px; left: ', x, // 将 top 设置为 y - 字体的一半高度，以便使字的底边中点对齐点击点
       'px; font-size: 14px; font-family: "KaiTi", "楷体", sans-serif;'
     ].join('');
 
@@ -578,8 +578,7 @@ layout: default
       } else {
         i += 2; // 帧率
         size += 0.3; // 字体逐渐增大，增大幅度减小
-        el.style.top = top - i + 'px'; // 
-        el.style.left = left - i * 0.15 + 'px'; // 左移
+        el.style.top = top - i + 'px'; // 向上运动
         el.style.opacity = (120 - i) / 120; // 逐渐变透明
         el.style.fontSize = size + 'px'; // 字体逐渐变大
       }
