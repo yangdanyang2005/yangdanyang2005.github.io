@@ -47,10 +47,10 @@ ul.horizontal-list {
     margin: 0.5em 0; /* 上下边距为 0.5em */
   }
   
-  &:hover { /* 鼠标移上时的高亮效果 */
-    background-color: var(--highlight); /* 背景变为高亮颜色 */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 添加柔和的阴影效果 */
-    transform: scale(1.02); /* 卡片稍微放大 */
+  &:hover {
+    background-color: var(--highlight-muted); /* 使用柔和的高亮颜色，这个颜色在moonwalk.scss中定义 */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* 调整阴影以增强层次感 */
+    transform: scale(1.03); /* 稍微放大一点，效果更柔和 */
   }
 
 }
