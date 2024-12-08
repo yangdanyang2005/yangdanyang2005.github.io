@@ -105,19 +105,17 @@ layout: default
     opacity: 0.8;
   }
 
-  /* 生成尾迹的动画 */
-  @keyframes move {
-    0% {
-      transform: translate(0, 0);
-      opacity: 1;
-    }
-
-    100% {
-      transform: translate(var(--move-x), var(--move-y));
-      opacity: 0;
-      /* 粒子逐渐消失 */
-    }
+/* 生成尾迹的动画 */
+@keyframes move {
+  0% {
+    transform: translate(0, 0) scale(1); /* 初始大小为正常 */
+    opacity: 1;
   }
+  100% {
+    transform: translate(var(--move-x), var(--move-y)) scale(1.5); /* 粒子在移动过程中变大 */
+    opacity: 0;  /* 粒子逐渐消失 */
+  }
+}
 
   /* 定义颜色动画 */
   @keyframes colorChange {
