@@ -584,12 +584,18 @@ layout: default
         el.style.opacity = (120 - i) / 120; // 逐渐变透明
         el.style.fontSize = size + 'px'; // 字体逐渐变大
 
-        // 计算文字中心的水平位置
-        let centerAdjustment = size / 2; // 根据字体大小调整中心点
-        let currentLeft = parseFloat(el.style.left) || 0; // 当前的 left 值
+        // 计算新的水平位置，基于初始值和当前字体变化调整
+        let initialFontSize = 14; // 初始字体大小是 14px
+        let initialLeft = parseFloat(el.dataset.initialLeft) || parseFloat(el.style.left) || 0; // 初始 left 值
 
-        el.style.top = top - i + 'px'; // 向上运动
-        el.style.left = currentLeft - centerAdjustment + 'px'; // 动态调整 left 确保中心向上
+        if (!el.dataset.initialLeft) {
+            // 保存初始位置到 dataset
+            el.dataset.initialLeft = initialLeft;
+        }
+
+        // 根据字体大小调整 left，确保中心竖直向上
+        let adjustment = (size - initialFontSize) / 2; // 动态调整量
+        el.style.left = initialLeft - adjustment + 'px';
       }
     }
   }
