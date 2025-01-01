@@ -95,16 +95,13 @@ layout: default
   }
 
   /* 粒子样式 */
-  .particle {
+    .particle {
     position: absolute;
-    width: 5px;
-    /* 粒子大小 */
-    height: 5px;
-    /* 粒子大小 */
-    border-radius: 50%;
-    /* 使粒子圆形 */
+    width: 8px;
+    height: 8px;
     animation: move 1.5s ease-in-out infinite;
     opacity: 0.8;
+    clip-path: var(--shape);
   }
 
   /* 生成尾迹的动画 */
@@ -340,9 +337,20 @@ layout: default
     }
   });
 
-  function createParticle(x, y) {
+    function createParticle(x, y) {
     const particle = document.createElement('div');
     particle.classList.add('particle');
+
+    // 添加随机图形生成
+    const shapes = [
+      'circle(50% at 50% 50%)', // 圆形
+      'polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)', // 菱形
+      'polygon(50% 0%, 100% 100%, 0% 100%)', // 三角形
+      'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)', // 方形
+      'polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%)', // 星形
+    ];
+    const randomShape = shapes[Math.floor(Math.random() * shapes.length)];
+    particle.style.setProperty('--shape', randomShape);
 
     // 随机生成粒子颜色
     const color = getRandomColor();
@@ -366,10 +374,10 @@ layout: default
     // 将粒子添加到容器中
     particleContainer.appendChild(particle);
 
-    // 粒子动画完成后移除，确保及时清理
+    // 粒子动画完成后移除
     setTimeout(() => {
       particle.remove();
-    }, 1500);  // 1.5秒后粒子将被移除
+    }, 1500);
   }
 
   // 随机生成颜色
