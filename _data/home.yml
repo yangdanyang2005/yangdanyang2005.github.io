@@ -31,6 +31,15 @@ project_entries:
     url: https://blog.csdn.net/Zlyzjiabjw547479/article/details/138434449
     desc: 在VS2022中遇到的C++编译错误LNK2005主要原因是头文件引用不当和编译器对象文件问题，作者分享了解决这类问题的方法，包括正确使用#include和处理编译器生成的.obj文件冲突。
 
+  - title: error：failed to push some refs to ‘https://github.com/xxx.git‘问题分析及其解决
+    url: https://blog.csdn.net/Zlyzjiabjw547479/article/details/141301668
+    desc: 在Git Bash窗口中输入git push origin main，出现报错“failed to push some refs to ‘https://github.com/xxx.git’”，作者分享了通过同步远程仓库的最新更改、解决合并冲突、提交更改并尝试重新推送的解决办法。
+    highlight: 文章已被“开放原子开发者工作坊”收录
+
+  - title: 查看 Linux 系统中安装的 CUDA 版本
+    url: https://blog.csdn.net/Zlyzjiabjw547479/article/details/141500792
+    desc: 本文介绍了查看 Linux 系统中安装的 CUDA 版本的常见方法，并对 nvcc -V 和 nvidia-smi 两种命令做出了辨析。
+
 old_project_entries:
   # 主页的第四个板块：代码仓库
   # Delight your readers - add beautiful share and like buttons easily to your websites 
@@ -38,6 +47,14 @@ old_project_entries:
   # A fast and minimalist Jekyll blog theme with clean dark mode
   # The better people know you, the better they collaborate
   #第二个板块和第四个板块的格式在_sass/home.scss文件中修改
+
+  - title: Application-of-Watershed-Algorithm
+    url: https://github.com/yangdanyang2005/Application-of-Watershed-Algorithm
+    desc: 大二上 数字图像处理课程实习 基于分水岭算法的地物分割与识别、粘连细胞的分割与计数的应用
+
+  - title: detect_cycle_slip
+    url: https://github.com/yangdanyang2005/detect_cycle_slip
+    desc: 大二上 GNSS 大作业：基于多项式拟合法的GNSS载波相位观测值周跳探测程序
 
   - title: animal_classification
     url: https://github.com/yangdanyang2005/animal_classification
