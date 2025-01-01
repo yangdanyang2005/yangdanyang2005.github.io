@@ -97,64 +97,14 @@ layout: default
   /* 粒子样式 */
   .particle {
     position: absolute;
+    width: 5px;
+    /* 粒子大小 */
+    height: 5px;
+    /* 粒子大小 */
+    border-radius: 50%;
+    /* 使粒子圆形 */
     animation: move 1.5s ease-in-out infinite;
     opacity: 0.8;
-  }
-
-  /* 定义不同的形状类 */
-  .particle.circle {
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-  }
-
-  .particle.square {
-    width: 5px;
-    height: 5px;
-  }
-
-  .particle.triangle {
-    width: 0;
-    height: 0;
-    border-left: 4px solid transparent;
-    border-right: 4px solid transparent;
-    border-bottom: 8px solid;
-    background: transparent !important;
-  }
-
-  .particle.star {
-    width: 0;
-    height: 0;
-    border-right: 5px solid transparent;
-    border-bottom: 3.5px solid;
-    border-left: 5px solid transparent;
-    transform: rotate(35deg);
-  }
-
-  .particle.heart {
-    width: 5px;
-    height: 5px;
-    transform: rotate(-45deg);
-  }
-
-  .particle.heart:before,
-  .particle.heart:after {
-    content: '';
-    position: absolute;
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background: inherit;
-  }
-
-  .particle.heart:before {
-    top: -2.5px;
-    left: 0;
-  }
-
-  .particle.heart:after {
-    top: 0;
-    right: -2.5px;
   }
 
   /* 生成尾迹的动画 */
@@ -385,54 +335,42 @@ layout: default
 
   // 监听鼠标移动事件
   document.addEventListener('mousemove', (e) => {
-    for (let i = 0; i < 2; i++) {  // 每次鼠标移动生成5个粒子
+    for (let i = 0; i < 5; i++) {  // 每次鼠标移动生成5个粒子
       createParticle(e.pageX, e.pageY);
     }
   });
 
   function createParticle(x, y) {
-  const particle = document.createElement('div');
-  particle.classList.add('particle');
-  
-  // 随机选择形状
-  const shapes = ['circle', 'square', 'triangle', 'star', 'heart'];
-  const randomShape = shapes[Math.floor(Math.random() * shapes.length)];
-  particle.classList.add(randomShape);
+    const particle = document.createElement('div');
+    particle.classList.add('particle');
 
-  // 随机生成颜色
-  const color = getRandomColor();
-  
-  // 根据形状设置颜色
-  if (randomShape === 'triangle' || randomShape === 'star') {
-    particle.style.borderBottomColor = color;
-  } else {
+    // 随机生成粒子颜色
+    const color = getRandomColor();
     particle.style.backgroundColor = color;
+
+    // 设置粒子的初始位置
+    particle.style.left = `${x - 5}px`;
+    particle.style.top = `${y - 5}px`;
+
+    // 随机生成粒子的运动方向
+    const moveX = (Math.random() - 0.5) * 100;
+    const moveY = (Math.random() - 0.5) * 100;
+
+    // 设置动画属性
+    particle.style.setProperty('--move-x', `${moveX}px`);
+    particle.style.setProperty('--move-y', `${moveY}px`);
+
+    // 为粒子添加颜色变化动画
+    particle.style.animation = `move 1.5s ease-in-out infinite, colorChange 1.5s linear infinite, grow 1.5s ease-out`;
+
+    // 将粒子添加到容器中
+    particleContainer.appendChild(particle);
+
+    // 粒子动画完成后移除，确保及时清理
+    setTimeout(() => {
+      particle.remove();
+    }, 1500);  // 1.5秒后粒子将被移除
   }
-
-  // 随机大小 (0.8 到 1.5 倍之间)
-  const scale = 0.8 + Math.random() * 0.7;
-  particle.style.transform = `scale(${scale})`;
-
-  // 设置粒子的初始位置
-  particle.style.left = `${x - 5}px`;
-  particle.style.top = `${y - 5}px`;
-
-  // 随机生成粒子的运动方向
-  const moveX = (Math.random() - 0.5) * 100;
-  const moveY = (Math.random() - 0.5) * 100;
-
-  // 设置动画属性
-  particle.style.setProperty('--move-x', `${moveX}px`);
-  particle.style.setProperty('--move-y', `${moveY}px`);
-
-  // 添加到容器
-  particleContainer.appendChild(particle);
-
-  // 动画结束后移除粒子
-  setTimeout(() => {
-    particle.remove();
-  }, 1500);
-}
 
   // 随机生成颜色
   function getRandomColor() {
@@ -547,9 +485,11 @@ layout: default
       };
     }
 
+
     updateBackgroundImage(); // 初始化显示第一张图片
     setInterval(updateBackgroundImage, 5000); // 每5秒更新一次背景图片
   }
+
 
   // 网站运行计时器
   const siteStartTime = new Date('2024-11-07T16:04:00'); // 网站启动时间
