@@ -385,10 +385,54 @@ layout: default
 
   // 监听鼠标移动事件
   document.addEventListener('mousemove', (e) => {
-    for (let i = 0; i < 5; i++) {  // 每次鼠标移动生成5个粒子
+    for (let i = 0; i < 2; i++) {  // 每次鼠标移动生成5个粒子
       createParticle(e.pageX, e.pageY);
     }
   });
+
+  function createParticle(x, y) {
+  const particle = document.createElement('div');
+  particle.classList.add('particle');
+  
+  // 随机选择形状
+  const shapes = ['circle', 'square', 'triangle', 'star', 'heart'];
+  const randomShape = shapes[Math.floor(Math.random() * shapes.length)];
+  particle.classList.add(randomShape);
+
+  // 随机生成颜色
+  const color = getRandomColor();
+  
+  // 根据形状设置颜色
+  if (randomShape === 'triangle' || randomShape === 'star') {
+    particle.style.borderBottomColor = color;
+  } else {
+    particle.style.backgroundColor = color;
+  }
+
+  // 随机大小 (0.8 到 1.5 倍之间)
+  const scale = 0.8 + Math.random() * 0.7;
+  particle.style.transform = `scale(${scale})`;
+
+  // 设置粒子的初始位置
+  particle.style.left = `${x - 5}px`;
+  particle.style.top = `${y - 5}px`;
+
+  // 随机生成粒子的运动方向
+  const moveX = (Math.random() - 0.5) * 100;
+  const moveY = (Math.random() - 0.5) * 100;
+
+  // 设置动画属性
+  particle.style.setProperty('--move-x', `${moveX}px`);
+  particle.style.setProperty('--move-y', `${moveY}px`);
+
+  // 添加到容器
+  particleContainer.appendChild(particle);
+
+  // 动画结束后移除粒子
+  setTimeout(() => {
+    particle.remove();
+  }, 1500);
+}
 
   // 随机生成颜色
   function getRandomColor() {
