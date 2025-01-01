@@ -94,43 +94,67 @@ layout: default
     z-index: 9999;
   }
 
-  /* 粒子样式，添加多种形状类 */
+  /* 粒子样式 */
   .particle {
     position: absolute;
-    width: 8px;
-    height: 8px;
+    animation: move 1.5s ease-in-out infinite;
     opacity: 0.8;
   }
 
-  /* 圆形 */
+  /* 定义不同的形状类 */
   .particle.circle {
+    width: 5px;
+    height: 5px;
     border-radius: 50%;
   }
 
-  /* 正方形 */
   .particle.square {
-    border-radius: 0;
+    width: 5px;
+    height: 5px;
   }
 
-  /* 三角形 */
   .particle.triangle {
     width: 0;
     height: 0;
-    background: transparent !important;
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
     border-bottom: 8px solid;
+    background: transparent !important;
   }
 
-  /* 星形 */
   .particle.star {
-    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    width: 0;
+    height: 0;
+    border-right: 5px solid transparent;
+    border-bottom: 3.5px solid;
+    border-left: 5px solid transparent;
+    transform: rotate(35deg);
   }
 
-  /* 心形 */
   .particle.heart {
+    width: 5px;
+    height: 5px;
     transform: rotate(-45deg);
-    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+  }
+
+  .particle.heart:before,
+  .particle.heart:after {
+    content: '';
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: inherit;
+  }
+
+  .particle.heart:before {
+    top: -2.5px;
+    left: 0;
+  }
+
+  .particle.heart:after {
+    top: 0;
+    right: -2.5px;
   }
 
   /* 生成尾迹的动画 */
@@ -354,7 +378,7 @@ layout: default
   }
 </style>
 
-<!-- JavaScript for particle effect -->
+<!-- JavaScript for typing effect -->
 <script>
   // ----------------------------监听鼠标事件并生成粒子效果----------------------------
   const particleContainer = document.getElementById('particle-container');
@@ -366,71 +390,7 @@ layout: default
     }
   });
 
-  function createParticle(x, y) {
-  const particle = document.createElement('div');
-  particle.classList.add('particle');
-  
-  // 定义可用的形状
-  const shapes = ['circle', 'square', 'triangle', 'star', 'heart'];
-  
-  // 随机选择一个形状
-  const randomShape = shapes[Math.floor(Math.random() * shapes.length)];
-  particle.classList.add(randomShape);
-
-  // 随机生成颜色
-  const color = getRandomColor();
-  
-  // 如果是三角形，需要设置边框颜色而不是背景色
-  if (randomShape === 'triangle') {
-    particle.style.borderBottomColor = color;
-  } else {
-    particle.style.backgroundColor = color;
-  }
-
-  // 设置粒子的初始位置
-  particle.style.left = `${x - 5}px`;
-  particle.style.top = `${y - 5}px`;
-
-  // 随机生成运动方向和距离
-  const moveX = (Math.random() - 0.5) * 120;
-  const moveY = (Math.random() - 0.5) * 120;
-  
-  // 随机生成旋转角度
-  const rotation = Math.random() * 360;
-
-  // 设置动画属性
-  particle.style.setProperty('--move-x', `${moveX}px`);
-  particle.style.setProperty('--move-y', `${moveY}px`);
-  particle.style.setProperty('--rotation', `${rotation}deg`);
-
-  // 添加旋转动画
-  particle.style.animation = `
-    move 1.5s ease-in-out infinite,
-    colorChange 1.5s linear infinite,
-    rotate 1.5s linear infinite
-  `;
-
-  particleContainer.appendChild(particle);
-
-  // 1.5秒后移除粒子
-  setTimeout(() => {
-    particle.remove();
-  }, 1500);
-}
-
-  // 添加旋转动画关键帧
-  const styleSheet = document.createElement('style');
-  styleSheet.textContent = `
-    @keyframes rotate {
-      from {
-        transform: rotate(0deg);
-      }
-      to {
-        transform: rotate(var(--rotation));
-      }
-    }
-  `;
-  document.head.appendChild(styleSheet);
+1
 
   // 随机生成颜色
   function getRandomColor() {
@@ -545,11 +505,9 @@ layout: default
       };
     }
 
-
     updateBackgroundImage(); // 初始化显示第一张图片
     setInterval(updateBackgroundImage, 5000); // 每5秒更新一次背景图片
   }
-
 
   // 网站运行计时器
   const siteStartTime = new Date('2024-11-07T16:04:00'); // 网站启动时间
