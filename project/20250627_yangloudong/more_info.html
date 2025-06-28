@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>茶品特色详解 - 羊楼洞青砖茶</title>
+    
+    <style>
+        :root {
+            --primary-color: #006837;
+            --secondary-color: #f7f5e6;
+            --text-color: #333;
+            --light-gray: #f4f4f4;
+            --accent-color: #ffc107;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--secondary-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* 头部导航 */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(0, 104, 55, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+
+        .nav-logo {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-logo:hover {
+            color: #ffc107;
+        }
+
+        .nav-menu {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+
+        .nav-link:hover {
+            color: #ffc107;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* 页面标题 */
+        .page-header {
+            background: linear-gradient(135deg, var(--primary-color), #4a7c59);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+            margin-top: 70px;
+        }
+
+        .page-title {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .page-subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+        }
+
+        /* 内容区域 */
+        .content-section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary-color);
+            margin: 15px auto 0;
+        }
+
+        /* 工艺流程 - 修改为5列布局 */
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+            margin-bottom: 60px;
+        }
+
+        .process-card {
+            background: white;
+            padding: 30px 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .process-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+        }
+
+        .process-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .process-number {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            line-height: 50px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .process-card h3 {
+            font-size: 1.3rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .process-card p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #666;
+        }
+
+        /* 品质特征 */
+        .quality-section {
+            background-color: white;
+            padding: 80px 0;
+        }
+
+        .quality-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            margin-bottom: 60px;
+        }
+
+        .quality-text h3 {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 25px;
+        }
+
+        .quality-text p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .quality-image {
+            text-align: center;
+        }
+
+        .quality-image img {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        /* 化学成分表格 */
+        .composition-table {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            margin: 40px 0;
+        }
+
+        .composition-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .composition-table th {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px;
+            text-align: left;
+            font-size: 1.1rem;
+        }
+
+        .composition-table td {
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .composition-table tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        /* 健康功效 - 修改为4列布局 */
+        .health-benefits {
+            background-color: var(--light-gray);
+            padding: 80px 0;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+        }
+
+        .benefit-card {
+            background: white;
+            padding: 35px 25px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .benefit-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .benefit-card h3 {
+            font-size: 1.3rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .benefit-card p {
+            line-height: 1.6;
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        /* 陈化价值 */
+        .aging-section {
+            background: white;
+            padding: 80px 0;
+        }
+
+        .aging-timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .timeline-year {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            min-width: 100px;
+            text-align: center;
+            margin-right: 30px;
+        }
+
+        .timeline-content {
+            flex: 1;
+            background: var(--light-gray);
+            padding: 25px;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .timeline-content h4 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        /* 返回按钮 - 统一样式 */
+        .back-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--primary-color);
+            color: white;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,104,55,0.3);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .back-button:hover {
+            background: #004c26;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,104,55,0.4);
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 1024px) {
+            .process-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 20px;
+            }
+
+            .benefits-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 25px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .page-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .process-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .benefits-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .quality-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .quality-grid .quality-image {
+                order: -1;
+            }
+
+            .timeline-item {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .timeline-year {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+
+            .composition-table {
+                font-size: 0.9rem;
+            }
+
+            .composition-table th,
+            .composition-table td {
+                padding: 10px 15px;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+        }
+
+        /* 动画效果 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">羊楼洞 · 青砖茶</a>
+            <ul class="nav-menu">
+                <li><a href="index.html#history" class="nav-link">返回首页</a></li>
+                <li><a href="index.html#features" class="nav-link">茶品特色</a></li>
+                <li><a href="index.html#industry" class="nav-link">产业现状</a></li>
+                <li><a href="index.html#promotion" class="nav-link">品牌宣传</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 页面标题 -->
+    <header class="page-header">
+        <div class="container">
+            <h1 class="page-title">茶品特色详解</h1>
+            <p class="page-subtitle">深入了解羊楼洞青砖茶的独特工艺与卓越品质</p>
+        </div>
+    </header>
+
+    <!-- 制作工艺 -->
+    <section class="content-section">
+        <div class="container">
+            <h2 class="section-title">核心制作工艺</h2>
+            <div class="process-grid">
+                <div class="process-card fade-in-up">
+                    <div class="process-number">1</div>
+                    <h3>毛茶初制</h3>
+                    <p>采用鄂南地区老青茶为原料，主要品种包括鄂茶10号、乌龙1号、槠叶齐等。以成熟叶片为主，含梗量较高，为后期发酵与香气形成奠定基础。</p>
+                </div>
+                <div class="process-card fade-in-up">
+                    <div class="process-number">2</div>
+                    <h3>增湿渥堆</h3>
+                    <p>核心发酵步骤，通过湿热作用促进微生物发酵。此过程使茶多酚降解22%-30%，儿茶素减少91%以上，消除苦涩味，形成醇厚口感。</p>
+                </div>
+                <div class="process-card fade-in-up">
+                    <div class="process-number">3</div>
+                    <h3>复制拼配</h3>
+                    <p>根据不同年份、不同等级的茶叶特点进行科学拼配，确保成品茶的品质稳定性和口感层次的丰富性。</p>
+                </div>
+                <div class="process-card fade-in-up">
+                    <div class="process-number">4</div>
+                    <h3>蒸压成型</h3>
+                    <p>采用现代化"无底直通模具+环线生产"技术，利用茶砖间摩擦力定型，多次压制确保成品"菱角分明，松紧适度"。</p>
+                </div>
+                <div class="process-card fade-in-up">
+                    <div class="process-number">5</div>
+                    <h3>烘房干燥</h3>
+                    <p>烘房温度精准控制在60℃，将水分降至9%以下，避免霉变并锁住香气，确保茶砖的长期保存品质。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 感官品质 -->
+    <section class="quality-section">
+        <div class="container">
+            <h2 class="section-title">感官品质特征</h2>
+            
+            <div class="quality-grid">
+                <div class="quality-text">
+                    <h3>外形与汤色</h3>
+                    <p>成品茶砖平整紧实，色泽青褐，压制工艺精良。冲泡后茶汤呈橙红色，清澈透亮，陈年茶汤色会转向深琥珀色，更显厚重。</p>
+                    <p>茶砖表面光滑，棱角分明，手感紧实有重量感，体现了传统压制工艺的精湛技艺。</p>
+                </div>
+                <div class="quality-image">
+                    <img src="assets/img/yangloudongqingzhuancha1.jpg" alt="羊楼洞青砖茶外形">
+                </div>
+            </div>
+
+            <div class="quality-grid">
+                <div class="quality-image">
+                    <img src="assets/img/yangloudongqingzhuancha2.jpg" alt="青砖茶汤色">
+                </div>
+                <div class="quality-text">
+                    <h3>香气特征</h3>
+                    <p>以陈香为基底，带有独特的菌香、木香。关键香气物质包括醛类（己醛、壬醛）和酮类（β-紫罗酮），赋予茶叶青草香与花木香。</p>
+                    <p>陈化后甲氧基苯化合物增加，强化陈香特征。反,反-2,4-庚二烯醛、β-紫罗酮等10种成分为核心呈香物质。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 化学成分 -->
+    <section class="content-section">
+        <div class="container">
+            <h2 class="section-title">主要化学成分</h2>
+            <div class="composition-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>成分类别</th>
+                            <th>主要物质</th>
+                            <th>含量变化</th>
+                            <th>功能作用</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>茶多酚</td>
+                            <td>儿茶素、没食子酸</td>
+                            <td>发酵后降低30%</td>
+                            <td>抗氧化、降脂</td>
+                        </tr>
+                        <tr>
+                            <td>黄酮类</td>
+                            <td>黄酮苷、黄酮醇</td>
+                            <td>陈化后增加40%</td>
+                            <td>抗炎、护血管</td>
+                        </tr>
+                        <tr>
+                            <td>茶褐素</td>
+                            <td>复合多酚类</td>
+                            <td>陈化后增加35%</td>
+                            <td>调节血脂、抗氧化</td>
+                        </tr>
+                        <tr>
+                            <td>氨基酸</td>
+                            <td>茶氨酸、谷氨酸</td>
+                            <td>陈化后降低50%</td>
+                            <td>提升鲜味、安神</td>
+                        </tr>
+                        <tr>
+                            <td>挥发性成分</td>
+                            <td>醛类、酮类、酯类</td>
+                            <td>随陈化而变化</td>
+                            <td>形成特殊香气</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- 健康功效 -->
+    <section class="health-benefits">
+        <div class="container">
+            <h2 class="section-title">健康功效</h2>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">❤️</div>
+                    <h3>降血脂功效</h3>
+                    <p>10年陈茶显著降低大鼠血清甘油三酯28%、总胆固醇32%，效果优于绿茶，对心血管健康有显著益处。</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🛡️</div>
+                    <h3>抗氧化作用</h3>
+                    <p>提升超氧化物歧化酶（SOD）活性40%，有效清除自由基，延缓细胞衰老，增强机体免疫力。</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🦠</div>
+                    <h3>调节肠道菌群</h3>
+                    <p>渥堆发酵产生的益生菌促进消化，改善肠道微生态环境，有助于营养吸收和消化健康。</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🍽️</div>
+                    <h3>消食解腻</h3>
+                    <p>富含的茶多酚和膳食纤维有助于分解油脂，促进消化，特别适合餐后饮用。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 陈化价值 -->
+    <section class="aging-section">
+        <div class="container">
+            <h2 class="section-title">陈化价值与最佳品饮期</h2>
+            <div class="aging-timeline">
+                <div class="timeline-item">
+                    <div class="timeline-year">新茶期</div>
+                    <div class="timeline-content">
+                        <h4>初制完成</h4>
+                        <p>新茶微涩带栗香，茶性较烈，适合喜欢浓烈口感的茶友。此时茶多酚含量较高，刺激性较强。</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">3-5年</div>
+                    <div class="timeline-content">
+                        <h4>初步转化</h4>
+                        <p>茶性开始转温和，苦涩味逐渐减轻，开始出现淡淡的陈香，口感趋于平衡。</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">7年</div>
+                    <div class="timeline-content">
+                        <h4>品质转折点</h4>
+                        <p>贮藏7年时风味开始明显转化，茶汤更加醇厚，陈香初显，是品质变化的重要节点。</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">9-10年</div>
+                    <div class="timeline-content">
+                        <h4>陈香显著期</h4>
+                        <p>9年后陈香显著突出，10年左右陈茶功效达到峰值，茶汤醇厚顺滑，是最佳品饮期。</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">15年+</div>
+                    <div class="timeline-content">
+                        <h4>珍品收藏期</h4>
+                        <p>15年以上的老茶已成珍品，陈香浓郁，药用价值显著，具有很高的收藏和品饮价值。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="background: var(--light-gray); padding: 30px; border-radius: 15px; margin-top: 50px; text-align: center;">
+                <h3 style="color: var(--primary-color); margin-bottom: 15px;">保存要点</h3>
+                <p style="font-size: 1.1rem; line-height: 1.8;">
+                    最佳保存条件：控制含水量3%-5%，避光密封保存，通风干燥环境。
+                    正确的保存方法是青砖茶越陈越香的关键，也是其保健功效持续提升的保障。
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <a href="index.html" class="back-button">
+        <span>←</span> 返回首页
+    </a>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>羊楼洞青砖茶详细介绍</p>
+            <hr style="margin: 20px 0; border: none; border-top: 1px solid #666;">
+            <p>网站制作人：杨丹阳 Yang Danyang | 电子邮箱：yangdanyang@whu.edu.cn | 个人主页：<a href="https://yangdanyang2005.github.io" target="_blank" style="color: #ffc107; text-decoration: none;">yangdanyang2005.github.io</a></p>
+            <p>&copy; 2025 武汉大学遥感信息工程学院 生产实践（服务学习）课程第2小组 杨丹阳. 版权所有.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 页面加载动画
+            const cards = document.querySelectorAll('.process-card, .benefit-card');
+            
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            cards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+                observer.observe(card);
+            });
+
+            // 导航栏滚动效果
+            window.addEventListener('scroll', function() {
+                const navbar = document.querySelector('.navbar');
+                if (window.scrollY > 100) {
+                    navbar.style.backgroundColor = 'rgba(0, 104, 55, 0.98)';
+                } else {
+                    navbar.style.backgroundColor = 'rgba(0, 104, 55, 0.95)';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

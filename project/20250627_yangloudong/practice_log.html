@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>实践活动日志 - 羊楼洞茶产业发展与宣传</title>
+
+    <style>
+        /* CSS 部分 - 继承主页面样式 */
+        :root {
+            --primary-color: #006837;
+            --secondary-color: #f7f5e6;
+            --text-color: #333;
+            --light-gray: #f4f4f4;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
+            scroll-behavior: smooth;
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+        }
+
+        /* --- 导航栏样式 --- */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(0, 104, 55, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            z-index: 1000;
+            transition: background-color 0.3s;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+
+        .nav-logo {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        .nav-item {
+            margin-left: 30px;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover {
+            color: #ffc107;
+        }
+
+        /* --- 页面头部 --- */
+        .page-header {
+            background: linear-gradient(135deg, var(--primary-color), #228B22);
+            color: white;
+            text-align: center;
+            padding: 120px 20px 60px;
+            margin-top: 70px;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            margin: 0 0 20px;
+            font-weight: 700;
+        }
+
+        .page-header p {
+            font-size: 1.3rem;
+            margin: 0;
+            opacity: 0.9;
+        }
+
+        /* --- 实习概览 --- */
+        .practice-overview {
+            background: white;
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .overview-card {
+            background: var(--light-gray);
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+        }
+
+        .overview-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .overview-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .overview-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        /* --- 日志条目样式 --- */
+        .practice-log {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        .log-entry {
+            background: white;
+            margin-bottom: 50px;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s, transform 0.8s;
+        }
+
+        .log-entry.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .log-header {
+            background: var(--primary-color);
+            color: white;
+            padding: 25px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .log-date {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .log-weather {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .log-content {
+            padding: 30px;
+        }
+
+        .log-title {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .activity-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+
+        .activity-text {
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        .activity-text h4 {
+            color: var(--primary-color);
+            font-size: 1.3rem;
+            margin: 25px 0 15px 0;
+            border-left: 4px solid var(--primary-color);
+            padding-left: 15px;
+        }
+
+        .activity-text ul {
+            padding-left: 20px;
+            margin: 15px 0;
+        }
+
+        .activity-text li {
+            margin-bottom: 8px;
+        }
+
+        .highlight-box {
+            background: #e8f5e8;
+            border-left: 4px solid var(--primary-color);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        /* --- 图片轮播样式 --- */
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            background-color: #fff;
+        }
+
+        .carousel-slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            box-sizing: border-box;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .carousel-description {
+            padding: 15px 20px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--text-color);
+            background: white;
+        }
+
+        .carousel-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            border: none;
+            padding: 12px 16px;
+            cursor: pointer;
+            font-size: 1.5rem;
+            z-index: 10;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .carousel-button:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .carousel-button.prev {
+            left: 10px;
+        }
+
+        .carousel-button.next {
+            right: 10px;
+        }
+
+        .carousel-nav-dots {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .dot.active {
+            background-color: white;
+            transform: scale(1.3);
+        }
+
+        /* --- 团队成员展示 --- */
+        .team-section {
+            background: var(--light-gray);
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary-color);
+            margin: 15px auto 0;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .team-member {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+        }
+
+        .team-member:hover {
+            transform: translateY(-5px);
+        }
+
+        .member-avatar {
+            width: 80px;
+            height: 80px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        /* --- 页脚 --- */
+        .footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .footer-content p {
+            margin: 10px 0;
+            font-size: 0.9rem;
+        }
+
+        /* --- 响应式设计 --- */
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .activity-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .activity-grid .carousel-container {
+                order: -1;
+            }
+
+            .overview-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .team-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* --- 动画效果 --- */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">羊楼洞 · 青砖茶</a>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="index.html#history" class="nav-link">历史渊源</a></li>
+                <li class="nav-item"><a href="index.html#features" class="nav-link">茶品特色</a></li>
+                <li class="nav-item"><a href="index.html#industry" class="nav-link">产业现状</a></li>
+                <li class="nav-item"><a href="index.html#promotion" class="nav-link">品牌宣传</a></li>
+                <li class="nav-item"><a href="#" class="nav-link" style="color: #ffc107;">实践活动</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <h1>实践活动日志</h1>
+        <p>武汉大学 × 香港理工大学联合实践团队</p>
+        <p>羊楼洞茶产业发展与宣传研究 · 2025年6月</p>
+    </header>
+
+    <!-- 实习概览 -->
+    <section class="practice-overview">
+        <h2 class="section-title">实践概览</h2>
+        <div class="overview-grid">
+            <div class="overview-card fade-in-up">
+                <div class="overview-icon">📅</div>
+                <div class="overview-number">5</div>
+                <p>实践天数</p>
+            </div>
+            <div class="overview-card fade-in-up">
+                <div class="overview-icon">🏭</div>
+                <div class="overview-number">8</div>
+                <p>参观地点</p>
+            </div>
+            <div class="overview-card fade-in-up">
+                <div class="overview-icon">👥</div>
+                <div class="overview-number">5</div>
+                <p>团队成员</p>
+            </div>
+            <div class="overview-card fade-in-up">
+                <div class="overview-icon">🎯</div>
+                <div class="overview-number">100%</div>
+                <p>目标完成率</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 实践日志 -->
+    <section class="practice-log">
+        <!-- 第1天 -->
+        <div class="log-entry">
+            <div class="log-header">
+                <div class="log-date">第1天 - 6月24日 星期二</div>
+                <div class="log-weather">☀️ 晴朗 28°C</div>
+            </div>
+            <div class="log-content">
+                <h3 class="log-title">初探羊楼洞，感受千年茶韵</h3>
+                <div class="activity-grid">
+                    <div class="activity-text">
+                        <h4>🚌 启程赴赤壁</h4>
+                        <p>上午8:50，我们第2小组的5名成员从武汉大学集合出发，怀着激动的心情踏上了前往赤壁羊楼洞的实践之旅。经过1小时40分钟的车程，我们顺利抵达目的地。</p>
+
+                        <h4>🏢 参观中试谷基地</h4>
+                        <p>首站来到赤壁中试谷智能无人系统测试基地，了解现代科技在茶产业中的创新应用。这里展示了无人机、智能传感器等先进技术如何助力茶园管理和茶叶质量监控。[[0]](#__0)</p>
+
+                        <div class="highlight-box">
+                            <strong>💡 重要发现：</strong>现代科技与传统茶业的融合为产业升级提供了新思路，数字化管理能够显著提升茶叶品质和生产效率。
+                        </div>
+
+                        <h4>🏛️ 缅怀革命先烈</h4>
+                        <p>下午参观了羊楼洞抗美援朝烈士陵园，缅怀革命先烈的英勇事迹，感受这片土地深厚的红色文化底蕴。</p>
+
+                        <h4>🏭 探访现代化生产</h4>
+                        <p>参观青砖茶未来展示馆及智慧生产车间，与工作人员深入交流，了解青砖茶现代化生产工艺。看到传统制茶技艺与现代科技的完美结合，令人印象深刻。[[1]](#__1)</p>
+
+                        <h4>🏘️ 夜游古镇风情</h4>
+                        <p>傍晚时分，我们漫步在羊楼洞古镇的青石板路上，感受这座"万里茶道源头"的历史韵味。古老的茶庄建筑、斑驳的石墙，每一处都诉说着昔日的繁华。</p>
+                    </div>
+                    <div class="carousel-container" id="day1-carousel">
+                        <div class="carousel-slides">
+                            <div class="carousel-slide">
+                                <img src="assets/img/zhongshigu_base.jpg" alt="中试谷智能无人系统测试基地">
+                                <div class="carousel-description">中试谷智能无人系统测试基地，展示现代科技在茶产业中的应用前景。</div>
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="assets/img/martyr_cemetery.jpg" alt="羊楼洞抗美援朝烈士陵园">
+                                <div class="carousel-description">羊楼洞抗美援朝烈士陵园，缅怀革命先烈，感受红色文化。</div>
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="assets/img/future_exhibition_hall.jpg" alt="青砖茶未来展示馆">
+                                <div class="carousel-description">青砖茶未来展示馆，现代化展示传统茶文化的魅力。</div>
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="assets/img/yangloudong_night.jpg" alt="羊楼洞古镇夜景">
+                                <div class="carousel-description">羊楼洞古镇夜景，灯火阑珊中感受千年茶镇的历史韵味。</div>
+                            </div>
+                        </div>
+                        <button class="carousel-button prev">&#10094;</button>
+                        <button class="carousel-button next">&#10095;</button>
+                        <div class="carousel-nav-dots"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 第2天 -->
+        <div class="log-entry">
+            <div class="log-header">
+                <div class="log-date">第2天 - 6月25日 星期三</div>
+                <div class="log-weather">⛅ 多云 26°C</div>
+            </div>
+            <div class="log-content">
+                <h3 class="log-title">深入赵李桥茶厂，体验制茶工艺</h3>
+                <div class="activity-grid">
+                    <div class="activity-text">
+                        <h4>🏭 参观赵李桥茶厂</h4>
+                        <p>上午前往湖北省赵李桥茶厂有限责任公司，这是羊楼洞茶产业的龙头企业，其前身为"中国茶叶总公司羊楼洞砖茶厂"。1949年数家茶厂合并为如今的赵李桥茶厂，承载着70多年的制茶历史。[[1]](#__1)</p>
+
+                        <h4>🍃 体验茶叶采摘</h4>
+                        <p>在工作人员的指导下，我们亲身体验了赤壁青砖茶的采摘过程。了解到优质青砖茶对原料的严格要求：</p>
+                        <ul>
+                            <li>采摘时间：清晨露水未干时最佳</li>
+                            <li>茶叶标准：一芽二叶或一芽三叶</li>
+                            <li>处理方式：采摘后需及时萎凋，避免发热变质</li>
+                        </ul>
+
+                        <div class="highlight-box">
+                            <strong>🎯 深度访谈收获：</strong>通过与茶厂技术人员交流，了解到青砖茶独特的"渥堆发酵"工艺是其品质的关键，这一技艺已传承近200年。
+                        </div>
+
+                        <h4>📹 素材拍摄</h4>
+                        <p>我们详细记录了青砖茶的完整生产流程，从原料筛选、发酵、压制到包装，每个环节都体现了传统工艺与现代技术的结合。</p>
+
+                        <h4>🚁 无人机航拍茶园</h4>
+                        <p>下午前往茶园，使用无人机拍摄了壮观的茶园全景。从空中俯瞰，层层叠叠的茶园如绿色的波浪，展现了羊楼洞茶产业的规模化发展。</p>
+
+                        <h4>📝 整理调研成果</h4>
+                        <p>晚上整理白天拍摄的素材，撰写实习日志。通过今天的实地体验，我们对青砖茶的制作工艺有了更深入的理解。</p>
+                    </div>
+                    <div class="carousel-container" id="day2-carousel">
+                        <div class="carousel-slides">
+                            <div class="carousel-slide">
+                                <img src="assets/img/zhaoliqiao_factory.jpg" alt="赵李桥茶厂生产车间">
+                                <div class="carousel-description">赵李桥茶厂现代化生产车间，传统工艺与现代技术完美融合。</div>
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="assets/img/tea_picking.jpg" alt="体验茶叶采摘">
+                                <div class="carousel-description">团队成员亲身体验青砖茶采摘过程，感受茶农的辛勤劳作。</div>
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="assets/img/tea_processing.jpg" alt="青砖茶制作工艺">
+                                <div class="carousel-description">青砖茶独特的渥堆发酵工艺，是品质的关键所在。</div>
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="assets/img/drone_tea_garden.jpg" alt="无人机航拍茶园">
+                                <div class="carousel-description">无人机航拍下的茶园美景，展现羊楼洞茶产业的壮观规模。</div>
+                            </div>
+                        </div>
+                        <button class="carousel-button prev">&#10094;</button>
+                        <button class="carousel-button next">&#10095;</button>
+                        <div class="carousel-nav-dots"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 第3天 -->
+        <div class="log-entry">
+            <div class="log-header">
+                <div class="log-date">第3天 - 6月26日 星期四</div>
+                <div class="log-weather">🌤️ 晴转多云 27°C</div>
+            </div>
+            <div class="log-content">
+                <h3 class="log-title">观摩技能大赛，深度调研古镇</h3>
+                <div class="activity-grid">
+                    <div class="activity-text">
+                        <h4>🏆 参观职业技能竞赛</h4>
+                        <p>上午前往赤壁市羊楼洞国际会展中心，观摩2025年赤壁市"赤壁工匠"职业技能大赛——茶业职业技能竞赛。这是一场展示传统制茶技艺的盛会，汇聚了当地最优秀的制茶师傅。</p>
+
+                        <h4>🎯 技艺传承观察</h4>
+                        <p>比赛现场，我们见证了青砖茶制作的精湛技艺：</p>
+                        <ul>
+                            <li><strong>原料筛选：</strong>师傅们凭借丰富经验，仅凭手感和嗅觉就能判断茶叶品质</li>
+                            <li><strong>发酵控制：</strong>温度、湿度、时间的精准把控，体现了工匠精神</li>
+                            <li><strong>压制技术：</strong>传统手工压制与现代机械的巧妙结合</li>
+                        </ul>
+
+                        <div class="highlight-box">
+                            <strong>🔍 重要发现：</strong>赵李桥青砖茶制作技艺已被列为国家级非物质文化遗产，这些技能大赛是传承和发扬传统工艺的重要平台。[[2]](#__2)
+                        </div>
+
+                        <h4>🌙 古镇夜访调研</h4>
+                        <p>晚上再次深入羊楼洞古镇，进行更深入的调研活动：</p>
+                        <ul>
+                            <li><strong>居民访谈：</strong>与当地老居民交流，了解古镇的历史变迁</li>
+                            <li><strong>商户调研：</strong>走访茶叶商店，了解销售情况和消费者偏好</li>
+                            <li><strong>夜景拍摄：</strong>记录古镇在灯光映衬下的独特魅力</li>
+                        </ul>
+
+                        <h4>🎨 设计工作启动</h4>
+                        <p>基于前两天的调研成果，我们开始着手设计宣传海报，整理拍摄素材，为后续的宣传推广工作做准备。</p>
+                    </div>
+                    <div class="carousel-container" id="day3-carousel">
+                        <div class="carousel-slides">
+                            <div class="carousel-slide">
+                                <img src="assets/img/skill_competition.jpg" alt="茶业职业技能竞赛">
+                                <div class="carousel-description">2025年赤壁市茶业职业技能竞赛现场，展示传统制茶技艺的精湛水平。</div>
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="assets/img/master_craftsman.jpg" alt="制茶师傅展示技艺">
+                                <div class="carousel-description">制茶师傅现场展示青砖茶压制技艺，工匠精神令人敬佩。</div>
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="assets/img/ancient_town_night.jpg" alt="羊楼洞古镇夜景">
+                                <div class="carousel-description">华灯初上的羊楼洞古镇，古朴的建筑在灯光中显得格外迷人。</div>
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="assets/img/resident_interview.jpg" alt="居民访谈">
+                                <div class="carousel-description">与古镇居民深入交流，了解当地茶文化的传承现状。</div>
+                            </div>
+                        </div>
+                        <button class="carousel-button prev">&#10094;</button>
+                        <button class="carousel-button next">&#10095;</button>
+                        <div class="carousel-nav-dots"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 第4天 -->
+        <div class="log-entry">
+            <div class="log-header">
+                <div class="log-date">第4天 - 6月27日 星期五</div>
+                <div class="log-weather">🌥️ 阴转晴 25°C</div>
+            </div>
+            <div class="log-content">
+                <h3 class="log-title">古建筑摄影与成果整理</h3>
+                <div class="activity-grid">
+                    <div class="activity-text">
+                        <h4>📸 古建筑专题拍摄</h4>
+                        <p>上午专门安排了羊楼洞古建筑的摄影活动。我们重点拍摄了雷家大院等具有代表性的明清建筑，这些建筑见证了羊楼洞作为"万里茶道源头"的辉煌历史。</p>
+
+                        <h4>🏛️ 建筑文化解读</h4>
+                        <p>通过实地观察和资料收集，我们深入了解了羊楼洞古建筑的特色：</p>
+                        <ul>
+                            <li><strong>雷家大院：</strong>典型的鄂南民居建筑，体现了茶商家族的繁荣</li>
+                            <li><strong>石板街：</strong>明清时期的商业街道，承载着茶叶贸易的历史记忆</li>
+                            <li><strong>古茶庄遗址：</strong>展现了当年茶叶加工和贸易的盛况</li>
+                        </ul>
+
+                        <div class="highlight-box">
+                            <strong>🏮 文化价值发现：</strong>羊楼洞于2012年成功申报"中国历史文化名村"，明清石板街、茶庄遗址等已列入文保单位，具有极高的历史和文化价值。
+                        </div>
+
+                        <h4>👥 团队合影留念</h4>
+                        <p>在古建筑前拍摄团队合照，记录下武汉大学与香港理工大学学生共同实践的珍贵时刻。这次跨地域合作让我们收获了友谊，也加深了对中华传统文化的理解。</p>
+
+                        <h4>🎨 设计工作推进</h4>
+                        <p>下午集中精力进行海报设计和素材整理工作：</p>
+                        <ul>
+                            <li>筛选和编辑前几天拍摄的高质量照片</li>
+                            <li>设计体现羊楼洞茶文化特色的宣传海报</li>
+                            <li>整理访谈记录和调研数据</li>
+                            <li>规划宣传视频的制作方案</li>
+                        </ul>
+
+                        <h4>📊 数据分析总结</h4>
+                        <p>基于前期的问卷调研和实地访谈，我们开始分析羊楼洞茶产业的发展现状和市场认知情况，为最终的研究报告做准备。</p>
+                    </div>
+                    <div class="carousel-container" id="day4-carousel">
+                        <div class="carousel-slides">
+                            <div class="carousel-slide">
+                                <img src="assets/img/leijia_courtyard.jpg" alt="雷家大院古建筑">
+                                <div class="carousel-description">雷家大院，典型的鄂南民居建筑，展现了茶商家族的历史底蕴。</div>
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="assets/img/stone_street.jpg" alt="明清石板街">
+                                <div class="carousel-description">明清石板街，每一块青石板都承载着万里茶道的历史记忆。</div>
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="assets/img/team_photo.jpg" alt="团队合影">
+                                <div class="carousel-description">武汉大学与香港理工大学联合实践团队在古建筑前合影留念。</div>
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="assets/img/design_work.jpg" alt="设计工作现场">
+                                <div class="carousel-description">团队成员专注于海报设计和素材整理工作。</div>
+                            </div>
+                        </div>
+                        <button class="carousel-button prev">&#10094;</button>
+                        <button class="carousel-button next">&#10095;</button>
+                        <div class="carousel-nav-dots"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 第5天 -->
+        <div class="log-entry">
+            <div class="log-header">
+                <div class="log-date">第5天 - 6月28日 星期六</div>
+                <div class="log-weather">☀️ 晴朗 29°C</div>
+            </div>
+            <div class="log-content">
+                <h3 class="log-title">成果制作与实践总结</h3>
+                <div class="activity-grid">
+                    <div class="activity-text">
+                        <h4>🚌 返程武汉</h4>
+                        <p>上午9:00从雷家大院出发，告别了美丽的羊楼洞古镇。经过1个多小时的车程，于10:30顺利返回武汉大学，结束了为期5天的实地调研活动。</p>
+
+                        <h4>🎬 视频制作</h4>
+                        <p>下午集中精力制作宣传视频，内容涵盖：</p>
+                        <ul>
+                            <li><strong>产业链展示：</strong>从茶园到茶杯的完整流程</li>
+                            <li><strong>文化传承：</strong>青砖茶制作技艺的非遗价值</li>
+                            <li><strong>实践历程：</strong>团队调研的精彩瞬间</li>
+                            <li><strong>发展建议：</strong>基于调研的产业升级思考</li>
+                        </ul>
+
+                        <h4>🎨 文创产品设计</h4>
+                        <p>设计了一系列羊楼洞茶文化文创产品方案：</p>
+                        <ul>
+                            <li>以"万里茶道"为主题的文化衫设计</li>
+                            <li>青砖茶包装盒的现代化改良方案</li>
+                            <li>羊楼洞古镇文化手册设计</li>
+                            <li>茶文化主题的数字纪念品</li>
+                        </ul>
+
+                        <div class="highlight-box">
+                            <strong>🌟 创新亮点：</strong>我们的文创设计融合了传统茶文化元素与现代审美，旨在吸引年轻消费群体，打破对砖茶"陈旧"的刻板印象。
+                        </div>
+
+                        <h4>🌐 网页制作</h4>
+                        <p>晚上完成了羊楼洞茶产业宣传网页的制作，整合了：</p>
+                        <ul>
+                            <li>历史文化介绍</li>
+                            <li>产品信息展示</li>
+                            <li>实践活动记录</li>
+                            <li>购买渠道链接</li>
+                            <li>联系方式信息</li>
+                        </ul>
+
+                        <h4>📋 实践总结</h4>
+                        <p>通过5天的深入调研，我们全面了解了羊楼洞茶产业的发展现状，识别了关键痛点，并提出了切实可行的发展建议。这次实践不仅提升了我们的专业能力，也加深了对中华优秀传统文化的认识。</p>
+                    </div>
+                    <div class="carousel-container" id="day5-carousel">
+                        <div class="carousel-slides">
+                            <div class="carousel-slide">
+                                <img src="assets/img/video_production.jpg" alt="视频制作现场">
+                                <div class="carousel-description">团队成员专注于宣传视频的制作，展现羊楼洞茶产业的魅力。</div>
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="assets/img/creative_design.jpg" alt="文创产品设计">
+                                <div class="carousel-description">文创产品设计工作，融合传统文化与现代审美。</div>
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="assets/img/website_development.jpg" alt="网页制作">
+                                <div class="carousel-description">羊楼洞茶产业宣传网页制作，整合多元化内容。</div>
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="assets/img/final_presentation.jpg" alt="成果展示">
+                                <div class="carousel-description">实践成果展示，为羊楼洞茶产业发展贡献青年智慧。</div>
+                            </div>
+                        </div>
+                        <button class="carousel-button prev">&#10094;</button>
+                        <button class="carousel-button next">&#10095;</button>
+                        <div class="carousel-nav-dots"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 团队成员介绍 -->
+    <section class="team-section">
+        <h2 class="section-title">实践团队</h2>
+        <div class="team-grid">
+            <div class="team-member">
+                <div class="member-avatar">易</div>
+                <h3>易星辰</h3>
+                <p>武汉大学</p>
+                <p>负责项目统筹与视频制作</p>
+            </div>
+            <div class="team-member">
+                <div class="member-avatar">杨</div>
+                <h3>杨丹阳</h3>
+                <p>武汉大学</p>
+                <p>负责市场调研与数据分析</p>
+            </div>
+            <div class="team-member">
+                <div class="member-avatar">周</div>
+                <h3>周煜晖</h3>
+                <p>武汉大学</p>
+                <p>负责文化传承调研与海报设计</p>
+            </div>
+            <div class="team-member">
+                <div class="member-avatar">陆</div>
+                <h3>陆嘉翔</h3>
+                <p>香港理工大学</p>
+                <p>负责技术应用与网页制作</p>
+            </div>
+            <div class="team-member">
+                <div class="member-avatar">黄</div>
+                <h3>黄亮恒</h3>
+                <p>香港理工大学</p>
+                <p>负责品牌策划与文创设计</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 实践成果展示 -->
+    <section class="practice-overview" style="background: var(--light-gray);">
+        <h2 class="section-title">实践成果</h2>
+        <div class="overview-grid">
+            <div class="overview-card">
+                <div class="overview-icon">📊</div>
+                <div class="overview-number">1</div>
+                <p>综合调研报告</p>
+            </div>
+            <div class="overview-card">
+                <div class="overview-icon">🎬</div>
+                <div class="overview-number">1</div>
+                <p>宣传推广视频</p>
+            </div>
+            <div class="overview-card">
+                <div class="overview-icon">🎨</div>
+                <div class="overview-number">5</div>
+                <p>系列宣传海报</p>
+            </div>
+            <div class="overview-card">
+                <div class="overview-icon">🌐</div>
+                <div class="overview-number">1</div>
+                <p>产业宣传网站</p>
+            </div>
+            <div class="overview-card">
+                <div class="overview-icon">🎁</div>
+                <div class="overview-number">8</div>
+                <p>文创产品方案</p>
+            </div>
+            <div class="overview-card">
+                <div class="overview-icon">📝</div>
+                <div class="overview-number">5</div>
+                <p>个人实习报告</p>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 40px;">
+            <div class="highlight-box" style="max-width: 800px; margin: 0 auto;">
+                <h3 style="color: var(--primary-color); margin-bottom: 20px;">实践价值与意义</h3>
+                <p style="text-align: left; line-height: 1.8;">
+                    本次实践活动不仅为羊楼洞茶产业的可持续发展提供了切实可行的解决方案，也为高校产学研合作和实践教学改革提供了有益探索。通过武汉大学与香港理工大学学生的跨地域合作，我们深入了解了传统茶产业面临的挑战与机遇，运用现代科技手段和创新思维，为古老的茶文化注入了新的活力。
+                </p>
+                <p style="text-align: left; line-height: 1.8;">
+                    我们的研究发现，羊楼洞茶产业在数字化转型、品牌重塑、文旅融合等方面具有巨大潜力。通过本次实践，我们不仅提升了自身的专业能力和社会责任感，也为推动乡村振兴战略、传承中华优秀传统文化贡献了青年智慧。
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2025 武汉大学 × 香港理工大学联合实践团队</p>
+            <p>羊楼洞茶产业发展与宣传研究项目</p>
+            <p>指导教师：陈江平 | 联系邮箱：practice@whu.edu.cn</p>
+            <p>让传统茶文化在新时代绽放光彩</p>
+        </div>
+    </footer>
+
+    <script>
+        // JavaScript 功能
+        document.addEventListener('DOMContentLoaded', function() {
+            // 滚动显示动画
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            // 观察所有日志条目
+            document.querySelectorAll('.log-entry').forEach(entry => {
+                observer.observe(entry);
+            });
+
+            // 轮播图功能
+            function initCarousel(carouselId) {
+                const carousel = document.getElementById(carouselId);
+                if (!carousel) return;
+
+                const slides = carousel.querySelector('.carousel-slides');
+                const slideElements = carousel.querySelectorAll('.carousel-slide');
+                const prevBtn = carousel.querySelector('.carousel-button.prev');
+                const nextBtn = carousel.querySelector('.carousel-button.next');
+                const dotsContainer = carousel.querySelector('.carousel-nav-dots');
+
+                let currentSlide = 0;
+                const totalSlides = slideElements.length;
+
+                // 创建导航点
+                for (let i = 0; i < totalSlides; i++) {
+                    const dot = document.createElement('div');
+                    dot.className = 'dot';
+                    if (i === 0) dot.classList.add('active');
+                    dot.addEventListener('click', () => goToSlide(i));
+                    dotsContainer.appendChild(dot);
+                }
+
+                const dots = carousel.querySelectorAll('.dot');
+
+                function updateSlide() {
+                    slides.style.transform = `translateX(-${currentSlide * 100}%)`;
+                    dots.forEach((dot, index) => {
+                        dot.classList.toggle('active', index === currentSlide);
+                    });
+                }
+
+                function goToSlide(slideIndex) {
+                    currentSlide = slideIndex;
+                    updateSlide();
+                }
+
+                function nextSlide() {
+                    currentSlide = (currentSlide + 1) % totalSlides;
+                    updateSlide();
+                }
+
+                function prevSlide() {
+                    currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+                    updateSlide();
+                }
+
+                nextBtn.addEventListener('click', nextSlide);
+                prevBtn.addEventListener('click', prevSlide);
+
+                // 自动播放
+                setInterval(nextSlide, 5000);
+            }
+
+            // 初始化所有轮播图
+            ['day1-carousel', 'day2-carousel', 'day3-carousel', 'day4-carousel', 'day5-carousel'].forEach(initCarousel);
+
+            // 导航栏滚动效果
+            window.addEventListener('scroll', function() {
+                const navbar = document.querySelector('.navbar');
+                if (window.scrollY > 100) {
+                    navbar.style.backgroundColor = 'rgba(0, 104, 55, 0.95)';
+                } else {
+                    navbar.style.backgroundColor = 'rgba(0, 104, 55, 0.85)';
+                }
+            });
+
+            // 平滑滚动
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+

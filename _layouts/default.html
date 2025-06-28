@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<!-- 声明文档类型为HTML5 -->
+<html lang="{{ page.lang | default: "zh-CN" }}" class="html" data-theme="{{ site.theme_config.appearance | default: "dark" }}">
+<!-- 设置HTML文档的语言，默认为英语（"en"），被我改成了中文（"zh-CN"），可以通过页面变量 `page.lang` 覆盖 -->
+<!-- 设置HTML元素的类名为 "html" -->
+<!-- 设置HTML元素的数据属性 `data-theme`，默认值为 "auto"，可以通过站点配置 `site.theme_config.appearance` 覆盖 -->
+
+{%- include head.html -%}
+<!-- 包含 `_includes` 目录下的 `head.html` 文件，通常包含元数据、样式表和脚本等头部信息 -->
+
+<body>
+<!-- 开始HTML文档的主体部分 -->
+
+  <main class="page-content" aria-label="Content">
+  <!-- 创建一个主要的内容区域，设置类名为 "page-content"，并添加无障碍标签 `aria-label="Content"`，表示这是主要内容区域 -->
+
+    <div class="w">
+    <!-- 创建一个容器，设置类名为 "w"，通常用于限制内容的最大宽度 -->
+
+      {{ content }}
+      <!-- 插入页面的主要内容，这是Jekyll布局文件中的占位符，实际内容由具体的页面文件提供 -->
+
+      {% if site.theme_config.appearance_toggle %}
+      <!-- 检查站点配置 `site.theme_config.appearance_toggle` 是否为真 -->
+        {% include toggle_theme_button.html %}
+        <!-- 如果为真，则包含 `_includes` 目录下的 `toggle_theme_button.html` 文件，通常用于切换主题模式（如暗模式和亮模式） -->
+      {% endif %}
+
+      <div class="credits">
+      <!-- 创建一个版权和致谢信息的容器，设置类名为 "credits" -->
+
+        {%- if site.theme_config.show_copyright == true -%}
+        <!-- 检查站点配置 `site.theme_config.show_copyright` 是否为真 -->
+        &copy;&nbsp;{{ "now" | date: "%Y" }}&nbsp;{{site.author}}
+        &nbsp;
+        •
+        &nbsp;
+        {%- endif -%}
+        <!-- 如果为真，则显示版权信息，包括当前年份和作者名
+         想要显示的版权信息可以到 _config.yml 文件中修改 -->
+
+        {%- if site.soopr -%}
+        Powered by <a href="https://github.com/yangdanyang2005" target="_blank" rel="noreferrer">Yang Danyang</a>
+        &nbsp;
+        <!-- •
+        &nbsp;
+        {%- endif -%}
+        <!-- 检查站点配置 `site.soopr` 是否存在 -->
+        <!-- 如果存在，则显示 "Powered by Soopr" 链接 -->
+
+        <!-- Theme&nbsp; <a href="https://github.com/abhinavs/moonwalk" target="_blank" rel="noreferrer">Moonwalk</a>-->
+        <!-- 显示主题信息，链接到主题的GitHub仓库-->
+      </div>
+    </div>
+  </main>
+
+  {%- if site.soopr -%}
+  <!-- 检查站点配置 `site.soopr` 是否存在 -->
+    {%- if site.soopr.publish_token and jekyll.environment == "production" -%}
+    <!-- 如果存在，并且有 `publish_token`，并且当前环境为生产环境（`jekyll.environment == "production"`） -->
+    <script async defer data-soopr-token="{{site.soopr.publish_token}}" src="https://sdk.soopr.co/soopr.js"></script>
+    <!-- 引入Soopr的JavaScript SDK，并传递 `publish_token` -->
+    {%- else -%}
+    <script async defer src="https://sdk.soopr.co/soopr.js"></script>
+    <!-- 否则，仅引入Soopr的JavaScript SDK -->
+    {%- endif -%}
+  {%- endif -%}
+</body>
+<!-- 结束HTML文档的主体部分 -->
+
+</html>
+<!-- 结束HTML文档 -->

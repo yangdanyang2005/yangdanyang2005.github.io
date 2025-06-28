@@ -1,0 +1,29 @@
+{% if site.posts.size > 0 or site.data.home.blog_entries.size > 0 %}
+  <ul>
+    <!-- 显示 _posts 中的 .md 文件 -->
+    {% for post in site.posts %}
+      <li class="post-list-item">
+        <span class="home-date">
+          {{ post.date | date: site.theme_config.date_format }}»
+        </span>
+        <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+      </li>
+    {% endfor %}
+
+    <!-- 显示自定义的 HTML 文件链接 -->
+    {% if site.data.home.blog_entries %}
+      {% for entry in site.data.home.blog_entries %}
+        <li class="post-list-item">
+          <span class="home-date">
+            {{ entry.date | date: site.theme_config.date_format | default: "2024-01-01" }}»
+          </span>
+          <a href="{{ entry.url | relative_url }}" 
+             {% if entry.external %}target="_blank"{% endif %}>
+            {{ entry.title }}
+            {% if entry.external %} ↗{% endif %}
+          </a>
+        </li>
+      {% endfor %}
+    {% endif %}
+  </ul>
+{% endif %}

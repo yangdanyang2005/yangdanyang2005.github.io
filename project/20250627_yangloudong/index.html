@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>羊楼洞茶产业发展与宣传</title>
+
+    <style>
+        /* CSS 部分 */
+        :root {
+            --primary-color: #006837; /* 深绿色 */
+            --secondary-color: #f7f5e6; /* 米白色 */
+            --text-color: #333;
+            --light-gray: #f4f4f4;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
+            scroll-behavior: smooth;
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+        }
+
+        /* --- 导航栏 --- */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(0, 104, 55, 0.85);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            z-index: 1000;
+            transition: background-color 0.3s;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+
+        .nav-logo {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        .nav-item {
+            margin-left: 30px;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover {
+            color: #ffc107; /* 金色高亮 */
+        }
+
+        /* --- 首屏 --- */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('assets/img/yangloudongqingzhuancha1.jpg') no-repeat center center/cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin: 0 0 20px;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin: 0;
+        }
+
+        /* --- 内容板块通用样式 --- */
+        .section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s, transform 0.8s;
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            color: var(--primary-color);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary-color);
+            margin: 15px auto 0;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+        
+        .grid-item img {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .grid-item p {
+            line-height: 1.8;
+            font-size: 1.1rem;
+            margin-bottom: 20px; /* Add margin to separate paragraph from link */
+        }
+        
+        .learn-more-link {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .learn-more-link:hover {
+            background-color: #004c26; /* Darker green on hover */
+        }
+
+        /* --- 特定板块样式 --- */
+        #history { background-color: white; }
+        #features { background-color: var(--light-gray); }
+        #industry { background-color: white; }
+        #promotion { background-color: var(--light-gray); }
+
+        .feature-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+        
+        .card p {
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        /* --- Carousel Specific Styles --- */
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            background-color: #fff;
+            padding-bottom: 30px; /* Space for dots */
+        }
+
+        .carousel-slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 350px; /* 固定高度 */
+            object-fit: cover; /* 裁剪图片以填充容器，保持宽高比 */
+            border-radius: 8px 8px 0 0;
+            display: block; /* Remove extra space below image */
+        }
+
+        .carousel-description {
+            padding: 15px 20px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--text-color);
+            text-align: left;
+        }
+
+        .carousel-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 1.5rem;
+            z-index: 10;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .carousel-button:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        .carousel-button.prev {
+            left: 10px;
+        }
+
+        .carousel-button.next {
+            right: 10px;
+        }
+
+        .carousel-nav-dots {
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .dot.active {
+            background-color: var(--primary-color);
+            transform: scale(1.2);
+        }
+
+        /* --- 页脚 --- */
+        .footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .footer-content p {
+            margin: 10px 0;
+            font-size: 0.9rem;
+        }
+
+        /* --- 响应式设计 --- */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .nav-menu {
+                display: none; /* 在移动端可以考虑实现汉堡菜单 */
+            }
+
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .grid-item:nth-child(1) {
+                order: 2;
+            }
+            .grid-item:nth-child(2) {
+                order: 1;
+            }
+            .carousel-button {
+                padding: 8px 12px;
+                font-size: 1.2rem;
+            }
+        }
+        
+        /* --- 动画 --- */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">羊楼洞 · 青砖茶</a>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="#history" class="nav-link">历史渊源</a></li>
+                <li class="nav-item"><a href="#features" class="nav-link">茶品特色</a></li>
+                <li class="nav-item"><a href="#industry" class="nav-link">产业现状</a></li>
+                <li class="nav-item"><a href="#promotion" class="nav-link">品牌宣传</a></li>
+                <li class="nav-item"><a href="practice_log.html" class="nav-link">实践活动</a></li>
+                </ul>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-content">
+            <h1>万里茶道源 欧亚第一砖</h1>
+            <p>探索羊楼洞青砖茶的传奇故事与振兴之路</p>
+        </div>
+    </header>
+
+    <main>
+        <section id="history" class="section">
+            <h2 class="section-title">历史渊源</h2>
+            <div class="grid-container">
+                <div class="grid-item">
+                    <h3>百年茶道，源远流长</h3>
+                    <p>羊楼洞，位于湖北赤壁，是久负盛名的“砖茶之乡”，更是古代“万里茶道”的重要源头之一。自唐代起，此地便以茶闻名。明清时期，羊楼洞的制茶业达到鼎盛，成为中俄茶叶贸易的核心枢纽。
+                        这里的青砖茶，经过独特的发酵与压制工艺，以其醇厚的口感和独特的陈香，穿越亚欧大陆，香飘万里，成为连接东西方文化与经济的重要桥梁。</p>
+                    <p>古镇的明清石板街上，至今仍保留着当年的茶庄、商铺和制茶作坊遗址，每一块青石板都仿佛在诉说着过往的繁荣与辉煌。羊楼洞不仅是一种茶叶，更是一段承载着厚重历史与文化记忆的传奇。</p>
+                    <a href="more_history.html" target="_blank" class="learn-more-link">了解更多历史</a>
+                </div>
+                <div class="grid-item">
+                    <div class="carousel-container" id="history-carousel">
+                        <div class="carousel-slides">
+                            <div class="carousel-slide">
+                                <img src="assets/img/yangloudong_shibanjie.jpg" alt="羊楼洞古镇石板街">
+                                <div class="carousel-description">羊楼洞古镇的明清石板街，见证了万里茶道的繁华历史。</div>
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="assets/img/yangloudong_oldmap.png" alt="万里茶道古地图">
+                                <div class="carousel-description">万里茶道古地图，羊楼洞是其中的重要起点。</div>
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="assets/img/yangloudong_teamade.jpg" alt="古代茶叶贸易场景">
+                                <div class="carousel-description">古代羊楼洞茶叶制作的模拟场景，一派繁忙。</div>
+                            </div>
+                        </div>
+                        <button class="carousel-button prev">&#10094;</button>
+                        <button class="carousel-button next">&#10095;</button>
+                        <div class="carousel-nav-dots"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="features" class="section">
+            <h2 class="section-title">茶品特色</h2>
+            <div class="feature-cards">
+                <div class="card">
+                    <div class="card-icon">🍃</div>
+                    <h3>独特工艺</h3>
+                    <p>采用传统的渥堆发酵和高温压制工艺，茶砖紧实，陈化潜力巨大，越陈越香。</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🍵</div>
+                    <h3>醇厚口感</h3>
+                    <p>茶汤色泽红浓明亮，滋味醇厚甘爽，带有独特的松烟香或陈香，回味悠长。</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">💪</div>
+                    <h3>健康功效</h3>
+                    <p>富含茶多酚、氨基酸等多种有益成分，有助于消食解腻、降脂降压，深受百姓喜爱。</p>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 50px;">
+                <a href="more_info.html" target="_blank" class="learn-more-link">深入了解茶品</a>
+            </div>
+        </section>
+
+        <section id="industry" class="section">
+            <h2 class="section-title">产业现状与发展</h2>
+            <div class="grid-container">
+                <div class="grid-item">
+                    <div class="carousel-container" id="industry-carousel">
+                        <div class="carousel-slides">
+                            <div class="carousel-slide">
+                                <img src="assets/img/zhaoliqiaochachang.jpg" alt="现代化的茶叶加工厂">
+                                <div class="carousel-description">现代化茶叶加工厂内部先进的生产设备。</div>
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="assets/img/tea_plantation.jpg" alt="标准化茶园种植基地">
+                                <div class="carousel-description">羊楼洞标准化茶园种植基地，茶树郁郁葱葱。</div>
+                            </div>
+                             <div class="carousel-slide">
+                                <img src="assets/img/qingzhuanchabowuguan.png" alt="青砖茶博物馆">
+                                <div class="carousel-description">茶旅融合的青砖茶博物馆，游客在其中感受赤壁的青砖茶文化。</div>
+                            </div>
+                        </div>
+                        <button class="carousel-button prev">&#10094;</button>
+                        <button class="carousel-button next">&#10095;</button>
+                        <div class="carousel-nav-dots"></div>
+                    </div>
+                </div>
+                <div class="grid-item">
+                    <h3>传承与创新，再创辉煌</h3>
+                    <p>如今，羊楼洞茶产业在传承古法制茶技艺的同时，积极拥抱现代化发展。通过引进先进的生产线、建立标准化种植基地、完善质量追溯体系，确保了每一块青砖茶的卓越品质。
+                        当地政府与企业携手，大力推动“茶旅融合”发展模式，将古镇旅游与茶文化体验相结合，打造集生产、研发、旅游、文化于一体的综合性茶产业集群。</p>
+                    <p>通过电商平台、直播带货等新渠道，羊楼洞青砖茶正被越来越多的国内外消费者所认识和喜爱，古老的茶乡正焕发出新的生机与活力。</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="promotion" class="section">
+            <h2 class="section-title">品牌宣传与文化推广</h2>
+             <div class="grid-container">
+                <div class="grid-item">
+                    <h3>打造文化名片，走向世界</h3>
+                    <p>为了提升“羊楼洞”品牌的国际影响力，当地政府与企业持续加强品牌宣传和文化推广工作，通过举办国际茶文化旅游节、参与国内外大型茶业博览会等全方位展示羊楼洞茶的独特魅力。</p>
+                    <p>我们坚信，羊楼洞茶不仅是健康的饮品，更是一张承载着中国历史与开放精神的文化名片。我们致力于让这块“欧亚第一砖”在新时代重焕光彩，香飘世界。</p>
+                </div>
+                <div class="grid-item">
+                    <div class="carousel-container" id="promotion-carousel">
+                        <div class="carousel-slides">
+                            <div class="carousel-slide">
+                                <img src="assets\img\2022nianshijiedajiankangbolanhui.jpg" alt="赤壁青砖茶亮相2022年世界大健康博览会">
+                                <div class="carousel-description">赤壁青砖茶亮相2022年世界大健康博览会。</div>
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="assets\img\jinbohuihubeichibiqingzhuanchaguojitiyanguan.jpg" alt="进博会湖北赤壁青砖茶国际体验馆">
+                                <div class="carousel-description">一瓶茶叶道出“万里茶道源头”故事——进博会湖北赤壁青砖茶国际体验馆开馆迎客。</div>
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="assets\img\chahetianxiayajiqidongyishi.png" alt="赤壁青砖茶亮相茶和天下·雅集启动仪式">
+                                <div class="carousel-description">赤壁青砖茶亮相茶和天下 · 雅集启动仪式，香飘京城。</div>
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="assets\img\diwujiezhongguoguojichayebolanhui.jpg" alt="第五届中国国际茶叶博览会">
+                                <div class="carousel-description">第五届中国国际茶叶博览会展览首日，赤壁青砖茶专场推介会现场签约4.1亿元。</div>
+                            </div>
+                        </div>
+                        <button class="carousel-button prev">&#10094;</button>
+                        <button class="carousel-button next">&#10095;</button>
+                        <div class="carousel-nav-dots"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="contact" class="footer">
+        <div class="footer-content">
+            <h2 style="font-size: 2rem; color: white;">联系我们</h2>
+            <p>欢迎全球茶商、文化爱好者及游客前来洽谈合作、观光体验。</p>
+            <p>地址：中国湖北省赤壁市羊楼洞古镇</p>
+            <p>电子邮箱：yangdanyang@whu.edu.cn</p>
+            <hr style="margin: 20px 0; border: none; border-top: 1px solid #666;">
+            <p>网站制作人：杨丹阳 Yang Danyang | 个人主页：<a href="https://yangdanyang2005.github.io" target="_blank" style="color: #ffc107; text-decoration: none;">yangdanyang2005.github.io</a></p>
+            <p>&copy; 2025 武汉大学遥感信息工程学院 生产实践（服务学习）课程第2小组 杨丹阳. 版权所有.</p>
+        </div>
+    </footer>
+
+
+    <script>
+        // JavaScript 部分
+        document.addEventListener('DOMContentLoaded', function() {
+            // 滚动时显示板块的动画
+            const sections = document.querySelectorAll('.section');
+
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+            
+            // 导航栏平滑滚动
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    const targetId = this.getAttribute('href');
+
+                    // 检查链接是否是内部锚点链接（以'#'开头）
+                    if (targetId.startsWith('#')) {
+                        e.preventDefault(); // 阻止默认跳转行为，只针对锚点链接
+                        const targetElement = document.querySelector(targetId);
+                        
+                        if (targetElement) {
+                            window.scrollTo({
+                                top: targetElement.offsetTop - 70, // 减去导航栏高度
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                    // 对于外部链接或指向其他页面的链接，不调用 e.preventDefault()，让浏览器执行默认跳转
+                });
+            });
+
+            // 滚动播放图片的功能
+            function setupCarousel(carouselId) {
+                const carouselContainer = document.getElementById(carouselId);
+                const slidesContainer = carouselContainer.querySelector('.carousel-slides');
+                const slides = Array.from(carouselContainer.querySelectorAll('.carousel-slide'));
+                const prevButton = carouselContainer.querySelector('.carousel-button.prev');
+                const nextButton = carouselContainer.querySelector('.carousel-button.next');
+                const navDotsContainer = carouselContainer.querySelector('.carousel-nav-dots');
+
+                let currentIndex = 0;
+
+                function createDots() {
+                    slides.forEach((_, index) => {
+                        const dot = document.createElement('span');
+                        dot.classList.add('dot');
+                        if (index === 0) {
+                            dot.classList.add('active');
+                        }
+                        dot.addEventListener('click', () => goToSlide(index));
+                        navDotsContainer.appendChild(dot);
+                    });
+                }
+
+                function updateDots() {
+                    const dots = navDotsContainer.querySelectorAll('.dot');
+                    dots.forEach((dot, index) => {
+                        dot.classList.toggle('active', index === currentIndex);
+                    });
+                }
+
+                function goToSlide(index) {
+                    if (index < 0) {
+                        currentIndex = slides.length - 1;
+                    } else if (index >= slides.length) {
+                        currentIndex = 0;
+                    } else {
+                        currentIndex = index;
+                    }
+                    slidesContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
+                    updateDots();
+                }
+
+                function showNextSlide() {
+                    goToSlide(currentIndex + 1);
+                }
+
+                function showPrevSlide() {
+                    goToSlide(currentIndex - 1);
+                }
+
+                if (slides.length > 1) { // 只有在有多个幻灯片时才启用轮换播放图片
+                    createDots();
+                    prevButton.addEventListener('click', showPrevSlide);
+                    nextButton.addEventListener('click', showNextSlide);
+
+                    // 可选项：自动轮换播放，时间单位是毫秒
+                    setInterval(showNextSlide, 4000); 
+                } else { // 如果只有一张图片，则隐藏按钮和圆点
+                    prevButton.style.display = 'none';
+                    nextButton.style.display = 'none';
+                    navDotsContainer.style.display = 'none';
+                }
+            }
+
+            // 为每个部分设置轮换播放图片
+            setupCarousel('history-carousel');
+            setupCarousel('industry-carousel');
+            setupCarousel('promotion-carousel');
+        });
+    </script>
+
+</body>
+</html>

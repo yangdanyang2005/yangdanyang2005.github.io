@@ -1,0 +1,125 @@
+/* --------------------音乐播放器样式-------------------- */
+#music-player-container {
+    text-align: center;
+    margin-bottom: 20px; /* 控制播放器与下方内容的间距 */
+  }
+  
+  /* 音频播放器样式 */
+  audio {
+    width: 80%; /* 控制播放器宽度 */
+    max-width: 600px; /* 最大宽度 */
+    border-radius: 10px; /* 圆角 */
+    background-color: var(--audio-bg-color); /* 背景色使用CSS变量 */
+    padding: 10px; /* 内边距 */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* 添加阴影 */
+  }
+  
+  /* 深色主题下的音乐播放器样式 */
+  [data-theme='dark'] audio {
+    background-color: var(--audio-bg-color-dark); /* 深色模式背景 */
+    color: #000; /* 音乐播放器中的文字颜色为黑色 */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4); /* 深色主题的阴影效果 */
+  }
+  
+  /* 浅色主题下的音乐播放器样式 */
+  [data-theme='light'] audio {
+    background-color: var(--audio-bg-color-light); /* 浅色模式背景 */
+    color: #333; /* 浅色主题下的文本颜色 */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* 浅色主题的阴影效果 */
+  }
+  
+  /* 控制按钮、进度条、时间显示等文本的颜色 */
+  audio::-webkit-media-controls {
+    color: inherit; /* 继承父元素的颜色 */
+  }
+  
+  audio::-webkit-media-controls-panel {
+    background-color: var(--audio-bg-color); /* 控制面板背景色 */
+  }
+  
+  /* 定义CSS变量：浅色和深色模式下的背景颜色 */
+  :root {
+    --audio-bg-color-light: #f8f8f8; /* 浅色模式下的背景色 */
+    --audio-bg-color-dark: #333; /* 深色模式下的背景色 */
+  }
+  
+  /* 深色主题下的颜色设置 */
+  [data-theme='dark'] {
+    --audio-bg-color: #333; /* 背景色 */
+  }
+  
+  /* 浅色主题下的颜色设置 */
+  [data-theme='light'] {
+    --audio-bg-color: #f8f8f8; /* 背景色 */
+  }
+  
+  /* -----------------------------------图片-打字效果样式--------------------------- */
+  [data-theme='dark'] #typing-effect-container {
+    color: var(--typing-text-color); /* 动态文字颜色 */
+  }
+  
+  [data-theme='dark'] #typing-effect-container::after {
+    background-color: var(--typing-cursor-color); /* 光标颜色 */
+  }
+  
+  :root {
+    --typing-text-color: #333; /* 默认文字颜色 */
+    --typing-cursor-color: #333; /* 默认光标颜色 */
+  }
+  
+  [data-theme='dark'] {
+    --typing-text-color: #9a93f0; /* 深色主题的文字颜色 */
+    --typing-cursor-color: #9a93f0; /* 深色主题的光标颜色 */
+  }
+  
+  /* 容器样式 */
+  #typing-effect-container {
+    font-family: 'KaiTi', '楷体', 'SimKai', 'NSimSun', 'STKaiti', 'AR PL UKai CN', 'AR PL UKai HK', 'AR PL UKai TW', monospace;
+    font-size: 1.5em;
+    color: var(--typing-text-color); /* 动态文字颜色 */
+    white-space: nowrap;
+    overflow: hidden;
+    display: inline-block; /* 确保文本和光标在同一行，且内容居中 */
+    text-align: center;
+    margin: 20px auto 40px;
+    position: relative; /* 确保背景图能定位 */
+    padding: 20px;
+    width: 29em; /* 固定图片宽度 */
+    height: 10em; /* 高度可调整 */
+    background-size: cover;
+    background-position: center center;
+    animation: scrollBackground 20s linear infinite;
+  }
+  
+  /* 背景滚动动画 */
+  @keyframes scrollBackground {
+    0% {
+      background-position: 0 0;
+    }
+    100% {
+      background-position: 100% 0;
+    }
+  }
+  
+  /* 调整头部样式以适应打字效果 */
+  header {
+    position: relative;
+    padding-top: 70px;
+  }
+  
+  /* 光标闪烁效果 */
+  #typing-effect-container::after {
+    content: '';
+    display: inline-block;
+    width: 3px; /* 调整光标宽度 */
+    height: 1.2em; /* 调整光标高度 */
+    background-color: var(--typing-cursor-color); /* 动态光标颜色 */
+    animation: blink 0.8s steps(2, start) infinite; /* 闪烁效果 */
+  }
+  
+  /* 光标闪烁动画 */
+  @keyframes blink {
+    to {
+      visibility: hidden;
+    }
+  }

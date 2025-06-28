@@ -1,0 +1,58 @@
+title: 杨丹阳的赛博小窝 # 网站标题
+author: 杨丹阳 # 下方写的版权信息
+url: https://www.abhinavsaxena.com/moonwalk # root address of the site
+description: > # description of the site (multiple lines allowed)
+  欢迎来到杨丹阳的赛博小窝！
+  <br>
+  这里是杨丹阳的个人博客，主要分享一些计算机科学与技术、个人随笔等内容。
+  <br>
+  Tips: 点击右上角的切换按钮，可以更改深色/浅色模式哦！
+  <br>
+  （本个人网页持续开发中，欢迎关注！）
+
+permalink: /:slug
+
+favicon: "./logo.png" # relative path to site's favicon
+
+twitter:
+    username: abhinav # update or delete this
+    card: summary_large_image
+
+#theme: moonwalk # if you are using GitHub Pages, change it to remote_theme: abhinavs/moonwalk
+remote_theme: abhinavs/moonwalk
+
+theme_config:
+  appearance: "dark" # can be "light", "dark" or "auto"
+  appearance_toggle: true # if appearance can be switched by user
+  back_home_text: "返回主页" # customize text for homepage link in post layout 返回主页的文字
+  date_format: "%Y-%m-%d" # customize how date is formatted
+  show_description: true # show blog description
+  show_navbar: true # show horizontal navbar
+  show_footer: true # show footer links in home page,add in _data/home.yml
+  show_copyright: true # show copyright notice in footer
+  # following keys are using to create home layout
+  show_projects: true # show projects as cards, add in _data/home.yml
+  show_blog: true # show blog posts added in _posts
+  show_old_projects: true # show old projects as cards, add in _data/home.yml
+  show_misc_list: false # show generic vertical list for misc details, add _data/home.yml
+  show_reading_time: false # show number of words and reading time in the blog posts
+  show_tags: true # show tags in a blog posts
+  # 修改 "home" page 中的标题
+  home:
+    title_projects: 你好，世界！
+    title_misc_list: Details
+    title_blog: 文海泛舟
+    title_old_projects: 代码仓库
+    title_link_contact: 与我联系！
+
+soopr:
+  publish_token: "" # sign up at https://www.soopr.co to get your publish token and personalize share and reaction options
+
+highlighter: rouge
+
+sass:
+  style: :compressed
+
+plugins:
+  - jekyll-feed
+  - jekyll-soopr-seo-tag
