@@ -417,6 +417,58 @@
             }
         }
 
+        /* 超小屏幕优化 */
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr; /* 单列布局 */
+                gap: 30px;
+                padding: 0 10px;
+            }
+            
+            .stat-item {
+                padding: 15px;
+                border-bottom: 1px solid #eee;
+            }
+            
+            .stat-item:last-child {
+                border-bottom: none;
+            }
+            
+            .stat-number {
+                font-size: 2.2rem;
+            }
+            
+            .stat-label {
+                font-size: 1rem;
+            }
+            
+            .stats-section {
+                padding: 30px 15px;
+                margin: 40px 10px;
+            }
+            
+            .stats-section h2 {
+                font-size: 2rem !important;
+                margin-bottom: 30px !important;
+            }
+        }
+
+        /* 极小屏幕（小于360px）进一步优化 */
+        @media (max-width: 360px) {
+            .stat-number {
+                font-size: 2rem;
+            }
+            
+            .stat-label {
+                font-size: 0.9rem;
+            }
+            
+            .stats-section {
+                padding: 25px 10px;
+                margin: 30px 5px;
+            }
+        }
+
         /* 动画效果 */
         @keyframes fadeInUp {
             from {
