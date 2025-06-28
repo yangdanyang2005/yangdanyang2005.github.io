@@ -116,7 +116,7 @@ misc_entries:
 
 # 额外添加的HTML文件
 blog_entries:
-  - title: "2025-06-27-羊楼洞茶产业的发展与宣传实习"
+  - title: "羊楼洞茶产业的发展与宣传实习"
     url: "project/20250627_yangloudong/index.html"
     date: "2025-06-27"
     external: true  # 标记为外部链接，会在新标签页打开
