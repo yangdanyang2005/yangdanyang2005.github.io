@@ -504,14 +504,14 @@
             margin: 0 auto; /* 居中对齐 */
         }
 
-        /* 确保在大屏幕上最多显示4列 */
+        /* 确保在大屏幕上最多显示3列 */
         @media (min-width: 1200px) {
             .results-grid {
-                grid-template-columns: repeat(4, 1fr);
+                grid-template-columns: repeat(3, 1fr);
             }
         }
 
-        /* 在中等屏幕上显示2-3列 */
+        /* 在中等屏幕上显示2列 */
         @media (max-width: 1199px) and (min-width: 768px) {
             .results-grid {
                 grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -891,6 +891,21 @@
                     <p>建立羊楼洞茶产业宣传网站，整合历史文化、产品信息、购买渠道等内容，构建数字化宣传矩阵。</p>
                     <a href="index.html" class="result-link">访问网站</a>
                 </div>
+                <div class="result-card">
+                    <div class="icon">📝</div>
+                    <h3>在线问卷调查</h3>
+                    <p>您的意见对我们至关重要！请花几分钟填写我们的调查问卷，帮助我们更好地了解公众对羊楼洞茶文化的看法。</p>
+                    <a href="https://docs.qq.com/form/page/DSFJ3Z1NzQW9sbXJV#/fill-detail" class="result-link" target="_blank">参与问卷</a>
+                    <!--  target="_blank" 的意思是在新窗口中打开链接 -->
+                </div>
+                <div class="result-card">
+                    <div class="icon">🤖</div>
+                    <h3>智能交互助手</h3>
+                    <p>与我们的智能助手互动，探索羊楼洞青砖茶的奥秘。它可以回答您关于历史、工艺和文化的问题。</p>
+                    <a href="https://appbuilder.bce.baidu.com/ai_apaas/share/home?_=1750664019141&short_code=NdS-mLnY1MY" class="result-link" target="_blank">开始体验</a>
+                    <!--  target="_blank" 的意思是在新窗口中打开链接 -->
+                </div>
+
             </div>
         </section>
 
