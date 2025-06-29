@@ -650,6 +650,7 @@
                 const navDotsContainer = carouselContainer.querySelector('.carousel-nav-dots');
 
                 let currentIndex = 0;
+                let autoPlayInterval; // 添加变量来存储计时器
 
                 function createDots() {
                     slides.forEach((_, index) => {
@@ -658,7 +659,10 @@
                         if (index === 0) {
                             dot.classList.add('active');
                         }
-                        dot.addEventListener('click', () => goToSlide(index));
+                        dot.addEventListener('click', () => {
+                            goToSlide(index);
+                            resetAutoPlay(); // 用户手动点击后重置计时器
+                        });
                         navDotsContainer.appendChild(dot);
                     });
                 }
@@ -690,13 +694,40 @@
                     goToSlide(currentIndex - 1);
                 }
 
+                // 启动自动播放
+                function startAutoPlay() {
+                    autoPlayInterval = setInterval(showNextSlide, 4000);
+                }
+
+                // 停止自动播放
+                function stopAutoPlay() {
+                    if (autoPlayInterval) {
+                        clearInterval(autoPlayInterval);
+                        autoPlayInterval = null;
+                    }
+                }
+
+                // 重置自动播放（停止当前计时器并重新开始）
+                function resetAutoPlay() {
+                    stopAutoPlay();
+                    startAutoPlay();
+                }
+
                 if (slides.length > 1) { // 只有在有多个幻灯片时才启用轮换播放图片
                     createDots();
-                    prevButton.addEventListener('click', showPrevSlide);
-                    nextButton.addEventListener('click', showNextSlide);
+                    
+                    prevButton.addEventListener('click', () => {
+                        showPrevSlide();
+                        resetAutoPlay(); // 用户手动点击后重置计时器
+                    });
+                    
+                    nextButton.addEventListener('click', () => {
+                        showNextSlide();
+                        resetAutoPlay(); // 用户手动点击后重置计时器
+                    });
 
-                    // 可选项：自动轮换播放，时间单位是毫秒
-                    setInterval(showNextSlide, 4000); 
+                    // 启动自动播放
+                    startAutoPlay();
                 } else { // 如果只有一张图片，则隐藏按钮和圆点
                     prevButton.style.display = 'none';
                     nextButton.style.display = 'none';

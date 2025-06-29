@@ -498,9 +498,33 @@
 
         .results-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 30px;
+            max-width: 1200px; /* 限制最大宽度 */
+            margin: 0 auto; /* 居中对齐 */
         }
+
+        /* 确保在大屏幕上最多显示4列 */
+        @media (min-width: 1200px) {
+            .results-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        /* 在中等屏幕上显示2-3列 */
+        @media (max-width: 1199px) and (min-width: 768px) {
+            .results-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            }
+        }
+
+        /* 在小屏幕上显示1列 */
+        @media (max-width: 767px) {
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
 
         .result-card {
             background: white;
@@ -637,8 +661,8 @@
     </nav>
 
     <header class="page-header">
-        <h1>实践历程</h1>
-        <p>武汉大学与香港理工大学联合生产实践活动 · 羊楼洞茶产业发展与宣传研究</p>
+        <h1>生产实践（服务学习）课程实践活动</h1>
+        <p>武汉大学 x 香港理工大学 · 羊楼洞茶产业发展与宣传研究</p>
     </header>
 
     <main class="main-content">
@@ -819,8 +843,8 @@
                     <div class="role">调研报告、问卷设计、网站制作</div>
                 </div>
                 <div class="team-member">
-                    <div class="avatar">周</div>
-                    <!-- <h3>周煜晖</h3> -->
+                    <!-- <div class="avatar">周</div> -->
+                    <h3>周煜晖</h3>
                     <div class="school">武汉大学</div>
                     <div class="role">PPT制作、海报设计、视觉设计</div>
                 </div>
@@ -877,7 +901,7 @@
             
             <p>作为新时代的大学生，我们有责任用所学知识服务社会发展，在实践中受教育、长才干、作贡献。羊楼洞茶产业的发展不仅是经济意义上的产业振兴，更是文化意义上的传承创新。我们将继续关注和支持羊楼洞茶产业的发展，为传统文化的传承创新贡献青年力量。</p>
 
-            <p>这次实习让我们深刻体会到了"纸上得来终觉浅，绝知此事要躬行"的道理。只有深入实地，才能真正了解产业发展的实际情况；只有与一线工作者交流，才能准确把握市场需求和发展痛点。我们将把这次实习的收获转化为今后学习和工作的动力，为中华优秀传统文化的传承发展贡献更多力量。</p>
+            <p>这次实习让我们深刻体会到了“纸上得来终觉浅，绝知此事要躬行”的道理。只有深入实地，才能真正了解产业发展的实际情况；只有与一线工作者交流，才能准确把握市场需求和发展痛点。我们将把这次实习的收获转化为今后学习和工作的动力，为中华优秀传统文化的传承发展贡献更多力量。</p>
         </section>
     </main>
 
@@ -1020,6 +1044,7 @@
                 });
             });
 
+
             // ==================== 请用此代码块替换旧的“时间线内容展开/收起”功能 ====================
 
             const timelineContents = document.querySelectorAll('.timeline-content');
@@ -1037,14 +1062,13 @@
 
                     // 2. 解析文件名，提取序号和说明文字，并排序
                     const slidesData = dayFiles.map(file => {
-                        // 移除 .png 后缀，然后按 '-' 分割
                         const parts = file.slice(0, -4).split('-');
                         return {
-                            order: parseInt(parts[1], 10), // 第二部分是序号
-                            caption: parts.slice(2).join('-'), // 第三部分及之后的是说明文字
+                            order: parseInt(parts[1], 10),
+                            caption: parts.slice(2).join('-'),
                             src: `assets/img/practice_log/${file}`
                         };
-                    }).sort((a, b) => a.order - b.order); // 按序号升序排列
+                    }).sort((a, b) => a.order - b.order);
 
                     // 3. 动态生成 HTML
                     imageContainer.innerHTML = slidesData.map((data, index) => `
@@ -1071,21 +1095,43 @@
                     const prevBtn = carouselContainer.querySelector('.carousel-prev');
                     const nextBtn = carouselContainer.querySelector('.carousel-next');
                     let currentIndex = 0;
+                    let autoPlayInterval; // 用于存放 setInterval 的ID
 
                     const showSlide = (index) => {
                         slides.forEach((slide, i) => slide.classList.toggle('active', i === index));
+                    };
+
+                    // 启动自动播放
+                    const startAutoPlay = () => {
+                        clearInterval(autoPlayInterval); // 先清除已有的计时器，防止重复
+                        autoPlayInterval = setInterval(() => {
+                            currentIndex = (currentIndex + 1) % slides.length;
+                            showSlide(currentIndex);
+                        }, 4000); // 每4秒翻页
+                    };
+
+                    // 重置自动播放计时器
+                    const resetAutoPlay = () => {
+                        startAutoPlay();
+                    };
+
+                    // 停止自动播放
+                    const stopAutoPlay = () => {
+                        clearInterval(autoPlayInterval);
                     };
 
                     prevBtn.addEventListener('click', (e) => {
                         e.stopPropagation();
                         currentIndex = (currentIndex - 1 + slides.length) % slides.length;
                         showSlide(currentIndex);
+                        resetAutoPlay(); // 用户手动操作后重置计时
                     });
 
                     nextBtn.addEventListener('click', (e) => {
                         e.stopPropagation();
                         currentIndex = (currentIndex + 1) % slides.length;
                         showSlide(currentIndex);
+                        resetAutoPlay(); // 用户手动操作后重置计时
                     });
 
                     toggleBtn.addEventListener('click', function() {
@@ -1093,6 +1139,12 @@
                         highlights.style.display = isHidden ? 'block' : 'none';
                         this.textContent = isHidden ? '收起详情' : '查看详情';
                         this.style.backgroundColor = isHidden ? '#004c26' : 'var(--primary-color)';
+
+                        if (isHidden) {
+                            startAutoPlay(); // 展开时开始自动播放
+                        } else {
+                            stopAutoPlay(); // 收起时停止自动播放
+                        }
                     });
 
                     toggleBtn.addEventListener('mouseenter', function() {
@@ -1106,6 +1158,7 @@
             });
 
             // ==================== 替换到此结束 ====================
+
 
 
             // 平滑滚动到顶部功能
