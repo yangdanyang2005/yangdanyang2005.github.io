@@ -585,6 +585,34 @@
             font-size: 0.9rem;
         }
 
+        /* --- 返回按钮 --- */
+        .back-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--primary-color);
+            color: white;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,104,55,0.3);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 1000;
+        }
+
+        .back-button:hover {
+            background: #004c26;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,104,55,0.4);
+            color: white;
+        }
+
         /* --- 响应式设计 --- */
         @media (max-width: 768px) {
             .page-header h1 {
@@ -920,6 +948,14 @@
         </section>
     </main>
 
+    <!-- 在 footer 前添加返回按钮 -->
+    <a href="index.html" class="back-button">
+        <span>←</span> 返回首页
+    </a>
+
+    <footer class="footer">
+
+
     <footer class="footer">
         <div class="footer-content">
             <p>武汉大学遥感信息工程学院 × 香港理工大学</p>
@@ -1182,7 +1218,7 @@
             scrollToTopBtn.className = 'scroll-to-top';
             scrollToTopBtn.style.cssText = `
                 position: fixed;
-                bottom: 30px;
+                bottom: 120px;   /* 避免与现有的返回首页的按钮重叠 */
                 right: 30px;
                 width: 50px;
                 height: 50px;

@@ -381,6 +381,63 @@
             margin-top: 15px;
         }
 
+        /* --- 实践活动入口按钮 --- */
+        .practice-entry-btn {
+            display: inline-block;
+            background-color: white;
+            color: var(--primary-color);
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255,255,255,0.3);
+        }
+
+        .practice-entry-btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255,255,255,0.4);
+        }
+
+        #practice-entry .section-title::after {
+            background-color: white;
+        }
+        
+        /* 返回顶部按钮 */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--primary-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border: none;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,104,55,0.3);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: #004c26;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,104,55,0.4);
+        }
 
 
         /* --- 响应式设计 --- */
@@ -573,7 +630,22 @@
                 </div>
             </div>
         </section>
+    
+        <!-- 实践活动入口 -->
+        <section id="practice-entry" class="section" style="background-color: var(--primary-color); color: white;">
+            <div style="text-align: center;">
+                <h2 class="section-title" style="color: white;">实践活动</h2>
+                <p style="font-size: 1.2rem; margin-bottom: 30px;">了解我们的实地调研历程与成果展示</p>
+                <a href="practice_log.html" class="practice-entry-btn">查看实践历程</a>
+            </div>
+        </section>
+
     </main>
+
+    <!-- 返回顶部按钮 -->
+    <button class="back-to-top" id="backToTop" title="返回顶部">
+        ↑
+    </button>
 
     <footer id="contact" class="footer">
         <div class="footer-content">
@@ -596,6 +668,9 @@
             <p>使用手机扫描二维码访问本网站</p>
         </div>
     </div>
+
+
+
 
 
     <script>
@@ -774,6 +849,28 @@
                 qrModal.style.display = 'none';
             }
         });
+    
+        // 返回顶部功能
+        const backToTopBtn = document.getElementById('backToTop');
+
+        // 监听滚动事件
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTopBtn.classList.add('show');
+            } else {
+                backToTopBtn.classList.remove('show');
+            }
+        });
+
+        // 点击返回顶部
+        backToTopBtn.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+    
     </script>
 
 </body>

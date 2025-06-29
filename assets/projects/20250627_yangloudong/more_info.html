@@ -426,6 +426,39 @@
             margin-top: 60px;
         }
 
+        /* 返回顶部按钮 */
+        .back-to-top {
+            position: fixed;
+            bottom: 120px; /* 避免与现有的返回首页的按钮重叠 */
+            right: 30px;
+            background: var(--primary-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border: none;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,104,55,0.3);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: #004c26;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,104,55,0.4);
+        }
 
         /* 响应式设计 */
         @media (max-width: 1024px) {
@@ -729,6 +762,12 @@
         </div>
     </section>
 
+    <!-- 返回顶部按钮 -->
+    <button class="back-to-top" id="backToTop" title="返回顶部">
+        ↑
+    </button>
+
+    <!-- 返回首页按钮 -->
     <a href="index.html" class="back-button">
         <span>←</span> 返回首页
     </a>
@@ -776,6 +815,31 @@
                     navbar.style.backgroundColor = 'rgba(0, 104, 55, 0.95)';
                 }
             });
+
+
+            // 返回顶部功能
+            const backToTopBtn = document.getElementById('backToTop');
+
+            // 监听滚动事件
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    backToTopBtn.classList.add('show');
+                } else {
+                    backToTopBtn.classList.remove('show');
+                }
+            });
+
+            // 点击返回顶部
+            backToTopBtn.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
+
+
+
         });
     </script>
 </body>
