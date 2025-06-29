@@ -216,6 +216,7 @@
             background-color: inherit;
             width: 50%;
             margin-bottom: 40px;
+            box-sizing: border-box;
         }
 
         .timeline-item::after {
@@ -223,24 +224,33 @@
             position: absolute;
             width: 20px;
             height: 20px;
-            right: -10px;
             background-color: var(--primary-color);
             border: 4px solid white;
-            top: 30px;
             border-radius: 50%;
             z-index: 1;
+            top: 30px;
+        }
+
+        .timeline-item.left::after {
+            left: 100%;
+            transform: translateX(-50%);
+        }
+
+        .timeline-item.right::after {
+            left: 0;
+            transform: translateX(-50%);
         }
 
         .timeline-item.left {
             left: 0;
+            padding-right: 60px; /* 为左侧内容留出圆点和线之间的空间 */
+            text-align: right; /* 让内容向右对齐，与圆点对齐 */
         }
 
         .timeline-item.right {
             left: 50%;
-        }
-
-        .timeline-item.right::after {
-            left: -10px;
+            padding-left: 60px; /* 为右侧内容留出圆点和线之间的空间 */
+            text-align: left; /* 让内容向左对齐，与圆点对齐 */
         }
 
         .timeline-content {
@@ -458,21 +468,24 @@
             }
 
             .timeline::after {
-                left: 31px;
-            }
+                    left: 20px; /* 与 more_history.html 保持一致 */
+                }
 
             .timeline-item {
                 width: 100%;
-                padding-left: 70px;
-                padding-right: 25px;
+                padding-left: 60px; /* 调整左边距以适应新的圆点定位 */
+                padding-right: 20px; /* 调整右边距 */
             }
 
             .timeline-item::after {
-                left: 21px;
+                left: 20px; /* 让圆点与主线对齐 */
+                transform: translateX(-50%); /* 确保圆点中心对齐 */
             }
 
+            .timeline-item.left, /* 小屏幕下都靠左 */
             .timeline-item.right {
-                left: 0%;
+                left: 0;
+                text-align: left; /* 小屏幕下内容都左对齐 */
             }
 
             .overview-grid,
