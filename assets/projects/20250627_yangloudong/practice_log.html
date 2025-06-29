@@ -311,6 +311,114 @@
         .timeline-highlights li {
             margin-bottom: 8px;
         }
+        
+        /* --- 轮播图样式 --- */
+        .carousel-container {
+            position: relative;
+            max-width: 100%;
+            margin: 20px 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .carousel-images {
+            position: relative;
+            width: 100%;
+            height: 300px; /* 固定高度 */
+        }
+
+        .carousel-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .carousel-slide.active {
+            opacity: 1;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 70%; /* 图片占70%高度 */
+            object-fit: cover;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .carousel-caption {
+            padding: 15px;
+            background: white;
+            color: var(--text-color);
+            font-size: 0.9rem;
+            line-height: 1.4;
+            text-align: center;
+            height: 30%; /* 文字占30%高度 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            border-radius: 0 0 8px 8px;
+        }
+
+        .carousel-prev,
+        .carousel-next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 104, 55, 0.8);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-prev {
+            left: 10px;
+        }
+
+        .carousel-next {
+            right: 10px;
+        }
+
+        .carousel-prev:hover,
+        .carousel-next:hover {
+            background: rgba(0, 104, 55, 1);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .carousel-images {
+                height: 250px;
+            }
+            
+            .carousel-prev,
+            .carousel-next {
+                width: 35px;
+                height: 35px;
+                font-size: 1.2rem;
+            }
+            
+            .carousel-caption {
+                font-size: 0.8rem;
+                padding: 10px;
+            }
+        }
 
         /* --- 团队成员 --- */
         .team-section {
@@ -583,6 +691,17 @@
                                 <li>初步了解青砖茶制作工艺和文化内涵</li>
                                 <li>踩点羊楼洞古镇，为后续拍摄做准备</li>
                             </ul>
+
+                            <!-- ======== 滚动图片 ======== -->
+                            <div class="carousel-container" data-day="1">
+                                <div class="carousel-images">
+                                    <!-- 内容将由 JavaScript 自动填充 -->
+                                </div>
+                                <!-- 左右切换按钮 -->
+                                <button class="carousel-prev">‹</button>
+                                <button class="carousel-next">›</button>
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -603,6 +722,17 @@
                                 <li>亲手体验采茶过程，感受茶农辛勤劳动</li>
                                 <li>无人机航拍茶园美景，收集宣传素材</li>
                             </ul>
+
+                            <!-- ======== 滚动图片 ======== -->
+                            <div class="carousel-container" data-day="2">
+                                <div class="carousel-images">
+                                    <!-- 内容将由 JavaScript 自动填充 -->
+                                </div>
+                                <!-- 左右切换按钮 -->
+                                <button class="carousel-prev">‹</button>
+                                <button class="carousel-next">›</button>
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -623,6 +753,17 @@
                                 <li>走访古镇商户，深入了解市场现状</li>
                                 <li>采访茶店老板，收集消费者反馈</li>
                             </ul>
+
+                            <!-- ======== 滚动图片 ======== -->
+                            <div class="carousel-container" data-day="3">
+                                <div class="carousel-images">
+                                    <!-- 内容将由 JavaScript 自动填充 -->
+                                </div>
+                                <!-- 左右切换按钮 -->
+                                <button class="carousel-prev">‹</button>
+                                <button class="carousel-next">›</button>
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -643,6 +784,18 @@
                                 <li>整理实习素材，制作宣传作品</li>
                                 <li>总结实习收获，撰写调研报告</li>
                             </ul>
+
+                            <!-- ======== 滚动图片 ======== -->
+                            <div class="carousel-container" data-day="4">
+                                <div class="carousel-images">
+                                    <!-- 内容将由 JavaScript 自动填充 -->
+                                </div>
+                                <!-- 左右切换按钮 -->
+                                <button class="carousel-prev">‹</button>
+                                <button class="carousel-next">›</button>
+                            </div>
+
+
                         </div>
                     </div>
                 </div>
@@ -654,31 +807,31 @@
             <h2>团队成员</h2>
             <div class="team-grid">
                 <div class="team-member">
-                    <div class="avatar">易</div>
+                    <!-- <div class="avatar">易</div> -->
                     <h3>易星辰</h3>
                     <div class="school">武汉大学</div>
                     <div class="role">项目协调、视频拍摄、成果汇报</div>
                 </div>
                 <div class="team-member">
-                    <div class="avatar">杨</div>
+                    <!-- <div class="avatar">杨</div> -->
                     <h3>杨丹阳</h3>
                     <div class="school">武汉大学</div>
                     <div class="role">调研报告、问卷设计、网站制作</div>
                 </div>
                 <div class="team-member">
                     <div class="avatar">周</div>
-                    <h3>周煜晖</h3>
+                    <!-- <h3>周煜晖</h3> -->
                     <div class="school">武汉大学</div>
                     <div class="role">PPT制作、海报设计、视觉设计</div>
                 </div>
                 <div class="team-member">
-                    <div class="avatar">陆</div>
+                    <!-- <div class="avatar">陆</div> -->
                     <h3>陆嘉翔</h3>
                     <div class="school">香港理工大学</div>
                     <div class="role">视频剪辑、文创设计、创意策划</div>
                 </div>
                 <div class="team-member">
-                    <div class="avatar">黄</div>
+                    <!-- <div class="avatar">黄</div> -->
                     <h3>黄亮恒</h3>
                     <div class="school">香港理工大学</div>
                     <div class="role">视频剪辑、文创设计、创意策划</div>
@@ -739,6 +892,44 @@
     </footer>
 
     <script>
+
+        // 请在这里列出所有 practice_log 文件夹下的需要参与轮播的图片文件名
+        const allImageFiles = [
+
+            // 第1天的图片
+            "1-1-中国（赤壁）中试谷智能无人系统测试基地.png",
+            "1-2-在工作人员的带领下参观中国（赤壁）中试谷智能无人系统测试基地.png",
+            "1-3-听工作人员介绍中试谷正在测试的自动化矿车.png",
+            "1-4-全班同学在中试谷大门的合影.png",
+            "1-5-羊楼洞抗美援朝烈士陵园.png",
+            "1-6-在羊楼洞抗美援朝烈士陵园听老师为我们介绍革命先烈的事迹.png",
+            "1-7-在青砖茶未来展示馆中听非物质文化遗产传承人为我们介绍赤壁青砖茶的历史与制作工艺.png",
+            "1-8-羊楼洞古镇.png",
+
+            // 第2天的图片
+            "2-1-赵李桥茶厂.png",
+            "2-2-赵李桥茶厂的魏董事长接受我们的采访.png",
+            "2-3-在工作人员的带领下参观制茶的各个流程的生产车间.png",
+            "2-4-亲自体验采摘青砖茶.png",
+            "2-5-在青砖茶的原料茶厂使用无人机拍摄素材.png",
+
+            // 第3天的图片
+            "3-1-茶艺竞赛.png",
+            "3-2-制茶竞赛.png",
+            "3-3-傍晚的羊楼洞古镇.png",
+            "3-4-游览羊楼洞古镇中的特色店铺.png",
+            "3-5-采访羊楼洞小镇中的一名茶店老板.png",
+            
+            // 第4天的图片
+            "4-1-雷家大院.png",
+            "4-2-雷家大院古建筑内部.png",
+            "4-3-雷家大院中的天井.png",
+            "4-4-在雷家大院门口拍摄的小组合影.png",
+        ];
+
+    // ======== png列表结束 ========
+
+
         // JavaScript 部分
         document.addEventListener('DOMContentLoaded', function() {
             // 页面加载动画
@@ -829,54 +1020,93 @@
                 });
             });
 
-            // 时间线内容展开/收起功能（可选）
+            // ==================== 请用此代码块替换旧的“时间线内容展开/收起”功能 ====================
+
             const timelineContents = document.querySelectorAll('.timeline-content');
             timelineContents.forEach(content => {
                 const highlights = content.querySelector('.timeline-highlights');
-                if (highlights) {
+                const carouselContainer = highlights ? highlights.querySelector('.carousel-container') : null;
+
+                // 只为包含轮播图的区块添加“查看详情”按钮
+                if (highlights && carouselContainer) {
+                    const day = carouselContainer.dataset.day;
+                    const imageContainer = carouselContainer.querySelector('.carousel-images');
+
+                    // 1. 筛选出当天所有图片文件
+                    const dayFiles = allImageFiles.filter(file => file.startsWith(day + '-'));
+
+                    // 2. 解析文件名，提取序号和说明文字，并排序
+                    const slidesData = dayFiles.map(file => {
+                        // 移除 .png 后缀，然后按 '-' 分割
+                        const parts = file.slice(0, -4).split('-');
+                        return {
+                            order: parseInt(parts[1], 10), // 第二部分是序号
+                            caption: parts.slice(2).join('-'), // 第三部分及之后的是说明文字
+                            src: `assets/img/practice_log/${file}`
+                        };
+                    }).sort((a, b) => a.order - b.order); // 按序号升序排列
+
+                    // 3. 动态生成 HTML
+                    imageContainer.innerHTML = slidesData.map((data, index) => `
+                        <div class="carousel-slide ${index === 0 ? 'active' : ''}">
+                            <img src="${data.src}" alt="${data.caption}">
+                            <p class="carousel-caption">${data.caption}</p>
+                        </div>
+                    `).join('');
+
+                    // --- 以下是按钮和交互逻辑 ---
                     const toggleBtn = document.createElement('button');
                     toggleBtn.textContent = '查看详情';
                     toggleBtn.className = 'toggle-btn';
                     toggleBtn.style.cssText = `
-                        background: var(--primary-color);
-                        color: white;
-                        border: none;
-                        padding: 8px 16px;
-                        border-radius: 4px;
-                        cursor: pointer;
-                        font-size: 0.9rem;
-                        margin-top: 15px;
-                        transition: background-color 0.3s;
+                        background: var(--primary-color); color: white; border: none;
+                        padding: 8px 16px; border-radius: 4px; cursor: pointer;
+                        font-size: 0.9rem; margin-top: 15px; transition: background-color 0.3s;
                     `;
                     
                     highlights.style.display = 'none';
                     content.insertBefore(toggleBtn, highlights);
                     
-                    toggleBtn.addEventListener('click', function() {
-                        if (highlights.style.display === 'none') {
-                            highlights.style.display = 'block';
-                            this.textContent = '收起详情';
-                            this.style.backgroundColor = '#004c26';
-                        } else {
-                            highlights.style.display = 'none';
-                            this.textContent = '查看详情';
-                            this.style.backgroundColor = 'var(--primary-color)';
-                        }
+                    const slides = carouselContainer.querySelectorAll('.carousel-slide');
+                    const prevBtn = carouselContainer.querySelector('.carousel-prev');
+                    const nextBtn = carouselContainer.querySelector('.carousel-next');
+                    let currentIndex = 0;
+
+                    const showSlide = (index) => {
+                        slides.forEach((slide, i) => slide.classList.toggle('active', i === index));
+                    };
+
+                    prevBtn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+                        showSlide(currentIndex);
                     });
-                    
+
+                    nextBtn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        currentIndex = (currentIndex + 1) % slides.length;
+                        showSlide(currentIndex);
+                    });
+
+                    toggleBtn.addEventListener('click', function() {
+                        const isHidden = highlights.style.display === 'none';
+                        highlights.style.display = isHidden ? 'block' : 'none';
+                        this.textContent = isHidden ? '收起详情' : '查看详情';
+                        this.style.backgroundColor = isHidden ? '#004c26' : 'var(--primary-color)';
+                    });
+
                     toggleBtn.addEventListener('mouseenter', function() {
-                        if (this.textContent === '查看详情') {
-                            this.style.backgroundColor = '#004c26';
-                        }
+                        if (this.textContent === '查看详情') this.style.backgroundColor = '#004c26';
                     });
                     
                     toggleBtn.addEventListener('mouseleave', function() {
-                        if (this.textContent === '查看详情') {
-                            this.style.backgroundColor = 'var(--primary-color)';
-                        }
+                        if (this.textContent === '查看详情') this.style.backgroundColor = 'var(--primary-color)';
                     });
                 }
             });
+
+            // ==================== 替换到此结束 ====================
+
 
             // 平滑滚动到顶部功能
             const scrollToTopBtn = document.createElement('button');
