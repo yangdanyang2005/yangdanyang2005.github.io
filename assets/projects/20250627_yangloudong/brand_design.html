@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>品牌设计作品 - 羊楼洞青砖茶</title>
+    
+    <!-- 标准favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="shortcut icon" href="favicon.ico">
+
+    <style>
+        /* 继承主页样式 */
+        :root {
+            --primary-color: #006837;
+            --secondary-color: #f7f5e6;
+            --text-color: #333;
+            --light-gray: #f4f4f4;
+            --accent-color: #ffc107;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
+            scroll-behavior: smooth;
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* 导航栏样式 */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(0, 104, 55, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            z-index: 1000;
+            transition: background-color 0.3s;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+
+        .nav-logo {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        .nav-item {
+            margin-left: 30px;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-color);
+        }
+
+        /* 页面头部 */
+        .page-header {
+            background: linear-gradient(135deg, rgba(0, 104, 55, 0.9) 0%, rgba(0, 76, 38, 0.7) 100%),
+                        url('assets/img/tea-design-bg.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 120px 20px 60px;
+            text-align: center;
+            position: relative;
+            min-height: 300px;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 104, 55, 0.3);
+            z-index: 1;
+        }
+
+        .page-header h1,
+        .page-header p {
+            position: relative;
+            z-index: 2;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .page-header p {
+            font-size: 1.3rem;
+            margin: 0;
+            opacity: 0.9;
+        }
+
+        /* 主要内容区域 */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        /* 设计作品展示区域 */
+        .design-section {
+            margin-bottom: 80px;
+        }
+
+        .section-title {
+            text-align: center;
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--primary-color);
+            border-radius: 2px;
+        }
+
+        /* 单个作品展示布局 */
+        .design-showcase {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            margin-bottom: 60px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .design-showcase:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        /* 左右布局 */
+        .design-content-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            min-height: 500px;
+        }
+
+        .design-image-large {
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            cursor: pointer;
+            min-height: 500px;
+        }
+
+        .design-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 104, 55, 0.8);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .design-image-large:hover .design-overlay {
+            opacity: 1;
+        }
+
+        .design-content-large {
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .design-title {
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .design-description {
+            margin-bottom: 30px;
+            line-height: 1.8;
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .design-features {
+            background: var(--light-gray);
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .design-features h4 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .design-features ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .design-features li {
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+
+        .view-button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            align-self: flex-start;
+        }
+
+        .view-button:hover {
+            background: #004c26;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,104,55,0.3);
+        }
+
+        /* 大图预览模态框 */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+        }
+
+        .modal-content {
+            position: relative;
+            margin: auto;
+            padding: 20px;
+            width: 90%;
+            max-width: 1000px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .modal-image {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: var(--accent-color);
+        }
+
+        /* 返回按钮 */
+        .back-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--primary-color);
+            color: white;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,104,55,0.3);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 1000;
+        }
+
+        .back-button:hover {
+            background: #004c26;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,104,55,0.4);
+            color: white;
+        }
+
+        /* 页脚 */
+        .footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 60px;
+        }
+
+        .footer p {
+            margin: 10px 0;
+            font-size: 0.9rem;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 2.2rem;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .design-content-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .design-image-large {
+                min-height: 300px;
+            }
+
+            .design-content-large {
+                padding: 30px;
+            }
+
+            .design-title {
+                font-size: 1.5rem;
+            }
+
+            .modal-content {
+                width: 95%;
+                padding: 10px;
+            }
+        }
+
+        /* 动画效果 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        /* 设计理念区域样式 */
+        .design-concept {
+            background: white;
+            border-radius: 15px;
+            padding: 50px 40px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            margin-bottom: 60px;
+        }
+
+        .concept-title {
+            color: var(--primary-color);
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 40px;
+        }
+
+        .concept-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .concept-item h3 {
+            color: var(--primary-color);
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+
+        .concept-item p {
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        /* 返回顶部按钮 */
+        .back-to-top {
+            position: fixed;
+            bottom: 120px; /* 避免与现有的返回主页的按钮重叠 */
+            right: 30px;
+            background: var(--primary-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border: none;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,104,55,0.3);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: #004c26;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,104,55,0.4);
+        }
+
+        /* 为了更好的用户体验，添加平滑滚动 */
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">羊楼洞 · 青砖茶</a>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="index.html#history" class="nav-link">历史渊源</a></li>
+                <li class="nav-item"><a href="index.html#features" class="nav-link">茶品特色</a></li>
+                <li class="nav-item"><a href="index.html#industry" class="nav-link">产业现状</a></li>
+                <li class="nav-item"><a href="index.html#promotion" class="nav-link">品牌宣传</a></li>
+                <li class="nav-item"><a href="practice_log.html" class="nav-link">实践活动</a></li>
+                <li class="nav-item"><a href="index.html" class="nav-link">返回首页</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <h1>品牌设计作品展示</h1>
+        <p>传承千年茶文化 · 创新现代设计理念</p>
+    </header>
+
+    <main class="main-content">
+        <!-- 宣传海报设计 -->
+        <section class="design-section">
+            <h2 class="section-title">宣传海报设计</h2>
+            <div class="design-showcase fade-in">
+                <div class="design-content-wrapper">
+                    <div class="design-image-large" style="background-image: url('res/poster.jpg')" onclick="openModal('res/poster.jpg')">
+                        <div class="design-overlay">点击查看大图</div>
+                    </div>
+                    <div class="design-content-large">
+                        <h3 class="design-title">羊楼洞茶文化宣传海报</h3>
+                        <p class="design-description">
+                            以羊楼洞古镇的历史建筑为背景，融合传统青砖茶元素，展现千年茶文化的深厚底蕴。采用中国传统色彩搭配，营造古朴典雅的视觉效果，突出"万里茶道"的历史地位。
+                        </p>
+                        <div class="design-features">
+                            <h4>设计特色</h4>
+                            <ul>
+                                <li>融合古镇建筑与茶文化元素</li>
+                                <li>突出"万里茶道"历史地位</li>
+                                <li>现代排版与古典韵味结合</li>
+                            </ul>
+                        </div>
+                        <a href="res/poster.jpg" class="view-button" target="_blank">查看高清原图</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 文创产品设计 -->
+        <section class="design-section">
+            <h2 class="section-title">文创产品设计</h2>
+            <div class="design-showcase fade-in">
+                <div class="design-content-wrapper">
+                    <div class="design-content-large">
+                        <h3 class="design-title">青砖茶文创产品系列</h3>
+                        <p class="design-description">
+                            这是我们设计的青砖茶文创形象，融合了传统文化元素与现代审美。
+                        </p>
+                        <div class="design-features">
+                            <h4>设计特色</h4>
+                            <ul>
+                                <li>传统与现代元素结合</li>
+                                <li>突出产品差异化特征</li>
+                                <li>具有文化和宣传价值</li>
+                            </ul>
+                        </div>
+                        <a href="res/cultural.jpg" class="view-button" target="_blank">查看高清原图</a>
+                    </div>
+                    <div class="design-image-large" style="background-image: url('res/cultural.jpg')" onclick="openModal('res/cultural.jpg')">
+                        <div class="design-overlay">点击查看大图</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 设计理念说明 -->
+        <section class="design-section">
+            <div class="design-concept fade-in">
+                <h2 class="concept-title">设计理念与创新</h2>
+                <div class="concept-grid">
+                    <div class="concept-item">
+                        <h3>文化传承</h3>
+                        <p>我们的设计始终坚持传承羊楼洞千年茶文化的核心理念，将历史文化元素与现代设计手法相结合，让传统文化在新时代焕发生机。通过深入研究古镇历史和茶文化内涵，确保每个设计元素都有其文化根基。</p>
+                    </div>
+                    <div class="concept-item">
+                        <h3>创新表达</h3>
+                        <p>通过现代设计语言重新诠释传统茶文化，运用新颖的视觉表现形式，让年轻消费者更容易接受和喜爱传统文化产品。在保持文化authenticity的同时，注入时代感和现代审美。</p>
+                    </div>
+                    <div class="concept-item">
+                        <h3>品质提升</h3>
+                        <p>所有设计作品都注重品质感的营造，通过精细的工艺要求和高质量的材料选择，提升羊楼洞茶业的整体品牌形象。设计不仅要美观，更要实用，能够真正为品牌价值和市场竞争力做出贡献。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 图片预览模态框 -->
+    <div id="imageModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <img class="modal-image" id="modalImage">
+        </div>
+    </div>
+        
+    <!-- 返回顶部按钮 -->
+    <button class="back-to-top" id="backToTop" title="返回顶部" aria-label="返回页面顶部">
+        ↑
+    </button>
+
+
+    <!-- 返回主页按钮 -->
+    <a href="practice_log.html" class="back-button">
+        <span>←</span> 返回实践活动
+    </a>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>武汉大学遥感信息工程学院 × 香港理工大学 · 品牌设计作品</p>
+            <p>生产实践（服务学习）课程 · 第2小组</p>
+            <p>指导教师：陈江平副教授</p>
+            <hr style="margin: 20px 0; border: none; border-top: 1px solid #666;">
+            <p>网站制作人：杨丹阳 Yang Danyang | 电子邮箱：yangdanyang@whu.edu.cn | 个人主页：<a href="https://yangdanyang2005.github.io" target="_blank" style="color: #ffc107; text-decoration: none;">yangdanyang2005.github.io</a></p>
+            <p>&copy; 2025 武汉大学遥感信息工程学院 生产实践（服务学习）课程第2小组 杨丹阳. 版权所有.</p>
+        </div>
+    </footer>
+
+    <script>
+        // 页面加载动画
+        document.addEventListener('DOMContentLoaded', function() {
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            fadeElements.forEach(element => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(30px)';
+                element.style.transition = 'opacity 0.8s ease-out, transform 0.8s ease-out';
+                observer.observe(element);
+            });
+
+            // 导航栏滚动效果
+            const navbar = document.querySelector('.navbar');
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 100) {
+                    navbar.style.backgroundColor = 'rgba(0, 104, 55, 0.98)';
+                } else {
+                    navbar.style.backgroundColor = 'rgba(0, 104, 55, 0.95)';
+                }
+            });
+        });
+
+        // 图片模态框功能
+        function openModal(imageSrc) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            modal.style.display = 'block';
+            modalImg.src = imageSrc;
+        }
+
+        // 关闭模态框
+        document.querySelector('.close').addEventListener('click', function() {
+            document.getElementById('imageModal').style.display = 'none';
+        });
+
+        // 点击模态框外部关闭
+        window.addEventListener('click', function(event) {
+            const modal = document.getElementById('imageModal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        // 键盘事件支持
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                document.getElementById('imageModal').style.display = 'none';
+            }
+        });
+
+        // 返回顶部功能
+document.addEventListener('DOMContentLoaded', function() {
+    const backToTopBtn = document.getElementById('backToTop');
+    
+    // 使用节流函数优化性能
+    function throttle(func, limit) {
+        let inThrottle;
+        return function() {
+            const args = arguments;
+            const context = this;
+            if (!inThrottle) {
+                func.apply(context, args);
+                inThrottle = true;
+                setTimeout(() => inThrottle = false, limit);
+            }
+        }
+    }
+    
+    // 监听滚动事件（使用节流优化性能）
+    const handleScroll = throttle(function() {
+        if (window.pageYOffset > 300) {
+            backToTopBtn.classList.add('show');
+        } else {
+            backToTopBtn.classList.remove('show');
+        }
+    }, 100);
+    
+    window.addEventListener('scroll', handleScroll);
+    
+    // 点击返回顶部
+    backToTopBtn.addEventListener('click', function() {
+        // 使用现代浏览器的平滑滚动API
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+});
+
+
+        console.log('羊楼洞茶品牌设计作品页面加载完成！');
+    </script>
+</body>
+</html>
