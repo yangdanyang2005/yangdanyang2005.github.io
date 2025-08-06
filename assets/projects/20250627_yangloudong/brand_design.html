@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>品牌设计作品 - 羊楼洞青砖茶</title>
     
-    <!-- 标准favicon -->
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
     <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
@@ -368,6 +367,11 @@
             .design-content-wrapper {
                 grid-template-columns: 1fr;
             }
+            
+            /* 在小屏幕上，将图片放在内容上方 */
+            .design-content-wrapper > .design-image-large {
+                order: -1;
+            }
 
             .design-image-large {
                 min-height: 300px;
@@ -500,7 +504,6 @@
     </header>
 
     <main class="main-content">
-        <!-- 宣传海报设计 -->
         <section class="design-section">
             <h2 class="section-title">宣传海报设计</h2>
             <div class="design-showcase fade-in">
@@ -527,34 +530,61 @@
             </div>
         </section>
 
-        <!-- 文创产品设计 -->
         <section class="design-section">
-            <h2 class="section-title">文创产品设计</h2>
+            <h2 class="section-title">Logo设计</h2>
             <div class="design-showcase fade-in">
                 <div class="design-content-wrapper">
                     <div class="design-content-large">
-                        <h3 class="design-title">青砖茶文创产品系列</h3>
+                        <h3 class="design-title">羊楼洞茶产业Logo</h3>
                         <p class="design-description">
-                            这是我们设计的青砖茶文创形象，融合了传统文化元素与现代审美。
+                            我们为羊楼洞设计的茶产业logo基于自然与人文交融的理念，以清新雅致的绿色为主旋律。logo中心一柄古朴茶壶倾泻茶香，萦绕其间的茶叶与枝叶共同编织出一幅生机盎然的自然画卷，外沿的水墨圆形边框更注入了东方美学的深邃韵味。
                         </p>
                         <div class="design-features">
                             <h4>设计特色</h4>
                             <ul>
-                                <li>传统与现代元素结合</li>
-                                <li>突出产品差异化特征</li>
-                                <li>具有文化和宣传价值</li>
+                                <li>象征生态纯净与健康品质的不懈追求。</li>
+                                <li>致敬古老饮茶传统，隐喻对茶道精神的传承。</li>
+                                <li>呼应从茶园到茶杯的全产业链价值。</li>
+                                <li>展现坚守文化根脉，并以创新姿态拥抱时代的精神。</li>
                             </ul>
                         </div>
-                        <a href="res/cultural.jpg" class="view-button" target="_blank">查看高清原图</a>
+                        <a href="res/logo.png" class="view-button" target="_blank">查看高清原图</a>
                     </div>
-                    <div class="design-image-large" style="background-image: url('res/cultural.jpg')" onclick="openModal('res/cultural.jpg')">
+                    <div class="design-image-large" style="background-image: url('res/logo.png')" onclick="openModal('res/logo.jpg')">
                         <div class="design-overlay">点击查看大图</div>
                     </div>
                 </div>
             </div>
         </section>
+        
+        <section class="design-section">
+            <h2 class="section-title">IP形象设计</h2>
+            <div class="design-showcase fade-in">
+                <div class="design-content-wrapper">
+                    <div class="design-image-large" style="background-image: url('res/cultural.jpg')" onclick="openModal('res/cultural.jpg')">
+                        <div class="design-overlay">点击查看大图</div>
+                    </div>
+                    <div class="design-content-large">
+                        <h3 class="design-title">茶商少女IP形象</h3>
+                        <p class="design-description">
+                            我们设计的IP形象是一位融合羊楼洞地域特色与茶文化精髓的古代茶商少女。她身着传统服饰，仿佛穿越时空而来，生动展现了羊楼洞作为古代茶叶重要贸易集散地的悠久历史底蕴。温和亲切的表情传递出青砖茶温和醇厚的特质，拉近了与消费者的距离。
+                        </p>
+                        <div class="design-features">
+                            <h4>设计特色</h4>
+                            <ul>
+                                <li>深度融合羊楼洞地域特色与茶文化精髓。</li>
+                                <li>形象见证产业辉煌，承载深厚文化底蕴。</li>
+                                <li>服饰色调象征自然与健康，呼应产品属性。</li>
+                                <li>有助于提升品牌亲和力与市场认可度。</li>
+                            </ul>
+                        </div>
+                        <a href="res/cultural.jpg" class="view-button" target="_blank">查看高清原图</a>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-        <!-- 设计理念说明 -->
+
         <section class="design-section">
             <div class="design-concept fade-in">
                 <h2 class="concept-title">设计理念与创新</h2>
@@ -565,7 +595,7 @@
                     </div>
                     <div class="concept-item">
                         <h3>创新表达</h3>
-                        <p>通过现代设计语言重新诠释传统茶文化，运用新颖的视觉表现形式，让年轻消费者更容易接受和喜爱传统文化产品。在保持文化authenticity的同时，注入时代感和现代审美。</p>
+                        <p>通过现代设计语言重新诠释传统茶文化，运用新颖的视觉表现形式，让年轻消费者更容易接受和喜爱传统文化产品。在保持文化真实性的同时，注入时代感和现代审美。</p>
                     </div>
                     <div class="concept-item">
                         <h3>品质提升</h3>
@@ -576,7 +606,6 @@
         </section>
     </main>
 
-    <!-- 图片预览模态框 -->
     <div id="imageModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
@@ -584,13 +613,11 @@
         </div>
     </div>
         
-    <!-- 返回顶部按钮 -->
     <button class="back-to-top" id="backToTop" title="返回顶部" aria-label="返回页面顶部">
         ↑
     </button>
 
 
-    <!-- 返回主页按钮 -->
     <a href="practice_log.html" class="back-button">
         <span>←</span> 返回实践活动
     </a>
