@@ -1,0 +1,1411 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>实践历程</title>
+
+    <!-- 标准favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+
+    <!-- 苹果设备图标 -->
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+
+    <!-- 现代浏览器支持 -->
+    <link rel="shortcut icon" href="favicon.ico">
+
+    <style>
+        /* CSS 部分 */
+        :root {
+            --primary-color: #006837; /* 深绿色 */
+            --secondary-color: #f7f5e6; /* 米白色 */
+            --text-color: #333;
+            --light-gray: #f4f4f4;
+            --accent-color: #ffc107; /* 金色 */
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
+            scroll-behavior: smooth;
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* --- 导航栏 --- */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(0, 104, 55, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            z-index: 1000;
+            transition: background-color 0.3s;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+
+        .nav-logo {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        .nav-item {
+            margin-left: 30px;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-color);
+        }
+
+        /* --- 页面头部 --- */
+        .page-header {
+            background: 
+                linear-gradient(135deg, rgba(0, 104, 55, 0.8) 0%, rgba(0, 76, 38, 0.6) 100%),
+                url('assets/img/practice_log/team-photo.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: white;
+            padding: 120px 20px 60px;
+            text-align: center;
+            position: relative;
+            /* 初始最小高度，防止内容重叠 */
+            min-height: 400px;
+        }
+
+
+        /* 添加一个半透明遮罩确保文字可读性 */
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 104, 55, 0.3);
+            z-index: 1;
+        }
+
+        .page-header h1,
+        .page-header p {
+            position: relative;
+            z-index: 2;
+        }
+
+
+        .page-header p {
+            font-size: 1.3rem;
+            margin: 0;
+            opacity: 0.9;
+        }
+
+        /* --- 主要内容区域 --- */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        /* --- 实习概述 --- */
+        .overview-section {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .overview-section h2 {
+            color: var(--primary-color);
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 10px;
+        }
+
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .overview-card {
+            background: var(--light-gray);
+            padding: 25px;
+            border-radius: 8px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .overview-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .overview-card .icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .overview-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        /* --- 日程时间线 --- */
+        .timeline-section {
+            margin: 60px 0;
+        }
+
+        .timeline-section h2 {
+            text-align: center;
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background-color: var(--primary-color);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+            margin-bottom: 40px;
+            box-sizing: border-box;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: var(--primary-color);
+            border: 4px solid white;
+            border-radius: 50%;
+            z-index: 1;
+            top: 30px;
+        }
+
+        .timeline-item.left::after {
+            left: 100%;
+            transform: translateX(-50%);
+        }
+
+        .timeline-item.right::after {
+            left: 0;
+            transform: translateX(-50%);
+        }
+
+        .timeline-item.left {
+            left: 0;
+            padding-right: 60px; /* 为左侧内容留出圆点和线之间的空间 */
+            text-align: right; /* 让内容向右对齐，与圆点对齐 */
+        }
+
+        .timeline-item.right {
+            left: 50%;
+            padding-left: 60px; /* 为右侧内容留出圆点和线之间的空间 */
+            text-align: left; /* 让内容向左对齐，与圆点对齐 */
+        }
+
+        .timeline-content {
+            padding: 30px;
+            background-color: white;
+            position: relative;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .timeline-date {
+            background: var(--primary-color);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .timeline-title {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .timeline-description {
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+
+        .timeline-highlights {
+            background: var(--light-gray);
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .timeline-highlights h4 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .timeline-highlights ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .timeline-highlights li {
+            margin-bottom: 8px;
+        }
+        
+        /* --- 轮播图样式 --- */
+        .carousel-container {
+            position: relative;
+            max-width: 100%;
+            margin: 20px 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .carousel-images {
+            position: relative;
+            width: 100%;
+            height: 300px; /* 固定高度 */
+        }
+
+        .carousel-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .carousel-slide.active {
+            opacity: 1;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 70%; /* 图片占70%高度 */
+            object-fit: cover;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .carousel-caption {
+            padding: 15px;
+            background: white;
+            color: var(--text-color);
+            font-size: 0.9rem;
+            line-height: 1.4;
+            text-align: center;
+            height: 30%; /* 文字占30%高度 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            border-radius: 0 0 8px 8px;
+        }
+
+        .carousel-prev,
+        .carousel-next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 104, 55, 0.8);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-prev {
+            left: 10px;
+        }
+
+        .carousel-next {
+            right: 10px;
+        }
+
+        .carousel-prev:hover,
+        .carousel-next:hover {
+            background: rgba(0, 104, 55, 1);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .carousel-images {
+                height: 250px;
+            }
+            
+            .carousel-prev,
+            .carousel-next {
+                width: 35px;
+                height: 35px;
+                font-size: 1.2rem;
+            }
+            
+            .carousel-caption {
+                font-size: 0.8rem;
+                padding: 10px;
+            }
+        }
+
+        /* --- 团队成员 --- */
+        .team-section {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            margin: 60px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .team-section h2 {
+            text-align: center;
+            color: var(--primary-color);
+            font-size: 2.2rem;
+            margin-bottom: 40px;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+        }
+
+        .team-member {
+            text-align: center;
+            padding: 25px;
+            background: var(--light-gray);
+            border-radius: 12px;
+            transition: transform 0.3s;
+        }
+
+        .team-member:hover {
+            transform: translateY(-8px);
+        }
+
+        .team-member .avatar {
+            width: 80px;
+            height: 80px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .team-member h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .team-member .school {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .team-member .role {
+            font-size: 0.85rem;
+            color: #888;
+        }
+
+        /* --- 成果展示 --- */
+        .results-section {
+            margin: 60px 0;
+        }
+
+        .results-section h2 {
+            text-align: center;
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1200px; /* 限制最大宽度 */
+            margin: 0 auto; /* 居中对齐 */
+        }
+
+        /* 确保在大屏幕上最多显示3列 */
+        @media (min-width: 1200px) {
+            .results-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* 在中等屏幕上显示2列 */
+        @media (max-width: 1199px) and (min-width: 768px) {
+            .results-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            }
+        }
+
+        /* 在小屏幕上显示1列 */
+        @media (max-width: 767px) {
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+
+        .result-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .result-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .result-card .icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .result-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .result-card p {
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .result-link {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .result-link:hover {
+            background-color: #004c26;
+        }
+
+        /* --- 页脚 --- */
+        .footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 60px;
+        }
+
+        .footer p {
+            margin: 10px 0;
+            font-size: 0.9rem;
+        }
+
+        /* --- 返回按钮 --- */
+        .back-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--primary-color);
+            color: white;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,104,55,0.3);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 1000;
+        }
+
+        .back-button:hover {
+            background: #004c26;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,104,55,0.4);
+            color: white;
+        }
+
+        /* --- 响应式设计 --- */
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 2.2rem;
+            }
+
+            .page-header p {
+                font-size: 1.1rem;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .timeline::after {
+                    left: 20px; /* 与 more_history.html 保持一致 */
+                }
+
+            .timeline-item {
+                width: 100%;
+                padding-left: 60px; /* 调整左边距以适应新的圆点定位 */
+                padding-right: 20px; /* 调整右边距 */
+            }
+
+            .timeline-item::after {
+                left: 20px; /* 让圆点与主线对齐 */
+                transform: translateX(-50%); /* 确保圆点中心对齐 */
+            }
+
+            .timeline-item.left, /* 小屏幕下都靠左 */
+            .timeline-item.right {
+                left: 0;
+                text-align: left; /* 小屏幕下内容都左对齐 */
+            }
+
+            .overview-grid,
+            .team-grid,
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* --- 动画 --- */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.8s ease-out;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">羊楼洞 · 青砖茶</a>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="index.html#history" class="nav-link">历史渊源</a></li>
+                <li class="nav-item"><a href="index.html#features" class="nav-link">茶品特色</a></li>
+                <li class="nav-item"><a href="index.html#industry" class="nav-link">产业现状</a></li>
+                <li class="nav-item"><a href="index.html#promotion" class="nav-link">品牌宣传</a></li>
+                <li class="nav-item"><a href="practice_log.html" class="nav-link">实践活动</a></li>
+                <li class="nav-item"><a href="index.html" class="nav-link">返回首页</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <h1>生产实践（服务学习）课程实践活动</h1>
+        <p>武汉大学 x 香港理工大学 · 羊楼洞茶产业发展与宣传研究</p>
+    </header>
+
+    <main class="main-content">
+        <!-- 实习概述 -->
+        <section class="overview-section fade-in">
+            <h2>实习概述</h2>
+            <p>2025年6月24日至6月27日，我们第2小组5名成员在武汉大学遥感信息工程学院陈江平副教授的指导下，前往湖北省咸宁市赤壁市开展了为期4天的生产实践（服务学习）课程。本次实习以"羊楼洞茶产业发展与宣传研究"为主题，通过实地调研、企业访谈、文化体验等方式，深入了解羊楼洞茶产业现状，为传统茶文化的传承创新贡献青年智慧。</p>
+            
+            <div class="overview-grid">
+                <div class="overview-card">
+                    <div class="icon">📅</div>
+                    <h3>实习时间</h3>
+                    <p>2025年6月24日-27日<br>共4天</p>
+                </div>
+                <div class="overview-card">
+                    <div class="icon">👥</div>
+                    <h3>参与人员</h3>
+                    <p>武汉大学3名学生<br>香港理工大学2名学生</p>
+                </div>
+                <div class="overview-card">
+                    <div class="icon">📍</div>
+                    <h3>实习地点</h3>
+                    <p>湖北省咸宁市<br>赤壁市羊楼洞古镇</p>
+                </div>
+                <div class="overview-card">
+                    <div class="icon">🎯</div>
+                    <h3>实习目标</h3>
+                    <p>产业调研与文化传承<br>品牌宣传策略研究</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 实习日程时间线 -->
+        <section class="timeline-section">
+            <h2>实习历程</h2>
+            <div class="timeline">
+                <!-- 第1天 -->
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <div class="timeline-date">6月24日 星期二</div>
+                        <div class="timeline-title">初探羊楼洞 · 科技与传统的邂逅</div>
+                        <div class="timeline-description">
+                            实习第一天，我们从武汉大学出发，经过两小时车程抵达赤壁。首先参观了中国（赤壁）中试谷智能无人系统测试基地，了解现代科技在茶产业中的应用前景。下午参观了羊楼洞抗美援朝烈士陵园，缅怀革命先烈，随后深入青砖茶未来展示馆，聆听非物质文化遗产传承人讲述青砖茶六百年的悠久历史。
+                        </div>
+                        <div class="timeline-highlights">
+                            <h4>当日亮点</h4>
+                            <ul>
+                                <li>参观智能无人系统测试基地，了解科技赋能茶产业</li>
+                                <li>与非遗传承人深度交流，感受传统工艺魅力</li>
+                                <li>初步了解青砖茶制作工艺和文化内涵</li>
+                                <li>踩点羊楼洞古镇，为后续拍摄做准备</li>
+                            </ul>
+
+                            <!-- ======== 滚动图片 ======== -->
+                            <div class="carousel-container" data-day="1">
+                                <div class="carousel-images">
+                                    <!-- 内容将由 JavaScript 自动填充 -->
+                                </div>
+                                <!-- 左右切换按钮 -->
+                                <button class="carousel-prev">‹</button>
+                                <button class="carousel-next">›</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 第2天 -->
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <div class="timeline-date">6月25日 星期三</div>
+                        <div class="timeline-title">深入产业链 · 从茶园到茶杯</div>
+                        <div class="timeline-description">
+                            第二天我们深入赵李桥茶厂，全面了解青砖茶的生产工艺流程。魏董事长详细介绍了从茶叶初加工到精深加工的完整产业链，我们还亲身体验了采茶过程，感受"一芽两叶"的采摘标准。下午使用无人机航拍茶园，从空中俯瞰层次分明的绿色梯田，为宣传视频收集了珍贵素材。
+                        </div>
+                        <div class="timeline-highlights">
+                            <h4>当日亮点</h4>
+                            <ul>
+                                <li>深度访谈赵李桥茶厂董事长，了解产业发展痛点</li>
+                                <li>参观现代化制茶车间，见证传统与科技融合</li>
+                                <li>亲手体验采茶过程，感受茶农辛勤劳动</li>
+                                <li>无人机航拍茶园美景，收集宣传素材</li>
+                            </ul>
+
+                            <!-- ======== 滚动图片 ======== -->
+                            <div class="carousel-container" data-day="2">
+                                <div class="carousel-images">
+                                    <!-- 内容将由 JavaScript 自动填充 -->
+                                </div>
+                                <!-- 左右切换按钮 -->
+                                <button class="carousel-prev">‹</button>
+                                <button class="carousel-next">›</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 第3天 -->
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <div class="timeline-date">6月26日 星期四</div>
+                        <div class="timeline-title">技艺传承 · 工匠精神的生动展现</div>
+                        <div class="timeline-description">
+                            第三天我们观摩了2025年赤壁市"赤壁工匠"职业技能大赛茶业职业技能竞赛，见证了茶艺、评茶、制茶三大技能的精彩展示。参赛选手们精湛的技艺和对品质的极致追求让我们深受震撼。傍晚走访羊楼洞古镇，深入了解当地商户经营情况，收集第一手市场信息。
+                        </div>
+                        <div class="timeline-highlights">
+                            <h4>当日亮点</h4>
+                            <ul>
+                                <li>观摩茶业职业技能竞赛，感受工匠精神</li>
+                                <li>了解茶艺、评茶、制茶专业技能要求</li>
+                                <li>走访古镇商户，深入了解市场现状</li>
+                                <li>采访茶店老板，收集消费者反馈</li>
+                            </ul>
+
+                            <!-- ======== 滚动图片 ======== -->
+                            <div class="carousel-container" data-day="3">
+                                <div class="carousel-images">
+                                    <!-- 内容将由 JavaScript 自动填充 -->
+                                </div>
+                                <!-- 左右切换按钮 -->
+                                <button class="carousel-prev">‹</button>
+                                <button class="carousel-next">›</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 第4天 -->
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <div class="timeline-date">6月27日 星期五</div>
+                        <div class="timeline-title">文化记录 · 成果整理与总结</div>
+                        <div class="timeline-description">
+                            实习最后一天，我们参观了雷家大院，记录古建筑的历史韵味。这座建于清嘉庆、道光年间的古建筑群，见证了羊楼洞茶业的历史辉煌。随后我们集中精力整理四天来收集的丰富素材，制作宣传视频、设计推广海报，为羊楼洞茶产业的宣传推广贡献力量。
+                        </div>
+                        <div class="timeline-highlights">
+                            <h4>当日亮点</h4>
+                            <ul>
+                                <li>参观雷家大院，感受古建筑文化魅力</li>
+                                <li>拍摄团队合影，记录美好时光</li>
+                                <li>整理实习素材，制作宣传作品</li>
+                                <li>总结实习收获，撰写调研报告</li>
+                            </ul>
+
+                            <!-- ======== 滚动图片 ======== -->
+                            <div class="carousel-container" data-day="4">
+                                <div class="carousel-images">
+                                    <!-- 内容将由 JavaScript 自动填充 -->
+                                </div>
+                                <!-- 左右切换按钮 -->
+                                <button class="carousel-prev">‹</button>
+                                <button class="carousel-next">›</button>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 团队成员 -->
+        <section class="team-section">
+            <h2>团队成员</h2>
+            <div class="team-grid">
+                <div class="team-member">
+                    <!-- <div class="avatar">易</div> -->
+                    <h3>易星辰</h3>
+                    <div class="school">武汉大学</div>
+                    <div class="role">项目协调、视频拍摄、成果汇报</div>
+                </div>
+                <div class="team-member">
+                    <!-- <div class="avatar">杨</div> -->
+                    <h3>杨丹阳</h3>
+                    <div class="school">武汉大学</div>
+                    <div class="role">调研报告、问卷设计、网站制作</div>
+                </div>
+                <div class="team-member">
+                    <!-- <div class="avatar">周</div> -->
+                    <h3>周煜晖</h3>
+                    <div class="school">武汉大学</div>
+                    <div class="role">PPT制作、海报设计、视觉设计</div>
+                </div>
+                <div class="team-member">
+                    <!-- <div class="avatar">陆</div> -->
+                    <h3>陆嘉翔</h3>
+                    <div class="school">香港理工大学</div>
+                    <div class="role">视频剪辑、文创设计、创意策划</div>
+                </div>
+                <div class="team-member">
+                    <!-- <div class="avatar">黄</div> -->
+                    <h3>黄亮恒</h3>
+                    <div class="school">香港理工大学</div>
+                    <div class="role">视频剪辑、文创设计、创意策划</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 实习成果 -->
+        <section class="results-section">
+            <h2>实习成果</h2>
+            <div class="results-grid">
+                <div class="result-card">
+                    <div class="icon">📊</div>
+                    <h3>调研报告</h3>
+                    <p>完成《羊楼洞茶产业发展与宣传研究报告》，基于325份问卷调研和深度访谈，全面分析产业现状，提出发展建议。</p>
+                    <a href="res/proposal.pdf" class="result-link" target="_blank">查看报告</a>
+                </div>
+                <div class="result-card">
+                    <div class="icon">🎬</div>
+                    <h3>宣传视频</h3>
+                    <p>制作羊楼洞茶产业宣传视频，展现从茶园到茶杯的完整产业链，传播千年茶文化的独特魅力。</p>
+                    <a href="res/video.mp4" class="result-link" target="_blank">观看视频</a>
+                </div>
+                <div class="result-card">
+                    <div class="icon">🎨</div>
+                    <h3>品牌设计</h3>
+                    <p>设计羊楼洞茶产业宣传海报和文创产品方案，提升品牌形象，增强文化内涵和市场吸引力。</p>
+                    <a href="brand_design.html" class="result-link" target="_blank">查看设计</a>
+                </div>
+                <div class="result-card">
+                    <div class="icon">🌐</div>
+                    <h3>数字化平台</h3>
+                    <p>建立羊楼洞茶产业宣传网站，整合历史文化、产品信息、购买渠道等内容，构建数字化宣传矩阵。</p>
+                    <a href="index.html" class="result-link">访问网站</a>
+                </div>
+                <div class="result-card">
+                    <div class="icon">📝</div>
+                    <h3>在线问卷调查</h3>
+                    <p>您的意见对我们至关重要！请花大约1分钟的时间填写我们的调查问卷，帮助我们更好地了解公众对羊楼洞茶文化的看法。</p>
+                    <a href="https://docs.qq.com/form/page/DSFJ3Z1NzQW9sbXJV#/fill-detail" class="result-link" target="_blank">参与问卷</a>
+                    <!--  target="_blank" 的意思是在新窗口中打开链接 -->
+                </div>
+                <div class="result-card">
+                    <div class="icon">🤖</div>
+                    <h3>智能交互助手</h3>
+                    <p>与我们的智能助手互动，探索羊楼洞青砖茶的奥秘。它可以回答您关于历史、工艺和文化的问题。</p>
+                    <a href="https://appbuilder.bce.baidu.com/ai_apaas/share/home?_=1750664019141&short_code=NdS-mLnY1MY" class="result-link" target="_blank">开始体验</a>
+                    <!--  target="_blank" 的意思是在新窗口中打开链接 -->
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 实习感悟 -->
+        <section class="overview-section fade-in">
+            <h2>实习感悟</h2>
+            <p>通过四天的深入实践，我们深刻认识到羊楼洞茶产业既面临着发展的挑战，也充满着转型升级的机遇。传统文化的传承与现代科技的创新、历史底蕴的挖掘与年轻消费群体的培育、产业发展与文化保护的平衡，这些都是我们在实践中思考的重要问题。</p>
+            
+            <p>作为新时代的大学生，我们有责任用所学知识服务社会发展，在实践中受教育、长才干、作贡献。羊楼洞茶产业的发展不仅是经济意义上的产业振兴，更是文化意义上的传承创新。我们将继续关注和支持羊楼洞茶产业的发展，为传统文化的传承创新贡献青年力量。</p>
+
+            <p>这次实习让我们深刻体会到了“纸上得来终觉浅，绝知此事要躬行”的道理。只有深入实地，才能真正了解产业发展的实际情况；只有与一线工作者交流，才能准确把握市场需求和发展痛点。我们将把这次实习的收获转化为今后学习和工作的动力，为中华优秀传统文化的传承发展贡献更多力量。</p>
+        </section>
+    </main>
+
+    <!-- 在 footer 前添加返回按钮 -->
+    <a href="index.html" class="back-button">
+        <span>←</span> 返回首页
+    </a>
+
+    <footer class="footer">
+
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>武汉大学遥感信息工程学院 × 香港理工大学 · 实践历程</p>
+            <p>生产实践（服务学习）课程 · 第2小组</p>
+            <p>指导教师：陈江平副教授</p>
+            <hr style="margin: 20px 0; border: none; border-top: 1px solid #666;">
+            <p>网站制作人：杨丹阳 Yang Danyang | 电子邮箱：yangdanyang@whu.edu.cn | 个人主页：<a href="https://yangdanyang2005.github.io" target="_blank" style="color: #ffc107; text-decoration: none;">yangdanyang2005.github.io</a></p>
+            <p>&copy; 2025 武汉大学遥感信息工程学院 生产实践（服务学习）课程第2小组 杨丹阳. 版权所有.</p>            
+        </div>
+    </footer>
+
+    <script>
+
+        // 请在这里列出所有 practice_log 文件夹下的需要参与轮播的图片文件名
+        const allImageFiles = [
+
+            // 第1天的图片
+            "1-1-中国（赤壁）中试谷智能无人系统测试基地.png",
+            "1-2-在工作人员的带领下参观中国（赤壁）中试谷智能无人系统测试基地.png",
+            "1-3-听工作人员介绍中试谷正在测试的自动化矿车.png",
+            "1-4-全班同学在中试谷大门的合影.png",
+            "1-5-羊楼洞抗美援朝烈士陵园.png",
+            "1-6-在羊楼洞抗美援朝烈士陵园听老师为我们介绍革命先烈的事迹.png",
+            "1-7-在青砖茶未来展示馆中听非物质文化遗产传承人为我们介绍赤壁青砖茶的历史与制作工艺.png",
+            "1-8-羊楼洞古镇.png",
+
+            // 第2天的图片
+            "2-1-赵李桥茶厂.png",
+            "2-2-赵李桥茶厂的魏董事长接受我们的采访.png",
+            "2-3-在工作人员的带领下参观制茶的各个流程的生产车间.png",
+            "2-4-亲自体验采摘青砖茶.png",
+            "2-5-在青砖茶的原料茶厂使用无人机拍摄素材.png",
+
+            // 第3天的图片
+            "3-1-茶艺竞赛.png",
+            "3-2-制茶竞赛.png",
+            "3-3-傍晚的羊楼洞古镇.png",
+            "3-4-游览羊楼洞古镇中的特色店铺.png",
+            "3-5-采访羊楼洞小镇中的一名茶店老板.png",
+            
+            // 第4天的图片
+            "4-1-雷家大院.png",
+            "4-2-雷家大院古建筑内部.png",
+            "4-3-雷家大院中的天井.png",
+            "4-4-在雷家大院门口拍摄的小组合影.png",
+        ];
+
+    // ======== png列表结束 ========
+
+
+        // JavaScript 部分
+        document.addEventListener('DOMContentLoaded', function() {
+            // 页面加载动画
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            fadeElements.forEach(element => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(30px)';
+                element.style.transition = 'opacity 0.8s ease-out, transform 0.8s ease-out';
+                observer.observe(element);
+            });
+
+            // 时间线动画
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            
+            const timelineObserver = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('fade-in');
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, {
+                threshold: 0.2,
+                rootMargin: '0px 0px -100px 0px'
+            });
+
+            timelineItems.forEach((item, index) => {
+                item.style.opacity = '0';
+                item.style.transform = 'translateY(50px)';
+                item.style.transition = `opacity 0.8s ease-out ${index * 0.2}s, transform 0.8s ease-out ${index * 0.2}s`;
+                timelineObserver.observe(item);
+            });
+
+            // 导航栏滚动效果
+            const navbar = document.querySelector('.navbar');
+            let lastScrollTop = 0;
+
+            window.addEventListener('scroll', function() {
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                
+                if (scrollTop > 100) {
+                    navbar.style.backgroundColor = 'rgba(0, 104, 55, 0.98)';
+                } else {
+                    navbar.style.backgroundColor = 'rgba(0, 104, 55, 0.95)';
+                }
+                
+                lastScrollTop = scrollTop;
+            });
+
+            // 团队成员卡片悬停效果
+            const teamMembers = document.querySelectorAll('.team-member');
+            teamMembers.forEach(member => {
+                member.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-8px) scale(1.02)';
+                });
+                
+                member.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+
+            // 成果卡片点击效果
+            const resultCards = document.querySelectorAll('.result-card');
+            resultCards.forEach(card => {
+                card.addEventListener('click', function(e) {
+                    if (!e.target.classList.contains('result-link')) {
+                        const link = this.querySelector('.result-link');
+                        if (link) {
+                            link.click();
+                        }
+                    }
+                });
+            });
+
+
+            // ==================== 请用此代码块替换旧的“时间线内容展开/收起”功能 ====================
+
+            const timelineContents = document.querySelectorAll('.timeline-content');
+            timelineContents.forEach(content => {
+                const highlights = content.querySelector('.timeline-highlights');
+                const carouselContainer = highlights ? highlights.querySelector('.carousel-container') : null;
+
+                // 只为包含轮播图的区块添加“查看详情”按钮
+                if (highlights && carouselContainer) {
+                    const day = carouselContainer.dataset.day;
+                    const imageContainer = carouselContainer.querySelector('.carousel-images');
+
+                    // 1. 筛选出当天所有图片文件
+                    const dayFiles = allImageFiles.filter(file => file.startsWith(day + '-'));
+
+                    // 2. 解析文件名，提取序号和说明文字，并排序
+                    const slidesData = dayFiles.map(file => {
+                        const parts = file.slice(0, -4).split('-');
+                        return {
+                            order: parseInt(parts[1], 10),
+                            caption: parts.slice(2).join('-'),
+                            src: `assets/img/practice_log/${file}`
+                        };
+                    }).sort((a, b) => a.order - b.order);
+
+                    // 3. 动态生成 HTML
+                    imageContainer.innerHTML = slidesData.map((data, index) => `
+                        <div class="carousel-slide ${index === 0 ? 'active' : ''}">
+                            <img src="${data.src}" alt="${data.caption}">
+                            <p class="carousel-caption">${data.caption}</p>
+                        </div>
+                    `).join('');
+
+                    // --- 以下是按钮和交互逻辑 ---
+                    const toggleBtn = document.createElement('button');
+                    toggleBtn.textContent = '查看详情';
+                    toggleBtn.className = 'toggle-btn';
+                    toggleBtn.style.cssText = `
+                        background: var(--primary-color); color: white; border: none;
+                        padding: 8px 16px; border-radius: 4px; cursor: pointer;
+                        font-size: 0.9rem; margin-top: 15px; transition: background-color 0.3s;
+                    `;
+                    
+                    highlights.style.display = 'none';
+                    content.insertBefore(toggleBtn, highlights);
+                    
+                    const slides = carouselContainer.querySelectorAll('.carousel-slide');
+                    const prevBtn = carouselContainer.querySelector('.carousel-prev');
+                    const nextBtn = carouselContainer.querySelector('.carousel-next');
+                    let currentIndex = 0;
+                    let autoPlayInterval; // 用于存放 setInterval 的ID
+
+                    const showSlide = (index) => {
+                        slides.forEach((slide, i) => slide.classList.toggle('active', i === index));
+                    };
+
+                    // 启动自动播放
+                    const startAutoPlay = () => {
+                        clearInterval(autoPlayInterval); // 先清除已有的计时器，防止重复
+                        autoPlayInterval = setInterval(() => {
+                            currentIndex = (currentIndex + 1) % slides.length;
+                            showSlide(currentIndex);
+                        }, 4000); // 每4秒翻页
+                    };
+
+                    // 重置自动播放计时器
+                    const resetAutoPlay = () => {
+                        startAutoPlay();
+                    };
+
+                    // 停止自动播放
+                    const stopAutoPlay = () => {
+                        clearInterval(autoPlayInterval);
+                    };
+
+                    prevBtn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+                        showSlide(currentIndex);
+                        resetAutoPlay(); // 用户手动操作后重置计时
+                    });
+
+                    nextBtn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        currentIndex = (currentIndex + 1) % slides.length;
+                        showSlide(currentIndex);
+                        resetAutoPlay(); // 用户手动操作后重置计时
+                    });
+
+                    toggleBtn.addEventListener('click', function() {
+                        const isHidden = highlights.style.display === 'none';
+                        highlights.style.display = isHidden ? 'block' : 'none';
+                        this.textContent = isHidden ? '收起详情' : '查看详情';
+                        this.style.backgroundColor = isHidden ? '#004c26' : 'var(--primary-color)';
+
+                        if (isHidden) {
+                            startAutoPlay(); // 展开时开始自动播放
+                        } else {
+                            stopAutoPlay(); // 收起时停止自动播放
+                        }
+                    });
+
+                    toggleBtn.addEventListener('mouseenter', function() {
+                        if (this.textContent === '查看详情') this.style.backgroundColor = '#004c26';
+                    });
+                    
+                    toggleBtn.addEventListener('mouseleave', function() {
+                        if (this.textContent === '查看详情') this.style.backgroundColor = 'var(--primary-color)';
+                    });
+                }
+            });
+
+            // ==================== 替换到此结束 ====================
+
+
+
+            // 平滑滚动到顶部功能
+            const scrollToTopBtn = document.createElement('button');
+            scrollToTopBtn.innerHTML = '↑';
+            scrollToTopBtn.className = 'scroll-to-top';
+            scrollToTopBtn.style.cssText = `
+                position: fixed;
+                bottom: 120px;   /* 避免与现有的返回首页的按钮重叠 */
+                right: 30px;
+                width: 50px;
+                height: 50px;
+                background: var(--primary-color);
+                color: white;
+                border: none;
+                border-radius: 50%;
+                font-size: 1.5rem;
+                cursor: pointer;
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.3s ease;
+                z-index: 1000;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            `;
+            
+            document.body.appendChild(scrollToTopBtn);
+            
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    scrollToTopBtn.style.opacity = '1';
+                    scrollToTopBtn.style.visibility = 'visible';
+                } else {
+                    scrollToTopBtn.style.opacity = '0';
+                    scrollToTopBtn.style.visibility = 'hidden';
+                }
+            });
+            
+            scrollToTopBtn.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
+            scrollToTopBtn.addEventListener('mouseenter', function() {
+                this.style.backgroundColor = '#004c26';
+                this.style.transform = 'scale(1.1)';
+            });
+            
+            scrollToTopBtn.addEventListener('mouseleave', function() {
+                this.style.backgroundColor = 'var(--primary-color)';
+                this.style.transform = 'scale(1)';
+            });
+
+            // 添加页面加载完成后的欢迎动画
+            setTimeout(() => {
+                const pageHeader = document.querySelector('.page-header');
+                pageHeader.style.animation = 'fadeInUp 1s ease-out';
+            }, 100);
+
+            // 为导航链接添加活跃状态
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                if (link.getAttribute('href') === 'practice_log.html') {
+                    link.style.color = 'var(--accent-color)';
+                    link.style.fontWeight = 'bold';
+                }
+            });
+
+            // 添加键盘导航支持
+            document.addEventListener('keydown', function(e) {
+                // 按 Escape 键滚动到顶部
+                if (e.key === 'Escape') {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                }
+                
+                // 按空格键暂停/继续动画（如果有的话）
+                if (e.key === ' ' && e.target === document.body) {
+                    e.preventDefault();
+                }
+            });
+
+            // 添加打印样式优化
+            const printStyles = document.createElement('style');
+            printStyles.textContent = `
+                @media print {
+                    .navbar, .scroll-to-top, .toggle-btn {
+                        display: none !important;
+                    }
+                    
+                    .timeline::after {
+                        background: #000 !important;
+                    }
+                    
+                    .timeline-item::after {
+                        background: #000 !important;
+                        border-color: #fff !important;
+                    }
+                    
+                    .page-header {
+                        background: #006837 !important;
+                        -webkit-print-color-adjust: exact;
+                        color-adjust: exact;
+                    }
+                    
+                    body {
+                        font-size: 12pt;
+                        line-height: 1.4;
+                    }
+                    
+                    .timeline-content,
+                    .overview-section,
+                    .team-section,
+                    .result-card {
+                        page-break-inside: avoid;
+                        break-inside: avoid;
+                    }
+                }
+            `;
+            document.head.appendChild(printStyles);
+
+            console.log('羊楼洞茶产业实践日志页面加载完成！');
+            console.log('感谢您关注我们的实践活动！');
+        });
+
+        // 添加一些实用的工具函数
+        function shareCurrentPage() {
+            if (navigator.share) {
+                navigator.share({
+                    title: '羊楼洞茶产业实践活动日志',
+                    text: '武汉大学与香港理工大学联合实践活动',
+                    url: window.location.href
+                }).catch(console.error);
+            } else {
+                // 复制链接到剪贴板
+                navigator.clipboard.writeText(window.location.href).then(() => {
+                    alert('页面链接已复制到剪贴板！');
+                });
+            }
+        }
+
+        function downloadReport() {
+            // 这里可以添加下载实习报告的功能
+            alert('实习报告下载功能开发中...');
+        }
+
+        // 添加右键菜单功能（可选）
+        document.addEventListener('contextmenu', function(e) {
+            // 可以在这里添加自定义右键菜单
+        });
+    </script>
+
+    <!-- 添加结构化数据，提升SEO -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "EducationalOrganization",
+        "name": "武汉大学遥感信息工程学院",
+        "description": "羊楼洞茶产业发展与宣传研究实践活动",
+        "url": "https://example.com/practice_log.html",
+        "sameAs": [
+            "https://rsgis.whu.edu.cn/"
+        ],
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "contactType": "Academic",
+            "email": "contact@example.com"
+        },
+        "event": {
+            "@type": "Event",
+            "name": "羊楼洞茶产业实践活动",
+            "startDate": "2025-06-24",
+            "endDate": "2025-06-27",
+            "location": {
+                "@type": "Place",
+                "name": "湖北省咸宁市赤壁市羊楼洞古镇",
+                "address": {
+                    "@type": "PostalAddress",
+                    "addressLocality": "赤壁市",
+                    "addressRegion": "湖北省",
+                    "addressCountry": "中国"
+                }
+            },
+            "organizer": {
+                "@type": "Organization",
+                "name": "武汉大学遥感信息工程学院"
+            },
+            "description": "武汉大学与香港理工大学联合开展的茶产业调研实践活动"
+        }
+    }
+    </script>
+
+</body>
+</html>
+

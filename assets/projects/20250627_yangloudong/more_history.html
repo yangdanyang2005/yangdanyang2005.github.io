@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>羊楼洞茶产业历史 - 万里茶道源头的千年传奇</title>
+    
+    <!-- 标准favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+
+    <!-- 苹果设备图标 -->
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+
+    <!-- 现代浏览器支持 -->
+    <link rel="shortcut icon" href="favicon.ico">
+
+    <style>
+        /* 基础样式 */
+        :root {
+            --primary-color: #006837;
+            --secondary-color: #f7f5e6;
+            --text-color: #333;
+            --light-gray: #f4f4f4;
+            --accent-color: #8B4513;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--secondary-color);
+        }
+
+        /* 导航栏 */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(0, 104, 55, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+
+        .nav-logo {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-logo:hover {
+            color: #ffc107;
+        }
+
+        .nav-menu {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+
+        .nav-link:hover {
+            color: #ffc107;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* 页面头部 */
+        .page-header {
+            background: linear-gradient(135deg, rgba(0, 104, 55, 0.9), rgba(139, 69, 19, 0.8)), 
+                        url('assets/img/yangloudong_shibanjie.jpg') center/cover;
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            margin-top: 70px;
+        }
+
+        .header-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .header-content p {
+            font-size: 1.3rem;
+            max-width: 600px;
+            margin: 0 auto;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        /* 主要内容区域 */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        /* 时间轴样式 */
+        .timeline {
+            position: relative;
+            margin: 40px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary-color), var(--accent-color));
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin: 60px 0;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            margin-right: 55%;
+            text-align: right;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            margin-left: 55%;
+            text-align: left;
+        }
+
+        .timeline-marker {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background-color: var(--primary-color);
+            border: 4px solid white;
+            border-radius: 50%;
+            box-shadow: 0 0 0 4px var(--primary-color);
+            z-index: 10;
+        }
+
+        .timeline-content {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.15);
+        }
+
+        .timeline-period {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .timeline-title {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .timeline-description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .timeline-highlights {
+            background-color: var(--light-gray);
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .timeline-highlights h4 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .timeline-highlights ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .timeline-highlights li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 8px;
+        }
+
+        .timeline-highlights li::before {
+            content: '▶';
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-size: 0.8rem;
+        }
+
+        /* 三角形指示器 */
+        .timeline-item:nth-child(odd) .timeline-content::after {
+            content: '';
+            position: absolute;
+            right: -15px;
+            top: 30px;
+            width: 0;
+            height: 0;
+            border-left: 15px solid white;
+            border-top: 15px solid transparent;
+            border-bottom: 15px solid transparent;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content::after {
+            content: '';
+            position: absolute;
+            left: -15px;
+            top: 30px;
+            width: 0;
+            height: 0;
+            border-right: 15px solid white;
+            border-top: 15px solid transparent;
+            border-bottom: 15px solid transparent;
+        }
+
+        /* 图片展示区域 */
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            /* 移除图片默认的 opacity 0，让图片一开始就可见 */
+            /* opacity: 0; */ 
+            /* transition: opacity 0.5s ease; */
+        }
+
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: white;
+            padding: 20px;
+            font-size: 0.95rem;
+        }
+
+        /* 统计数据展示 */
+        .stats-section {
+            background: white;
+            padding: 50px 30px;
+            border-radius: 12px;
+            margin: 60px 0;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            text-align: center;
+        }
+
+        .stat-item {
+            padding: 20px;
+        }
+
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: var(--text-color);
+            font-weight: 500;
+        }
+
+        /* 返回按钮 */
+        .back-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--primary-color);
+            color: white;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,104,55,0.3);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .back-button:hover {
+            background: #004c26;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,104,55,0.4);
+        }
+
+        /* 页脚 */
+        .footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 60px;
+        }
+
+        /* 返回顶部按钮 */
+        .back-to-top {
+            position: fixed;
+            bottom: 120px; /* 避免与现有的返回首页的按钮重叠 */
+            right: 30px;
+            background: var(--primary-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border: none;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,104,55,0.3);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: #004c26;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,104,55,0.4);
+        }
+
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .header-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .header-content p {
+                font-size: 1.1rem;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-item:nth-child(odd) .timeline-content,
+            .timeline-item:nth-child(even) .timeline-content {
+                margin-left: 60px;
+                margin-right: 0;
+                text-align: left;
+            }
+
+            .timeline-marker {
+                left: 20px;
+            }
+
+            .timeline-item:nth-child(odd) .timeline-content::after,
+            .timeline-item:nth-child(even) .timeline-content::after {
+                left: -15px;
+                right: auto;
+                border-right: 15px solid white;
+                border-left: none;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+
+            .stat-number {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* 超小屏幕优化 */
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr; /* 单列布局 */
+                gap: 30px;
+                padding: 0 10px;
+            }
+            
+            .stat-item {
+                padding: 15px;
+                border-bottom: 1px solid #eee;
+            }
+            
+            .stat-item:last-child {
+                border-bottom: none;
+            }
+            
+            .stat-number {
+                font-size: 2.2rem;
+            }
+            
+            .stat-label {
+                font-size: 1rem;
+            }
+            
+            .stats-section {
+                padding: 30px 15px;
+                margin: 40px 10px;
+            }
+            
+            .stats-section h2 {
+                font-size: 2rem !important;
+                margin-bottom: 30px !important;
+            }
+        }
+
+        /* 极小屏幕（小于360px）进一步优化 */
+        @media (max-width: 360px) {
+            .stat-number {
+                font-size: 2rem;
+            }
+            
+            .stat-label {
+                font-size: 0.9rem;
+            }
+            
+            .stats-section {
+                padding: 25px 10px;
+                margin: 30px 5px;
+            }
+        }
+
+        /* 动画效果 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.8s ease-out;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">羊楼洞 · 青砖茶</a>
+            <ul class="nav-menu">
+                <li><a href="index.html#history" class="nav-link">返回首页</a></li>
+                <li><a href="index.html#features" class="nav-link">茶品特色</a></li>
+                <li><a href="index.html#industry" class="nav-link">产业现状</a></li>
+                <li><a href="index.html#promotion" class="nav-link">品牌宣传</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <div class="header-content">
+            <h1>羊楼洞茶产业千年史</h1>
+            <p>从汉唐萌芽到万里茶道，见证中华茶文化的辉煌传承</p>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <section class="stats-section fade-in">
+            <h2 style="text-align: center; font-size: 2.5rem; color: var(--primary-color); margin-bottom: 40px;">历史足迹</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">1800+年</div>
+                    <div class="stat-label">制茶历史</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">13000+公里</div>
+                    <div class="stat-label">万里茶道</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">300+年</div>
+                    <div class="stat-label">鼎盛历程</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">46%</div>
+                    <div class="stat-label">全国茶叶出口占比</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <div class="timeline-period">汉晋时期（公元25-420年）</div>
+                    <h3 class="timeline-title">茶业萌芽期</h3>
+                    <p class="timeline-description">
+                        羊楼洞茶产业的历史可以追溯到汉晋时期，当时茶叶种植和加工开始萌芽。这一时期，茶叶主要作为药用植物被人们认识和利用，制茶技艺还处于原始阶段。
+                    </p>
+                    <div class="timeline-highlights">
+                        <h4>重要特征：</h4>
+                        <ul>
+                            <li>茶叶种植技术初步形成</li>
+                            <li>以药用为主要功能</li>
+                            <li>制茶工艺简单粗糙</li>
+                            <li>产量极其有限</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <div class="timeline-period">隋唐时期（公元581-907年）</div>
+                    <h3 class="timeline-title">发展奠基期</h3>
+                    <p class="timeline-description">
+                        隋唐时期，赤壁地区的茶叶种植和加工逐渐发展起来。随着茶文化的兴起和饮茶习俗的普及，羊楼洞地区的茶业开始走向规模化生产。
+                    </p>
+                    <div class="timeline-highlights">
+                        <h4>发展成就：</h4>
+                        <ul>
+                            <li>茶园面积显著扩大</li>
+                            <li>制茶技艺不断改进</li>
+                            <li>开始向周边地区销售</li>
+                            <li>茶文化逐渐形成</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <div class="timeline-period">宋代（公元960-1279年）</div>
+                    <h3 class="timeline-title">贡茶地位确立</h3>
+                    <p class="timeline-description">
+                        宋代时期，羊楼洞茶叶品质得到朝廷认可，成为贡茶产区。这一时期的茶叶制作工艺日趋成熟，产品质量大幅提升，为后来的大规模商业化奠定了基础。
+                    </p>
+                    <div class="timeline-highlights">
+                        <h4>重要里程碑：</h4>
+                        <ul>
+                            <li>获得贡茶地位认可</li>
+                            <li>制茶工艺日趋完善</li>
+                            <li>茶叶品质显著提升</li>
+                            <li>商业贸易初具规模</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <div class="timeline-period">明清时期（公元1368-1912年）</div>
+                    <h3 class="timeline-title">商业繁荣期</h3>
+                    <p class="timeline-description">
+                        明清时期是羊楼洞茶业发展的黄金时代。随着晋商的积极参与和茶叶贸易的繁荣，羊楼洞逐渐发展成为鄂南地区的商业重镇，青砖茶通过"万里茶道"销往北方边疆及蒙古、俄罗斯等地。
+                    </p>
+                    <div class="timeline-highlights">
+                        <h4>辉煌成就：</h4>
+                        <ul>
+                            <li>成为鄂南地区商业重镇</li>
+                            <li>晋商大量投资茶业</li>
+                            <li>万里茶道重要起点</li>
+                            <li>青砖茶工艺成熟</li>
+                            <li>国际贸易规模庞大</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <div class="timeline-period">清末民初（公元1840-1949年）</div>
+                    <h3 class="timeline-title">鼎盛与转型期</h3>
+                    <p class="timeline-description">
+                        清末民初时期，羊楼洞茶业达到历史鼎盛。1861年汉口开埠后，羊楼洞成为汉口茶市最大腹地。1866-1925年间，汉口茶叶出口量占全国46%，其中54.1%销往俄国，83%为羊楼洞青砖茶。制茶业经历了从家庭小手工业到工场手工业，再到机器工业的生产形态演进。
+                    </p>
+                    <div class="timeline-highlights">
+                        <h4>巅峰表现：</h4>
+                        <ul>
+                            <li>汉口茶市最大腹地地位</li>
+                            <li>占全国茶叶出口46%份额</li>
+                            <li>生产形态现代化转型</li>
+                            <li>国际市场影响力巨大</li>
+                            <li>形成完整产业链</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <div class="timeline-period">近现代转型期（公元1912-2000年）</div>
+                    <h3 class="timeline-title">挑战与调整期</h3>
+                    <p class="timeline-description">
+                        进入20世纪后，羊楼洞茶业面临诸多挑战。一战及俄国革命导致外需萎缩，英印茶竞争挤压国际市场，加之军阀混战、交通变革等因素，传统茶业逐步衰落。但在新中国成立后，当地政府开始重视茶业恢复和发展。
+                    </p>
+                    <div class="timeline-highlights">
+                        <h4>主要变化：</h4>
+                        <ul>
+                            <li>传统贸易模式受冲击</li>
+                            <li>产业规模大幅缩减</li>
+                            <li>技术革新相对滞后</li>
+                            <li>新中国成立后开始恢复</li>
+                            <li>政府扶持政策出台</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <div class="timeline-period">现代复兴期（公元2000年至今）</div>
+                    <h3 class="timeline-title">传承创新与振兴</h3>
+                    <p class="timeline-description">
+                        进入21世纪，羊楼洞茶产业迎来新的发展机遇。2015年获得"万里茶道源头"和"世界茶业第一古镇"称号，"赵李桥青砖茶技艺"获国家级非遗认证。当地政府与企业携手推动"茶旅融合"发展，通过现代化生产线、标准化种植基地、电商平台等方式，让古老茶乡焕发新活力。
+                    </p>
+                    <div class="timeline-highlights">
+                        <h4>复兴成果：</h4>
+                        <ul>
+                            <li>获得国际权威认证</li>
+                            <li>非遗技艺传承保护</li>
+                            <li>茶旅融合发展模式</li>
+                            <li>现代化生产体系</li>
+                            <li>电商新渠道拓展</li>
+                            <li>国际影响力重建</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="image-gallery">
+            <div class="gallery-item">
+                <img src="assets/img/yangloudong_oldmap.png" alt="万里茶道古地图">
+                <div class="gallery-caption">
+                    万里茶道古地图：羊楼洞作为重要起点，连接亚欧大陆的商贸通道
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="assets/img/yangloudong_teamade.jpg" alt="古代制茶场景">
+                <div class="gallery-caption">
+                    清代羊楼洞制茶场景复原：工人们正在进行传统的青砖茶制作
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="assets/img/yangloudong_shibanjie.jpg" alt="古镇石板街">
+                <div class="gallery-caption">
+                    保存完好的明清石板街：见证了数百年茶叶贸易的繁华历史
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 返回顶部按钮 -->
+    <button class="back-to-top" id="backToTop" title="返回顶部">
+        ↑
+    </button>
+
+    <!-- 返回首页按钮 -->
+    <a href="index.html" class="back-button">
+        <span>←</span> 返回首页
+    </a>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>羊楼洞茶产业历史详情</p>
+            <hr style="margin: 20px 0; border: none; border-top: 1px solid #666;">
+            <p>网站制作人：杨丹阳 Yang Danyang | 电子邮箱：yangdanyang@whu.edu.cn | 个人主页：<a href="https://yangdanyang2005.github.io" target="_blank" style="color: #ffc107; text-decoration: none;">yangdanyang2005.github.io</a></p>
+            <p>&copy; 2025 武汉大学遥感信息工程学院 生产实践（服务学习）课程第2小组 杨丹阳. 版权所有.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 时间轴动画效果
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.2,
+                rootMargin: '0px 0px -50px 0px'
+            });
+
+            timelineItems.forEach(item => {
+                observer.observe(item);
+            });
+
+            // 平滑滚动效果
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    const targetId = this.getAttribute('href');
+                    
+                    if (targetId.startsWith('#')) {
+                        e.preventDefault();
+                        const targetElement = document.querySelector(targetId);
+                        
+                        if (targetElement) {
+                            window.scrollTo({
+                                top: targetElement.offsetTop - 70,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                });
+            });
+
+            // 导航栏滚动效果
+            window.addEventListener('scroll', function() {
+                const navbar = document.querySelector('.navbar');
+                if (window.scrollY > 100) {
+                    navbar.style.backgroundColor = 'rgba(0, 104, 55, 0.98)';
+                } else {
+                    navbar.style.backgroundColor = 'rgba(0, 104, 55, 0.95)';
+                }
+            });
+
+            // 返回顶部功能
+            const backToTopBtn = document.getElementById('backToTop');
+
+            // 监听滚动事件
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    backToTopBtn.classList.add('show');
+                } else {
+                    backToTopBtn.classList.remove('show');
+                }
+            });
+
+            // 点击返回顶部
+            backToTopBtn.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
+        });
+    </script>
+</body>
+</html>

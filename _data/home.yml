@@ -1,0 +1,140 @@
+# 主页上的内容在这里编辑
+# 典型的 Jekyll 网站数据文件配置格式
+# Jekyll这个静态站点生成器可以自动从这里读取数据并生成网站。
+
+# 主页的板块的名字在_config.yml文件中的 theme_config: home: 下面修改
+
+# 主页的板块的具体内容在这里编辑
+navbar_entries:
+  # 主页的第一个板块：导航栏链接
+  - title: 关于
+    url: about
+
+  - title: 博客
+    url: blog
+
+  - title: 本网页源代码
+    url: https://github.com/yangdanyang2005/yangdanyang2005.github.io
+
+  - title: 联系我
+    url: contact
+
+project_entries:
+    # 主页的第二个板块：赛博小屋
+    # This is an example project, configured in _data/home.yml. Projects are shown in card layout.You can control visibility from _config.yml file. You can add or remove projects from this list.
+    # This project uses highlight markup, configured in _data/home.yml. Moonwalk also has horizontal list (used in header and footer).It also has a scalable vertical list (in case you need it)
+  - title: 编译时报错“LNK2019 无法解析的外部符号”的可能原因及其解决办法
+    url: https://blog.csdn.net/Zlyzjiabjw547479/article/details/137722010
+    desc: 分析了VS2022中运行C++程序时遇到LNK2019错误的几种可能原因，包括未写主函数、构造函数/析构函数未实现、函数调用参数不匹配和头文件与源文件定义不一致。
+
+  - title: 编译时报错“fatal error LNK1169 找到一个或多个多重定义的符号”的可能原因及其解决办法
+    url: https://blog.csdn.net/Zlyzjiabjw547479/article/details/138434449
+    desc: 在VS2022中遇到的C++编译错误LNK2005主要原因是头文件引用不当和编译器对象文件问题，作者分享了解决这类问题的方法，包括正确使用#include和处理编译器生成的.obj文件冲突。
+
+  - title: error：failed to push some refs to ‘https://github.com/xxx.git‘问题分析及其解决
+    url: https://blog.csdn.net/Zlyzjiabjw547479/article/details/141301668
+    desc: 在Git Bash窗口中输入git push origin main，出现报错“failed to push some refs to ‘https://github.com/xxx.git’”，作者分享了通过同步远程仓库的最新更改、解决合并冲突、提交更改并尝试重新推送的解决办法。
+    highlight: 文章已被“开放原子开发者工作坊”收录
+
+  - title: 查看 Linux 系统中安装的 CUDA 版本
+    url: https://blog.csdn.net/Zlyzjiabjw547479/article/details/141500792
+    desc: 本文介绍了查看 Linux 系统中安装的 CUDA 版本的常见方法，并对 nvcc -V 和 nvidia-smi 两种命令做出了辨析。
+
+old_project_entries:
+  # 主页的第四个板块：代码仓库
+  # Delight your readers - add beautiful share and like buttons easily to your websites 
+  # An open source landing website with supporting pages and integrated blog
+  # A fast and minimalist Jekyll blog theme with clean dark mode
+  # The better people know you, the better they collaborate
+  #第二个板块和第四个板块的格式在_sass/home.scss文件中修改
+
+
+  - title: Image_Processing_Based_on_the_imager_Package_in_R
+    url: https://github.com/yangdanyang2005/Image_Processing_Based_on_the_imager_Package_in_R
+    desc: 大三上 水利遥感 第2次课堂作业：基于 R 语言和 imager 包的图像处理
+
+  - title: 20251022_single_image_spatial_resection
+    url: https://github.com/yangdanyang2005/20251022_single_image_spatial_resection
+    desc: 大三上 摄影测量学 单像空间后方交会（Single Image Spatial Resection）
+
+  - title: Interactive_Image_Segmentation_Based_on_SAM
+    url: https://github.com/yangdanyang2005/Interactive_Image_Segmentation_Based_on_SAM
+    desc: 大二下 基于SAM (Segment Anything Model) 的交互式图像分割工具集
+
+  - title: 20250311_gis_python
+    url: https://github.com/yangdanyang2005/20250311_gis_python
+    desc: 大二下 地理信息系统基础 基于Flask框架的GeoJSON数据处理与空间索引优化实现与性能研究
+    
+  - title: Application-of-Watershed-Algorithm
+    url: https://github.com/yangdanyang2005/Fusion-of-High-Resolution-Panchromatic-and-Low-Resolution-Multispectral-Images
+    desc: 大二上 数字图像处理课程实习 基于分水岭算法的地物分割与识别、粘连细胞的分割与计数的应用
+
+  - title: detect_cycle_slip
+    url: https://github.com/yangdanyang2005/detect_cycle_slip
+    desc: 大二上 GNSS 大作业：基于多项式拟合法的GNSS载波相位观测值周跳探测程序
+
+  - title: animal_classification
+    url: https://github.com/yangdanyang2005/animal_classification
+    desc: 大二上 华中科技大学 计算机科学与技术学院 人工智能导论 深度学习实践作业：使用深度学习方法实现对动物图像的分类任务
+    highlight: 开发中
+
+  - title: Fusion-of-High-Resolution-Panchromatic-and-Low-Resolution-Multispectral-Images
+    url: https://github.com/yangdanyang2005/Fusion-of-High-Resolution-Panchromatic-and-Low-Resolution-Multispectral-Images
+    desc: 大二上 数字图像处理 大作业、数字图像处理课程实习 个人部分任务：高空间分辨率的全色遥感影像和低空间分辨率的多光谱遥感影像融合生成高空间分辨率的多光谱遥感影像
+
+  - title: MFCApplication_20240607_cppTeamWork
+    url: https://github.com/yangdanyang2005/MFCApplication_20240607_cppTeamWork
+    desc: 大一下 “遥感应用软件设计”课程 C++ MFC 大作业
+
+  - title: 20240507_Graph
+    url: https://github.com/yangdanyang2005/20240507_Graph
+    desc: 大一下 数据结构中“图”的实习
+
+footer_entries:
+  # 主页的第五个板块：联系方式链接
+
+  - title: 我的Github主页
+    url: https://github.com/yangdanyang2005
+
+  - title: 我的CSDN主页
+    url: https://blog.csdn.net/Zlyzjiabjw547479
+
+misc_entries:
+  - title: this is an example vertical list
+    url: false
+
+  - title: you can show or hide using a boolean flag in _config.yml
+    url: false
+
+  - title: and you can add data in _data/home.yml
+    url: false
+
+  - title: Blog posts
+    post_list: true
+    url: false
+
+  - title: moonwalk on the Internet
+    url: false
+    entries:
+      - title: on Github
+        url: https://github.com/abhinavs/moonwalk
+
+      - title: originally built for abhinav's homepage
+        url: https://www.abhinav.co
+
+      - title: this list is scalable and can be nested
+        url: false
+        entries:
+          - title: this is nested inside a nested list
+            url: false
+
+          - title: it is easy to use, see _data/home.yml to see how to configure it.
+            url: false
+
+# 额外添加的HTML文件
+blog_entries:
+  - title: "羊楼洞茶产业的发展与宣传实习"
+    url: "assets/projects/20250627_yangloudong/index.html"
+    date: "2025-06-27"
+    external: true  # 标记为外部链接，会在新标签页打开
+

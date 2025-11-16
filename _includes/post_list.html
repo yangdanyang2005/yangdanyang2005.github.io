@@ -1,0 +1,91 @@
+{% assign all_posts = site.posts %}
+{% assign blog_entries = site.data.home.blog_entries %}
+
+{% comment %} 创建一个包含所有条目的数组 {% endcomment %}
+{% assign combined_posts = "" | split: "" %}
+
+{% comment %} 添加 Jekyll 文章 {% endcomment %}
+{% for post in all_posts %}
+  {% assign post_item = post | jsonify | prepend: '{"type":"jekyll","data":' | append: '}' %}
+  {% assign combined_posts = combined_posts | push: post_item %}
+{% endfor %}
+
+{% comment %} 添加自定义 HTML 文件 {% endcomment %}
+{% if blog_entries %}
+  {% for entry in blog_entries %}
+    {% assign entry_date = entry.date | date: "%Y-%m-%d" %}
+    {% assign entry_item = '{"type":"custom","title":"' | append: entry.title | append: '","url":"' | append: entry.url | append: '","date":"' | append: entry_date | append: '","external":' | append: entry.external | append: '}' %}
+    {% assign combined_posts = combined_posts | push: entry_item %}
+  {% endfor %}
+{% endif %}
+
+{% if combined_posts.size > 0 %}
+  <ul>
+    {% comment %} 由于 Liquid 排序限制，我们需要手动处理排序 {% endcomment %}
+    {% assign sorted_posts = "" | split: "" %}
+    
+    {% comment %} Jekyll 文章 {% endcomment %}
+    {% for post in site.posts %}
+      {% assign post_data = '{"type":"jekyll","post":' | append: forloop.index0 | append: ',"date":"' | append: post.date | append: '"}' %}
+      {% assign sorted_posts = sorted_posts | push: post_data %}
+    {% endfor %}
+    
+    {% comment %} 自定义条目 {% endcomment %}
+    {% if blog_entries %}
+      {% for entry in blog_entries %}
+        {% assign entry_date = entry.date | default: "2024-01-01" %}
+        {% assign entry_data = '{"type":"custom","index":' | append: forloop.index0 | append: ',"date":"' | append: entry_date | append: '"}' %}
+        {% assign sorted_posts = sorted_posts | push: entry_data %}
+      {% endfor %}
+    {% endif %}
+    
+    {% comment %} 显示所有条目（按时间倒序） {% endcomment %}
+    {% assign jekyll_posts = site.posts %}
+    {% assign custom_entries = blog_entries %}
+    
+    {% comment %} 创建时间索引数组进行排序 {% endcomment %}
+    {% assign all_dates = "" | split: "" %}
+    {% for post in jekyll_posts %}
+      {% assign date_str = post.date | date: "%Y%m%d" | append: "_jekyll_" | append: forloop.index0 %}
+      {% assign all_dates = all_dates | push: date_str %}
+    {% endfor %}
+    
+    {% if custom_entries %}
+      {% for entry in custom_entries %}
+        {% assign entry_date = entry.date | default: "2024-01-01" | date: "%Y%m%d" %}
+        {% assign date_str = entry_date | append: "_custom_" | append: forloop.index0 %}
+        {% assign all_dates = all_dates | push: date_str %}
+      {% endfor %}
+    {% endif %}
+    
+    {% assign sorted_dates = all_dates | sort | reverse %}
+    
+    {% for date_item in sorted_dates %}
+      {% assign parts = date_item | split: "_" %}
+      {% assign item_type = parts[1] %}
+      {% assign item_index = parts[2] | plus: 0 %}
+      
+      {% if item_type == "jekyll" %}
+        {% assign post = jekyll_posts[item_index] %}
+        <li class="post-list-item">
+          <span class="home-date">
+            {{ post.date | date: site.theme_config.date_format }}»
+          </span>
+          <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+        </li>
+      {% elsif item_type == "custom" %}
+        {% assign entry = custom_entries[item_index] %}
+        <li class="post-list-item">
+          <span class="home-date">
+            {{ entry.date | date: site.theme_config.date_format | default: "2024-01-01" }}»
+          </span>
+          <a href="{{ entry.url | relative_url }}" 
+             {% if entry.external %}target="_blank"{% endif %}>
+            {{ entry.title }}
+            {% if entry.external %} ↗{% endif %}
+          </a>
+        </li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+{% endif %}

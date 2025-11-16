@@ -1,0 +1,77 @@
+/* 定义一个水平列表的样式 */
+ul.horizontal-list {
+  display: flex; /* 使用 Flexbox 布局 */
+  //justify-content: space-between; /* 项目之间平均分布 */
+  margin-top: 0em; /* 上边距为 0 */
+  margin-left: -40px; /* 左边距为 -40px，用于抵消列表项的默认缩进 */
+  flex-wrap: wrap; /* 允许项目换行 */
+
+  li { /* 列表项的样式 */
+    // display: inline; /* 列表项内联显示 */
+    display: inline-block; /* 修改为：inline-block 以确保每个卡片作为一个独立的块级元素 */
+    margin-right: 1em; /* 右边距为 1em，用于项目之间的间隔 */
+  }
+
+  li a { /* 列表项中链接的样式 */
+    text-decoration: none; /* 移除链接的下划线 */
+    font-weight: normal; /* 字体权重为正常 */
+  }
+}
+
+/* 定义卡片的样式 */
+.card {
+  padding: 1.5em; /* 内边距为 2em */
+  border: 1px var(--text) solid; /* 边框为 1px 实线，颜色由变量 --text 定义 */
+  width: 18em; /* 如果设置宽度为 11em，那么一行会有3个卡片 */
+  height: auto; /* 高度自动调整 */
+  text-align: center; /* 文本居中对齐 */
+  font-size: 1em; /* 字体大小为 1em */
+  align-items: center; /* 项目垂直居中对齐 */
+  background-color: var(--bg-secondary); /* 背景颜色由变量 --bg-secondary 定义 */
+  margin-bottom: 0.8em; /* 下边距为 0.8em */
+  border-radius: 0.5em; /* 圆角半径为 0.5em */
+  word-wrap: break-word; /* 允许长单词或 URL 自动换行 */
+  word-break: break-all; /* 强制文本在任何字符处换行 */
+  transition: background-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease; /* 平滑过渡，放大更慢 */
+
+  .header { /* 卡片头部的样式 */
+    color: var(--links); /* 颜色由变量 --links 定义 */
+    word-wrap: break-word; /* 确保描述部分也能自动换行 */
+    word-break: break-all; /* 强制文本在任何字符处换行 */
+  }
+
+  .body { /* 卡片主体的样式 */
+    font-size: 0.8em; /* 字体大小为 0.8em */
+  }
+
+  hr { /* 水平线的样式 */
+    margin: 0.5em 0; /* 上下边距为 0.5em */
+  }
+  
+  &:hover {
+    background-color: var(--highlight-muted); /* 使用柔和的高亮颜色，这个颜色在moonwalk.scss中定义 */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* 调整阴影以增强层次感 */
+    transform: scale(1.03); /* 稍微放大一点，效果更柔和 */
+  }
+
+}
+
+/* 针对特定卡片（腾讯文档链接）的单列样式 */
+.card.single {
+  width: 100%; /* 使其占满整行 */
+  display: block; /* 强制单独显示 */
+  margin-left: 0; /* 调整边距为 0，以与容器对齐 */
+}
+
+/* 响应式卡片 - 小屏幕设备上显示为单列 */
+@media screen and (max-width: 600px) {
+  ul.horizontal-list li.card { /* 当屏幕宽度小于等于 600px 时，卡片的样式 */
+    width: 100%; /* 宽度为 100%，占据整行 */
+    display: block; /* 显示为块级元素 */
+    margin-bottom: 1em; /* 下边距为 1em */
+    margin-left: 1em; /* 左边距为 1em */
+    a, .header { /* 链接和头部的字体大小 */
+      font-size: 1em; /* 字体大小为 1em */
+    }
+  }
+}

@@ -1,0 +1,612 @@
+---
+layout: default
+---
+<!-- 环绕鼠标运动并跟随的粒子群效果 -->
+<div id="particle-container"></div>
+
+<!-- 网页头部信息 -->
+<header>
+  {% if site.theme_config.show_navbar == true %}
+  {% include horizontal_list.html collection=site.data.home.navbar_entries %}
+  <div class="dashed"></div>
+  {% endif %}
+
+  <!-- 网页描述 -->
+  <h1>{{ site.title }}</h1>
+  {% if site.theme_config.show_description == true %} <!-- 这些标题的名字在_config.yml文件中配置 -->
+  <p>{{ site.description }}</p>
+  {% endif %}
+</header>
+
+<!-- 音乐播放器 -->
+<div id="music-player-container" style="text-align: center; margin-bottom: 20px;">
+  <audio id="audio-player" controls>
+    <source src="../music/music_home_whole.mp3" type="audio/mpeg">
+    <!-- 注意，_开头的文件夹是无法被访问的 -->
+  </audio>
+</div>
+
+<!-- 滚动背景图-循环文本区域 -->
+<div id="typing-effect-container"></div>
+{{ content }}
+{% if site.theme_config.show_misc_list == true %}
+<h2>{{ site.theme_config.home.title_misc_list }}</h2>
+{% include vertical_list.html collection=site.data.home.misc_entries %}
+{% endif %}
+
+<!-- 代码仓库 -->
+{% if site.theme_config.show_old_projects == true %}
+<h2>{{ site.theme_config.home.title_old_projects }}</h2>
+{% include card_list.html collection=site.data.home.old_project_entries %}
+{% endif %}
+
+<!-- 文海泛舟 -->
+{% if site.theme_config.show_blog == true %}
+<h2>{{ site.theme_config.home.title_blog }}</h2>
+{% include post_list.html %}
+{% endif %}
+
+<!-- 技术博客 -->
+{% if site.theme_config.show_projects == true %}
+<h2>{{ site.theme_config.home.title_projects }}</h2>
+{% include card_list.html collection=site.data.home.project_entries %}
+{% endif %}
+
+<!-- 腾讯文档链接 -->
+<h2>{{ site.theme_config.home.title_link_contact }}</h2>
+<ul class="horizontal-list">
+  <!-- 腾讯文档卡片 -->
+  <li class="card single">
+    <a href="https://docs.qq.com/form/page/DSFBMZGlGWUZlV3Rx" target="_blank">
+      <span class="header">【腾讯文档】个人网站反馈收集表</span>
+      <hr />
+      <p class="body">点击此链接填写反馈意见，帮助我改进个人网站！🤓</p>
+    </a>
+  </li>
+</ul>
+
+<!-- 网站底部信息 -->
+{% if site.theme_config.show_footer == true %}
+<footer>
+  <div class="dashed"></div>
+  {% include horizontal_list.html collection=site.data.home.footer_entries %}
+  <!-- 添加计时器和访问统计 -->
+  <div id="site-stats" style="text-align: center; margin-top: 20px;">
+    <p>本网站已连续运行：<span id="run-timer">加载中...</span></p>
+    <!-- <p>本网站累计访问次数：<span id="visit-count">加载中...</span></p> -->
+  </div>
+</footer>
+{% endif %}
+
+<!-- CSS for typing effect -->
+<!-- 深色模式和浅色模式的配色定义在moonwalk.scss文件中 -->
+<style>
+  /* ----------------------------鼠标经过时粒子的动画效果---------------------------- */
+  /* 粒子容器样式 */
+  #particle-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    /* 确保粒子不会阻止其他元素的点击 */
+    z-index: 9999;
+  }
+
+  /* 粒子样式 */
+    .particle {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    animation: move 1.5s ease-in-out infinite;
+    opacity: 0.8;
+    clip-path: var(--shape);
+  }
+
+  /* 生成尾迹的动画 */
+  @keyframes move {
+    0% {
+      transform: translate(0, 0) scale(1);
+      /* 初始大小为正常 */
+      opacity: 1;
+    }
+
+    100% {
+      transform: translate(var(--move-x), var(--move-y)) scale(2);
+      /* 粒子在移动过程中变大 */
+      opacity: 0;
+      /* 粒子逐渐消失 */
+    }
+  }
+
+  /* 定义颜色动画 */
+  @keyframes colorChange {
+    0% {
+      background-color: #ff5722;
+      /* 红色 */
+    }
+
+    25% {
+      background-color: #4caf50;
+      /* 绿色 */
+    }
+
+    50% {
+      background-color: #2196f3;
+      /* 蓝色 */
+    }
+
+    75% {
+      background-color: #ffeb3b;
+      /* 黄色 */
+    }
+
+    100% {
+      background-color: #9c27b0;
+      /* 紫色 */
+    }
+  }
+
+  /* --------------------音乐播放器样式-------------------- */
+  #music-player-container {
+    text-align: center;
+    margin-bottom: 20px;
+    /* 控制播放器与下方内容的间距 */
+  }
+
+  /* 音频播放器样式 */
+  audio {
+    width: 80%;
+    /* 控制播放器宽度 */
+    max-width: 600px;
+    /* 最大宽度 */
+    border-radius: 10px;
+    /* 圆角 */
+    background-color: var(--audio-bg-color);
+    /* 背景色使用CSS变量 */
+    padding: 10px;
+    /* 内边距 */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    /* 添加阴影 */
+  }
+
+  /* 深色主题下的音乐播放器样式 */
+  [data-theme='dark'] audio {
+    background-color: var(--audio-bg-color-dark);
+    /* 深色模式背景 */
+    color: #000;
+    /* 音乐播放器中的文字颜色为黑色 */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+    /* 深色主题的阴影效果 */
+  }
+
+  /* 浅色主题下的音乐播放器样式 */
+  [data-theme='light'] audio {
+    background-color: var(--audio-bg-color-light);
+    /* 浅色模式背景 */
+    color: #333;
+    /* 浅色主题下的文本颜色 */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    /* 浅色主题的阴影效果 */
+  }
+
+  /* 控制按钮、进度条、时间显示等文本的颜色 */
+  audio::-webkit-media-controls {
+    color: inherit;
+    /* 继承父元素的颜色 */
+  }
+
+  audio::-webkit-media-controls-panel {
+    background-color: var(--audio-bg-color);
+    /* 控制面板背景色 */
+  }
+
+  /* 定义CSS变量：浅色和深色模式下的背景颜色 */
+  :root {
+    --audio-bg-color-light: #f8f8f8;
+    /* 浅色模式下的背景色 */
+    --audio-bg-color-dark: #333;
+    /* 深色模式下的背景色 */
+  }
+
+  /* 深色主题下的颜色设置 */
+  [data-theme='dark'] {
+    --audio-bg-color: #333;
+    /* 背景色 */
+  }
+
+  /* 浅色主题下的颜色设置 */
+  [data-theme='light'] {
+    --audio-bg-color: #f8f8f8;
+    /* 背景色 */
+  }
+
+  /* -----------------------------------图片-打字效果样式--------------------------- */
+  [data-theme='dark'] #typing-effect-container {
+    color: var(--typing-text-color);
+    /* 动态文字颜色 */
+  }
+
+  [data-theme='dark'] #typing-effect-container::after {
+    background-color: var(--typing-cursor-color);
+    /* 光标颜色 */
+  }
+
+  :root {
+    --typing-text-color: #333;
+    /* 默认文字颜色 */
+    --typing-cursor-color: #333;
+    /* 默认光标颜色 */
+  }
+
+  [data-theme='dark'] {
+    --typing-text-color: #9a93f0;
+    /* 深色主题的文字颜色 */
+    --typing-cursor-color: #9a93f0;
+    /* 深色主题的光标颜色 */
+  }
+
+  /* 容器样式 */
+  #typing-effect-container {
+    font-family: 'KaiTi', '楷体', 'SimKai', 'NSimSun', 'STKaiti', 'AR PL UKai CN', 'AR PL UKai HK', 'AR PL UKai TW', monospace;
+    font-size: 1.5em;
+    color: var(--typing-text-color);
+    white-space: nowrap;
+    overflow: hidden;
+    display: inline-block;
+    text-align: center;
+    margin: 20px auto 40px;
+    position: relative;
+    padding: 20px;
+    height: 10em;
+    background-size: cover;
+    background-position: center center;
+    animation: scrollBackground 20s linear infinite;
+    width: 29em;
+    /* 默认宽度 */
+  }
+
+  /*px（像素）：像素是屏幕上的一个基本单位，表示屏幕的最小可显示点。
+  它与设备的屏幕分辨率直接相关，通常用于指定固定的尺寸，不随屏幕大小或父元素的变化而变化。
+
+  em：em 是相对单位，它基于当前元素的字体大小。
+  例如，1em 等于当前元素的字体大小；
+  如果父元素的字体大小是 16px，那么 1em 就等于 16px，2em 就等于 32px。
+  如果没有设置父元素的字体大小，em 就继承浏览器默认的字体大小（通常为 16px）。
+  em 单位非常适用于响应式布局，因为它能根据父元素的字体大小动态调整。*/
+
+  /* 屏幕宽度小于 600px 时调整宽度，保留左右边距 */
+  @media (max-width: 600px) {
+    #typing-effect-container {
+      width: calc(100% - 40px);
+      /* 屏幕宽度减去左右边距 */
+      margin-left: 20px;
+      margin-right: 20px;
+    }
+  }
+
+  /* 背景滚动动画 */
+  @keyframes scrollBackground {
+    0% {
+      background-position: 0 0;
+    }
+
+    100% {
+      background-position: 100% 0;
+    }
+  }
+
+  /* 调整头部样式以适应打字效果 */
+  header {
+    position: relative;
+    padding-top: 70px;
+  }
+
+  /* 光标闪烁效果 */
+  #typing-effect-container::after {
+    content: '';
+    display: inline-block;
+    width: 3px;
+    /* 调整光标宽度 */
+    height: 1.2em;
+    /* 调整光标高度 */
+    background-color: var(--typing-cursor-color);
+    /* 动态光标颜色 */
+    animation: blink 0.8s steps(2, start) infinite;
+    /* 闪烁效果 */
+  }
+
+  /* 光标闪烁动画 */
+  @keyframes blink {
+    to {
+      visibility: hidden;
+    }
+  }
+</style>
+
+<!-- JavaScript for typing effect -->
+<script>
+  // ----------------------------监听鼠标事件并生成粒子效果----------------------------
+  const particleContainer = document.getElementById('particle-container');
+
+  // 监听鼠标移动事件
+  document.addEventListener('mousemove', (e) => {
+    for (let i = 0; i < 3; i++) {  // 每次鼠标移动生成5个粒子
+      createParticle(e.pageX, e.pageY);
+    }
+  });
+
+    function createParticle(x, y) {
+    const particle = document.createElement('div');
+    particle.classList.add('particle');
+
+    // 添加随机图形生成
+    const shapes = [
+      'circle(50% at 50% 50%)', // 圆形
+      'polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)', // 菱形
+      'polygon(50% 0%, 100% 100%, 0% 100%)', // 三角形
+      'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)', // 方形
+      'polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%)', // 星形
+    ];
+    const randomShape = shapes[Math.floor(Math.random() * shapes.length)];
+    particle.style.setProperty('--shape', randomShape);
+
+    // 随机生成粒子颜色
+    const color = getRandomColor();
+    particle.style.backgroundColor = color;
+
+    // 设置粒子的初始位置
+    particle.style.left = `${x - 5}px`;
+    particle.style.top = `${y - 5}px`;
+
+    // 随机生成粒子的运动方向
+    const moveX = (Math.random() - 0.5) * 100;
+    const moveY = (Math.random() - 0.5) * 100;
+
+    // 设置动画属性
+    particle.style.setProperty('--move-x', `${moveX}px`);
+    particle.style.setProperty('--move-y', `${moveY}px`);
+
+    // 为粒子添加颜色变化动画
+    particle.style.animation = `move 1.5s ease-in-out infinite, colorChange 1.5s linear infinite, grow 1.5s ease-out`;
+
+    // 将粒子添加到容器中
+    particleContainer.appendChild(particle);
+
+    // 粒子动画完成后移除
+    setTimeout(() => {
+      particle.remove();
+    }, 1500);
+  }
+
+  // 随机生成颜色
+  function getRandomColor() {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
+
+  // ----------------------------打字效果--------------------------
+  document.addEventListener('DOMContentLoaded', function () {
+    const texts = [
+      "天行健，君子以自强不息；地势坤，君子以厚德载物。",
+      "高山仰止，景行行止。",
+      "蒹葭苍苍，白露为霜。",
+      "昔我往矣，杨柳依依。今我来思，雨雪霏霏。",
+      "天何所沓？十二焉分？日月安属？列星安陈？",
+      "知天之所为，知人之所为者，至矣。",
+      "天地玄黄，宇宙洪荒。日月盈昃，辰宿列张。",
+      "道生一，一生二，二生三，三生万物。",
+    ];
+
+    let currentTextIndex = 0;
+    let currentCharIndex = 0;
+    const typingSpeed = 150; // 打字速度（毫秒）
+    const eraseSpeed = 50; // 删除速度（毫秒）
+    const typingEffectContainer = document.getElementById("typing-effect-container");
+
+    function typeText() {
+      const currentText = texts[currentTextIndex];
+      typingEffectContainer.textContent = currentText.substring(0, currentCharIndex + 1);
+      currentCharIndex++;
+
+      if (currentCharIndex < currentText.length) {
+        setTimeout(typeText, typingSpeed);
+      } else {
+        setTimeout(eraseText, 1000); // 打字完毕后等待一段时间，然后开始删除
+      }
+    }
+
+    function eraseText() {
+      const currentText = texts[currentTextIndex];
+      typingEffectContainer.textContent = currentText.substring(0, currentCharIndex - 1);
+      currentCharIndex--;
+
+      if (currentCharIndex >= 0) {
+        setTimeout(eraseText, eraseSpeed);
+      } else {
+        currentTextIndex = (currentTextIndex + 1) % texts.length; // 循环播放文本
+        setTimeout(typeText, 500); // 等待一段时间后再开始打字
+      }
+    }
+
+    typeText(); // 开始打字效果
+
+    // 调用背景图加载和更新
+    loadBackgroundImages();
+  });
+
+  // 加载并循环显示背景图片
+  function loadBackgroundImages() {
+    const folderPath = "images/home_page/"; // 图片文件夹路径
+    const imageFiles = [
+      "img1.png", "img2.jpg", "img3.jpg", "img4.jpg",
+      "img5.jpg", "img6.jpg", "img7.jpg", "img8.png" // 替换为文件夹下的图片文件名
+    ];
+
+    let currentImageIndex = 0;
+    const typingEffectContainer = document.getElementById("typing-effect-container");
+
+    function updateBackgroundImage() {
+      typingEffectContainer.style.backgroundImage = `url('${folderPath}${imageFiles[currentImageIndex]}')`;
+      currentImageIndex = (currentImageIndex + 1) % imageFiles.length; // 循环图片
+
+      // 计算并设置文字颜色为背景图的对比色
+      const img = new Image();
+      img.src = `${folderPath}${imageFiles[currentImageIndex]}`;
+      img.onload = function () {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = img.width;
+        canvas.height = img.height;
+        ctx.drawImage(img, 0, 0, img.width, img.height);
+
+        //防止文字被选中
+        canvas.style.userSelect = 'none';
+
+        // 只取图像的上1/3部分
+        const cropHeight = Math.floor(img.height / 3);
+        const imgData = ctx.getImageData(0, 0, img.width, cropHeight); // 截取上1/3部分的像素数据
+
+        let r = 0, g = 0, b = 0;
+        const pixelCount = imgData.width * imgData.height;
+        for (let i = 0; i < pixelCount; i++) {
+          r += imgData.data[i * 4];
+          g += imgData.data[i * 4 + 1];
+          b += imgData.data[i * 4 + 2];
+        }
+        r = Math.floor(r / pixelCount);
+        g = Math.floor(g / pixelCount);
+        b = Math.floor(b / pixelCount);
+
+        // 计算亮度
+        const luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+
+        // 根据亮度选择适当的文字颜色
+        const contrastColor = luminance > 128 ? '#000' : '#fff'; // 亮度大于128选择黑色，反之选择白色
+        document.documentElement.style.setProperty('--typing-text-color', contrastColor);
+        document.documentElement.style.setProperty('--typing-cursor-color', contrastColor); // 设置光标颜色
+      };
+    }
+
+
+    updateBackgroundImage(); // 初始化显示第一张图片
+    setInterval(updateBackgroundImage, 5000); // 每5秒更新一次背景图片
+  }
+
+
+  // 网站运行计时器
+  const siteStartTime = new Date('2024-11-07T16:04:00'); // 网站启动时间
+  const runTimerElement = document.getElementById("run-timer");
+
+  function updateRunTime() {
+    const currentTime = new Date();
+    const elapsedTime = currentTime - siteStartTime;
+    const days = Math.floor(elapsedTime / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((elapsedTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((elapsedTime % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((elapsedTime % (1000 * 60)) / 1000);
+
+    runTimerElement.textContent = `${days}天 ${hours}小时 ${minutes}分钟 ${seconds}秒`;
+  }
+
+  setInterval(updateRunTime, 1000); // 每秒更新一次运行时间
+
+  // 网站访问计数器
+  const visitCountElement = document.getElementById("visit-count");
+
+  // // 模拟访问次数，这里你可以用真实的 API 或者计数器服务来更新访问次数
+  // let visitCount = 12345; // 示例访问次数
+  // visitCountElement.textContent = visitCount;
+
+  // 如果你需要从服务器获取实际的访问数据，可以使用类似的代码：
+  fetch('/api/get-visit-count')
+    .then(response => response.json())
+    .then(data => {
+      visitCount = data.visitCount;
+      visitCountElement.textContent = visitCount;
+    });
+
+  // 音乐播放器
+  document.addEventListener('DOMContentLoaded', function () {
+    const audioPlayer = document.getElementById('audio-player');
+    // 自动播放
+    audioPlayer.autoplay = true;
+    // 循环播放
+    audioPlayer.loop = true;
+  });
+
+ // --------------------------点击跳出汉字效果--------------------------
+(function () {
+  var timesOfDay = ["夜半", "鸡鸣", "平旦", "日出", "食时", "隅中", "日中", "日昳", "晡时", "日入", "黄昏", "人定",
+    "春分", "雨水", "惊蛰", "春分", "清明", "谷雨", "立夏", "小满", "芒种", "夏至", "小暑", "大暑", "立秋", "处暑", "白露", "秋分", "寒露", "霜降", "立冬", "小雪", "大雪", "冬至", "小寒", "大寒", 
+  ];
+  var index = Math.floor(Math.random() * timesOfDay.length);
+
+  document.body.addEventListener('click', function (e) {
+    if (e.target.tagName == 'A') {
+      return;
+    }
+    var x = e.pageX,
+        y = e.pageY,
+        span = document.createElement('span');
+
+    // 设置要显示的词
+    span.textContent = timesOfDay[index];
+    index = (index + 1) % timesOfDay.length; // 循环更新索引
+
+    // 随机生成颜色
+    var randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
+
+    // 设置样式
+    span.style.cssText = [
+      'z-index: 9999999; position: absolute; font-weight: bold; color: ', randomColor, 
+      '; top: ', y - 14, 'px; left: ', x - 14, // 将 top 设置为 y - 字体的一半高度，以便使字的底边中点对齐点击点
+      'px; font-size: 14px; font-family: "KaiTi", "楷体", sans-serif;'
+    ].join('');
+
+    span.style.userSelect = 'none'; // 防止选中
+
+    document.body.appendChild(span);
+    animate(span);
+  });
+
+  function animate(el) { // 动画
+    var i = 0,
+        size = 14, // 初始字体大小
+        top = parseInt(el.style.top),
+        id = setInterval(frame, 24);
+
+    function frame() { // 帧
+      if (i > 120) { // 将动画持续时间减少，避免字扩散得过大
+        clearInterval(id);
+        el.parentNode.removeChild(el);
+      } else {
+        i += 2; // 帧率
+        size += 0.3; // 字体逐渐增大，增大幅度减小
+        el.style.top = top - i + 'px'; // 向上运动
+        el.style.opacity = (120 - i) / 120; // 逐渐变透明
+        el.style.fontSize = size + 'px'; // 字体逐渐变大
+
+        // 计算新的水平位置，基于初始值和当前字体变化调整
+        let initialFontSize = 14; // 初始字体大小是 14px
+        let initialLeft = parseFloat(el.dataset.initialLeft) || parseFloat(el.style.left) || 0; // 初始 left 值
+
+        if (!el.dataset.initialLeft) {
+            // 保存初始位置到 dataset
+            el.dataset.initialLeft = initialLeft;
+        }
+
+        // 根据字体大小调整 left，确保中心竖直向上
+        let adjustment = (size - initialFontSize) / 2; // 动态调整量
+        el.style.left = initialLeft - adjustment + 'px';
+      }
+    }
+  }
+}());
+
+</script>

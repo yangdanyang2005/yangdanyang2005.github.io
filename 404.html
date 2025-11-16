@@ -1,0 +1,85 @@
+---
+permalink: /404.html
+layout: post
+---
+
+<style type="text/css" media="screen">
+
+  /* 设置默认背景颜色 */
+  body {
+    background-color: var(--audio-bg-color, #fff); /* 使用自定义的背景颜色变量，默认白色 */
+    color: #333; /* 默认字体颜色 */
+  }
+
+  /* 通用样式 */
+  .container {
+    margin: 1em auto;
+    max-width: 60em;
+    text-align: center;
+    padding: 2em;
+    border-radius: 10px;
+    background-color: #fff;  /* 默认背景 */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  h1 {
+    margin: 30px 0;
+    font-size: 6em;
+    line-height: 1;
+    letter-spacing: -2px;
+    color: #ff6347;
+    font-weight: bold;
+  }
+
+  p {
+    font-size: 1.2em;
+    color: #555;
+  }
+
+  /* 深色模式 */
+  [data-theme='dark'] {
+    --audio-bg-color: #333; /* 深色模式背景 */
+    background-color: #333;
+    color: #f9f9f9; /* 字体颜色 */
+  }
+
+  [data-theme='dark'] .container {
+    background-color: #444;  /* 深色模式下容器背景 */
+    color: #ddd; /* 深色模式下字体颜色 */
+  }
+
+  [data-theme='dark'] h1 {
+    color: #ff6347; /* 保持红色字体 */
+  }
+
+  [data-theme='dark'] p {
+    color: #ddd; /* 深色模式下文字颜色 */
+  }
+
+  /* 浅色模式 */
+  [data-theme='light'] {
+    --audio-bg-color: #f8f8f8; /* 浅色模式背景 */
+    background-color: #f9f9f9;
+    color: #333;
+  }
+
+  [data-theme='light'] .container {
+    background-color: #fff;  /* 浅色模式下容器背景 */
+    color: #555; /* 浅色模式下字体颜色 */
+  }
+
+  [data-theme='light'] h1 {
+    color: #ff6347; /* 保持红色字体 */
+  }
+
+  [data-theme='light'] p {
+    color: #555; /* 浅色模式下文字颜色 */
+  }
+
+</style>
+
+<!-- HTML 内容 -->
+<div class="container">
+  <h1>404</h1>
+  <p><strong>Page Not Found 🥺</strong><br />The requested page could not be found.</p>
+</div>
