@@ -9,7 +9,7 @@ title: 联系我
 
 您可以通过以下电子邮件地址联系我：
 
-- [1524754931@qq.com](mailto:1524754931@qq.com)
+- [yangdanyang2005@qq.com](mailto:yangdanyang2005@qq.com)
 - [yangdanyang@whu.edu.cn](mailto:yangdanyang@whu.edu.cn)
 
 无论是关于技术问题的讨论，还是项目合作的咨询，都欢迎随时发邮件给我。我会尽力回复您的每一封邮件。

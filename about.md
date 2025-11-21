@@ -9,16 +9,14 @@ title: 关于我
 
 ## 关于我
 
-我叫杨丹阳，来自中国湖北省武汉市的武汉大学遥感信息工程学院。
+我叫杨丹阳，来自中国湖北省武汉市的武汉大学遥感信息工程学院地理信息工程方向。
 
 ## 座右铭
 > 天行健，君子以自强不息；地势坤，君子以厚德载物。   
 
-这句话出自《周易》，意思是天地运行刚强劲健，君子应效法天道，不断地自我提升；大地的气势宽广厚重，君子应该像大地一样，用深厚的美德来承载万物。
-
 
 ## 联系方式
-- 电子邮件：1524754931@qq.com 或 yangdanyang@whu.edu.cn
+- 电子邮件：yangdanyang2005@qq.com 或 yangdanyang@whu.edu.cn
 - [GitHub主页](https://github.com/yangdanyang2005)
 - [CSDN主页](https://blog.csdn.net/Zlyzjiabjw547479)
 
