@@ -7,7 +7,6 @@
     <style>
         /* --- 1. 全局与字体设置 --- */
         @font-face {
-            /* 尝试调用系统自带的古风字体 */
             font-family: 'AncientFont';
             src: local('KaiTi'), local('STKaiti'), local('SimSun'), serif;
         }
@@ -19,22 +18,22 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            font-family: 'AncientFont', serif; /* 启用衬线体 */
+            font-family: 'AncientFont', serif;
             overflow: hidden;
         }
 
         /* --- 2. 游戏舞台 --- */
         #game-stage {
-            width: 960px; /* 稍微加宽视野 */
+            width: 960px;
             height: 640px;
             background-color: #000;
             position: relative;
             box-shadow: 0 0 30px rgba(0,0,0,0.8);
-            border: 4px double #5c4033; /* 双线古铜色边框 */
+            border: 4px double #5c4033;
             overflow: hidden;
         }
 
-        /* --- 3. 背景层 (双缓冲机制实现淡入淡出) --- */
+        /* --- 3. 背景层 (双缓冲) --- */
         .bg-layer {
             position: absolute;
             top: 0;
@@ -43,17 +42,17 @@
             height: 100%;
             background-size: cover;
             background-position: center;
-            opacity: 0; /* 默认隐藏 */
-            transition: opacity 1.5s ease-in-out; /* 淡入淡出时间 */
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
             z-index: 1;
         }
 
         .bg-layer.active {
-            opacity: 1; /* 激活层显示 */
+            opacity: 1;
             z-index: 2;
         }
 
-        /* --- 4. 立绘层 --- */
+        /* --- 4. 立绘层 (全屏大立绘，保留原逻辑) --- */
         #character-layer {
             position: absolute;
             top: 0;
@@ -78,68 +77,75 @@
             height: 200px;
             pointer-events: none;
             z-index: 10;
-            display: none; /* 开始前隐藏 */
-        }
-
-        /* --- 6. 头像组件 --- */
-        #avatar-box {
-            position: absolute;
-            bottom: 25px;
-            left: -10px;
-            width: 170px;
-            height: 170px;
-            z-index: 12;
-            /* 简单的相框效果 */
-            border: 3px solid #5c4033;
-            background: #2b2b2b;
-            box-shadow: 3px 3px 10px rgba(0,0,0,0.6);
-            overflow: hidden;
-            border-radius: 4px;
-        }
-
-        #avatar-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
             display: none;
         }
 
-        /* --- 7. 对话框组件 (古风美化) --- */
+        /* --- 6. 头像组件 (支持双缓冲淡入淡出) --- */
+        #avatar-box {
+            position: absolute;
+            bottom: 0px; 
+            left: -20px; 
+            width: 220px; 
+            height: 220px; 
+            z-index: 100; 
+            border: none;
+            background: transparent;
+            box-shadow: none;
+            border-radius: 0;
+            overflow: visible; 
+        }
+
+        /* 头像层通用样式 */
+        .avatar-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            opacity: 0; /* 默认隐藏 */
+            transition: opacity 0.5s ease-in-out; /* 头像切换速度，比背景快一点 */
+            filter: drop-shadow(5px 5px 8px rgba(0,0,0,0.6));
+        }
+
+        .avatar-layer.active {
+            opacity: 1; /* 激活显示 */
+        }
+
+        /* --- 7. 对话框组件 --- */
         #text-box {
             position: absolute;
             bottom: 0;
             right: 0;
             width: 86%; 
             height: 160px;
-            /* 深褐色渐变背景，模拟木质或墨色 */
             background: linear-gradient(to bottom, rgba(43, 30, 30, 0.95), rgba(20, 15, 15, 1));
-            border: 2px solid #8b5a2b; /* 铜边 */
-            border-left: none; /* 左边被头像盖住，去掉边框看起来融合更好 */
-            padding: 25px 30px 25px 80px; /* 左padding留大点给头像 */
+            border: 2px solid #8b5a2b;
+            border-left: none;
+            padding: 25px 30px 25px 80px;
             box-sizing: border-box;
-            color: #e0d0b0; /* 米黄色文字，比纯白更护眼、更复古 */
+            color: #e0d0b0;
             cursor: pointer;
             pointer-events: auto;
             box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            z-index: 10; 
         }
 
-        /* 装饰性花纹 (可选) */
         #text-box::after {
             content: "";
             position: absolute;
             top: 5px; right: 5px; bottom: 5px; left: 5px;
-            border: 1px solid rgba(139, 90, 43, 0.3); /* 内部细线 */
+            border: 1px solid rgba(139, 90, 43, 0.3);
             pointer-events: none;
         }
 
         #name-tag {
             font-size: 26px;
             font-weight: bold;
-            color: #ff4500; /* 朱砂红 */
+            color: #ff4500;
             text-shadow: 1px 1px 2px #000;
             margin-bottom: 12px;
             letter-spacing: 2px;
-            /* 模拟印章效果背景 */
             display: inline-block;
             border-bottom: 2px solid #5c2020;
             padding-bottom: 2px;
@@ -167,7 +173,7 @@
             100% { opacity: 0.3; }
         }
 
-        /* --- 8. 开始遮罩层 (解决音频自动播放问题) --- */
+        /* --- 8. 开始遮罩层 --- */
         #start-screen {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -207,7 +213,8 @@
 
         <div id="ui-container">
             <div id="avatar-box">
-                <img id="avatar-img" src="" alt="Avatar">
+                <img id="avatar-1" class="avatar-layer" src="" alt="">
+                <img id="avatar-2" class="avatar-layer" src="" alt="">
             </div>
             
             <div id="text-box" onclick="nextStep()">
@@ -225,7 +232,6 @@
 
     <audio id="bgm-player" loop>
         <source src="bgm.mp3" type="audio/mpeg">
-        您的浏览器不支持音频元素。
     </audio>
 
     <script>
@@ -233,34 +239,41 @@
         let scriptData = [];
         let currentIndex = -1;
         let typeWriterTimer = null;
-        let currentBgUrl = ""; // 记录当前显示的背景URL
-        let activeLayerIndex = 1; // 1 或 2，标记当前哪个背景层是可见的
+        
+        // 背景控制变量
+        let currentBgUrl = "";
+        let activeBgIndex = 1;
+
+        // 头像控制变量
+        let currentAvatarUrl = "";
+        let activeAvatarIndex = 1; // 1 或 2，标记当前哪个头像层可见
 
         // DOM 元素
         const bgLayer1 = document.getElementById('bg-layer-1');
         const bgLayer2 = document.getElementById('bg-layer-2');
+        
+        // 获取两个头像元素
+        const avatar1 = document.getElementById('avatar-1');
+        const avatar2 = document.getElementById('avatar-2');
+
         const charEl = document.getElementById('character-layer');
-        const avatarEl = document.getElementById('avatar-img');
         const nameEl = document.getElementById('name-tag');
         const textEl = document.getElementById('dialog-text');
         const uiContainer = document.getElementById('ui-container');
         const startScreen = document.getElementById('start-screen');
         const audioPlayer = document.getElementById('bgm-player');
 
-        // --- 1. 初始化游戏 (用户首次点击时触发) ---
+        // --- 1. 初始化游戏 ---
         function initGame() {
-            // 播放音乐
-            audioPlayer.volume = 0.5; // 设置音量 50%
-            audioPlayer.play().catch(e => console.log("音频播放失败:", e));
+            audioPlayer.volume = 0.5;
+            audioPlayer.play().catch(e => console.log("音频播放需交互:", e));
 
-            // 淡出遮罩层
             startScreen.style.opacity = 0;
             setTimeout(() => {
                 startScreen.style.display = 'none';
-                uiContainer.style.display = 'block'; // 显示游戏UI
+                uiContainer.style.display = 'block';
             }, 1000);
 
-            // 开始加载剧本
             loadScript();
         }
 
@@ -273,22 +286,20 @@
                 })
                 .then(text => {
                     scriptData = parseCSV(text);
-                    nextStep(); // 开始第一句
+                    nextStep();
                 })
                 .catch(err => {
                     console.error(err);
-                    textEl.innerText = "错误：请确保 script.csv 存在，并使用 Live Server 运行。";
+                    textEl.innerText = "错误：请确保 script.csv 存在。";
                 });
         }
 
-        // CSV 解析逻辑 (保持不变)
         function parseCSV(csvText) {
             const lines = csvText.trim().split('\n');
             const result = [];
             for (let i = 1; i < lines.length; i++) {
                 const line = lines[i].trim();
                 if (!line) continue;
-                // 简单的逗号分割（请确保文本内容不含英文逗号）
                 const parts = line.split(',');
                 result.push({
                     bg: parts[0] || "",
@@ -307,7 +318,6 @@
 
             currentIndex++;
             if (currentIndex >= scriptData.length) {
-                // 剧本结束处理
                 if(confirm("剧情结束，是否重头开始？")) {
                     currentIndex = 0;
                 } else {
@@ -317,18 +327,26 @@
             renderScene(scriptData[currentIndex]);
         }
 
-        // --- 4. 渲染场景 (包含核心的淡入淡出逻辑) ---
+        // --- 4. 渲染场景 ---
         function renderScene(scene) {
             const newBg = scene.bg ? scene.bg.trim() : "";
+            const newAvatar = scene.avatar ? scene.avatar.trim() : "";
 
-            // [逻辑] 背景淡入淡出检测
-            // 如果新背景不为空，且和当前背景不一样
+            // 4.1 背景切换检测
             if (newBg && newBg !== currentBgUrl) {
                 switchBackground(newBg);
                 currentBgUrl = newBg;
             }
 
-            // 立绘更新
+            // 4.2 头像切换检测
+            // 如果新头像不为空，且与当前不同，则切换
+            // 如果新头像为空（例如旁白），则隐藏当前头像
+            if (newAvatar !== currentAvatarUrl) {
+                switchAvatar(newAvatar);
+                currentAvatarUrl = newAvatar;
+            }
+
+            // 4.3 立绘更新 (保持原逻辑，无需淡入淡出太复杂，直接替换)
             if (scene.char && scene.char.trim() !== "") {
                 charEl.style.backgroundImage = `url('${scene.char.trim()}')`;
                 charEl.style.opacity = 1;
@@ -336,35 +354,42 @@
                 charEl.style.opacity = 0;
             }
 
-            // 头像更新
-            if (scene.avatar && scene.avatar.trim() !== "") {
-                avatarEl.src = scene.avatar.trim();
-                avatarEl.style.display = "block";
-            } else {
-                avatarEl.style.display = "none";
-            }
-
-            // 文本更新
+            // 4.4 文本更新
             nameEl.innerText = scene.name;
             runTypewriter(scene.text);
         }
 
         // [功能] 背景切换的核心函数
         function switchBackground(url) {
-            // 确定哪个是"前台"(可见)，哪个是"后台"(隐藏)
-            const activeLayer = activeLayerIndex === 1 ? bgLayer1 : bgLayer2;
-            const nextLayer = activeLayerIndex === 1 ? bgLayer2 : bgLayer1;
+            const activeLayer = activeBgIndex === 1 ? bgLayer1 : bgLayer2;
+            const nextLayer = activeBgIndex === 1 ? bgLayer2 : bgLayer1;
 
-            // 1. 在后台层加载新图片
             nextLayer.style.backgroundImage = `url('${url}')`;
-
-            // 2. 交换状态：后台变前台(fade in)，前台变后台(fade out)
-            // 这里利用 CSS 的 class .active 来控制 opacity
             nextLayer.classList.add('active');
             activeLayer.classList.remove('active');
 
-            // 3. 更新索引
-            activeLayerIndex = activeLayerIndex === 1 ? 2 : 1;
+            activeBgIndex = activeBgIndex === 1 ? 2 : 1;
+        }
+
+        // 头像切换的核心函数
+        function switchAvatar(url) {
+            const activeEl = activeAvatarIndex === 1 ? avatar1 : avatar2;
+            const nextEl = activeAvatarIndex === 1 ? avatar2 : avatar1;
+
+            if (url === "") {
+                // 如果没有头像（比如变成旁白），两个都淡出
+                activeEl.classList.remove('active');
+                nextEl.classList.remove('active');
+            } else {
+                // 加载新图到下一层，并淡入
+                nextEl.src = url;
+                nextEl.classList.add('active');
+                // 旧层淡出
+                activeEl.classList.remove('active');
+            }
+
+            // 切换索引
+            activeAvatarIndex = activeAvatarIndex === 1 ? 2 : 1;
         }
 
         // [功能] 打字机
@@ -373,7 +398,7 @@
             if (typeWriterTimer) clearInterval(typeWriterTimer);
             
             let i = 0;
-            const content = text.replace(/^"|"$/g, ''); // 去除可能存在的首尾引号
+            const content = text.replace(/^"|"$/g, '');
             
             typeWriterTimer = setInterval(() => {
                 if (i < content.length) {
@@ -382,7 +407,7 @@
                 } else {
                     clearInterval(typeWriterTimer);
                 }
-            }, 40); // 打字速度
+            }, 40);
         }
     </script>
 </body>
