@@ -30,22 +30,22 @@
             position: relative;
             box-shadow: 0 0 30px rgba(0,0,0,0.8);
             border: 4px double #5c4033;
-            overflow: hidden; /* 确保整体不溢出 */
+            overflow: hidden;
         }
 
-        /* --- 3. 背景层 (高度 440px，不占据下方文字区) --- */
+        /* --- 3. 背景层 --- */
         .bg-layer {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 440px; /* 留出底部 200px 给文字 */
+            height: 440px; 
             background-size: cover;
             background-position: center;
             opacity: 0;
             transition: opacity 1.5s ease-in-out;
             z-index: 1;
-            border-bottom: 2px solid #3a2a2a; /* 分割线 */
+            border-bottom: 2px solid #3a2a2a;
         }
 
         .bg-layer.active {
@@ -53,23 +53,23 @@
             z-index: 2;
         }
 
-        /* --- 4. 立绘层 (高度限制在 440px 内) --- */
+        /* --- 4. 立绘层 --- */
         #character-layer {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 440px; /* 限制在背景区域内 */
+            height: 440px;
             background-size: contain;
             background-repeat: no-repeat;
-            background-position: center bottom; /* 立绘站在分割线上 */
+            background-position: center bottom;
             transform: scale(0.95);
             transition: opacity 0.3s;
             z-index: 5;
             pointer-events: none;
         }
 
-        /* --- 5. UI 容器 (占据底部 200px，全宽) --- */
+        /* --- 5. UI 容器 --- */
         #ui-container {
             position: absolute;
             bottom: 0;
@@ -78,14 +78,15 @@
             height: 200px;
             z-index: 10;
             display: none;
-            overflow: visible; /* 允许头像头部稍微突出到上方 */
+            overflow: visible;
         }
 
-        /* --- 6. 头像组件 (定位到左下角) --- */
+        /* --- 6. 头像组件 --- */
         #avatar-box {
             position: absolute;
-            bottom: 0px; 
-            left: 10px; /* 靠左放置 */
+            /* 让头像稍稍浮起，看起来更生动 */
+            bottom: 50px; 
+            left: 10px;
             width: 220px; 
             height: 220px; 
             z-index: 100; 
@@ -93,7 +94,6 @@
             pointer-events: none;
         }
 
-        /* 头像层通用样式 */
         .avatar-layer {
             position: absolute;
             bottom: 0;
@@ -111,18 +111,16 @@
             opacity: 1; 
         }
 
-        /* --- 7. 对话框组件 (全宽，且为头像留出 padding) --- */
+        /* --- 7. 对话框组件 --- */
         #text-box {
             position: absolute;
             bottom: 0;
             left: 0;
             width: 100%; 
-            height: 100%; /* 填满 UI 容器 */
-            /* 背景为深色纯色或渐变，作为底部通栏 */
+            height: 100%;
             background: linear-gradient(to bottom, #1f1a1a, #110e0e);
-            border-top: 4px solid #8b5a2b; /* 顶部装饰线 */
+            border-top: 4px solid #8b5a2b;
             
-            /* 左侧 padding 避开头像，右侧留余地 */
             padding: 35px 40px 35px 240px; 
             
             box-sizing: border-box;
@@ -130,22 +128,16 @@
             cursor: pointer;
             pointer-events: auto;
             z-index: 10; 
-        }
 
-        /* 装饰性边框（可选，这里只在内部画一个框，或者去掉）
-        #text-box::after {
-            content: "";
-            position: absolute;
-            top: 10px; right: 10px; bottom: 10px; left: 230px;  左边避开头像 
-            border: 1px solid rgba(139, 90, 43, 0.2);
-            pointer-events: none;
-            border-radius: 4px;
-        } */
+            /* opacity 过渡实现淡入淡出效果 */
+            transition: opacity 0.5s ease-in-out;
+            opacity: 1; 
+        }
 
         #name-tag {
             font-size: 28px;
             font-weight: bold;
-            color: #ffb366; /* 稍微调亮一点颜色以便在深底色上看清 */
+            color: #ffb366;
             text-shadow: 2px 2px 4px #000;
             margin-bottom: 15px;
             letter-spacing: 2px;
@@ -177,7 +169,7 @@
             100% { opacity: 0.3; }
         }
 
-        /* --- 8. 开始遮罩层 (调整z-index确保在最上) --- */
+        /* --- 8. 开始遮罩层 --- */
         #start-screen {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -244,25 +236,26 @@
         let currentIndex = -1;
         let typeWriterTimer = null;
         
-        // 背景控制变量
         let currentBgUrl = "";
         let activeBgIndex = 1;
 
-        // 头像控制变量
         let currentAvatarUrl = "";
-        let activeAvatarIndex = 1; // 1 或 2，标记当前哪个头像层可见
+        let activeAvatarIndex = 1;
 
         // DOM 元素
         const bgLayer1 = document.getElementById('bg-layer-1');
         const bgLayer2 = document.getElementById('bg-layer-2');
         
-        // 获取两个头像元素
         const avatar1 = document.getElementById('avatar-1');
         const avatar2 = document.getElementById('avatar-2');
 
         const charEl = document.getElementById('character-layer');
+        
+        // 获取 text-box 本身，以便控制它的透明度
+        const textBoxEl = document.getElementById('text-box'); 
         const nameEl = document.getElementById('name-tag');
         const textEl = document.getElementById('dialog-text');
+        
         const uiContainer = document.getElementById('ui-container');
         const startScreen = document.getElementById('start-screen');
         const audioPlayer = document.getElementById('bgm-player');
@@ -335,6 +328,8 @@
         function renderScene(scene) {
             const newBg = scene.bg ? scene.bg.trim() : "";
             const newAvatar = scene.avatar ? scene.avatar.trim() : "";
+            // 预处理文字内容，去除两端空格
+            const newText = scene.text ? scene.text.trim() : "";
 
             // 4.1 背景切换检测
             if (newBg && newBg !== currentBgUrl) {
@@ -343,14 +338,12 @@
             }
 
             // 4.2 头像切换检测
-            // 如果新头像不为空，且与当前不同，则切换
-            // 如果新头像为空（例如旁白），则隐藏当前头像
             if (newAvatar !== currentAvatarUrl) {
                 switchAvatar(newAvatar);
                 currentAvatarUrl = newAvatar;
             }
 
-            // 4.3 立绘更新 (保持原逻辑，无需淡入淡出太复杂，直接替换)
+            // 4.3 立绘更新
             if (scene.char && scene.char.trim() !== "") {
                 charEl.style.backgroundImage = `url('${scene.char.trim()}')`;
                 charEl.style.opacity = 1;
@@ -358,12 +351,23 @@
                 charEl.style.opacity = 0;
             }
 
-            // 4.4 文本更新
-            nameEl.innerText = scene.name;
-            runTypewriter(scene.text);
+            // 4.4 文本框隐显控制
+            if (newText === "") {
+                // 如果没有文字，文本框淡出（变透明）
+                textBoxEl.style.opacity = "0";
+                // 清空内容防止残留
+                nameEl.innerText = "";
+                textEl.innerText = "";
+                // 注意：这里没有设置 display:none，所以 opacity:0 的区域依然可以被点击
+                // 这样玩家点击屏幕底部时，依然可以触发 nextStep() 进入下一步
+            } else {
+                // 如果有文字，文本框淡入
+                textBoxEl.style.opacity = "1";
+                nameEl.innerText = scene.name;
+                runTypewriter(newText);
+            }
         }
 
-        // [功能] 背景切换的核心函数
         function switchBackground(url) {
             const activeLayer = activeBgIndex === 1 ? bgLayer1 : bgLayer2;
             const nextLayer = activeBgIndex === 1 ? bgLayer2 : bgLayer1;
@@ -375,28 +379,22 @@
             activeBgIndex = activeBgIndex === 1 ? 2 : 1;
         }
 
-        // 头像切换的核心函数
         function switchAvatar(url) {
             const activeEl = activeAvatarIndex === 1 ? avatar1 : avatar2;
             const nextEl = activeAvatarIndex === 1 ? avatar2 : avatar1;
 
             if (url === "") {
-                // 如果没有头像（比如变成旁白），两个都淡出
                 activeEl.classList.remove('active');
                 nextEl.classList.remove('active');
             } else {
-                // 加载新图到下一层，并淡入
                 nextEl.src = url;
                 nextEl.classList.add('active');
-                // 旧层淡出
                 activeEl.classList.remove('active');
             }
 
-            // 切换索引
             activeAvatarIndex = activeAvatarIndex === 1 ? 2 : 1;
         }
 
-        // [功能] 打字机
         function runTypewriter(text) {
             textEl.innerText = "";
             if (typeWriterTimer) clearInterval(typeWriterTimer);
