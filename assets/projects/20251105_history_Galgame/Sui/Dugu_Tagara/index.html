@@ -33,7 +33,7 @@
             overflow: hidden; /* 确保整体不溢出 */
         }
 
-        /* --- 3. 背景层 (修改：高度改为 440px，不占据下方文字区) --- */
+        /* --- 3. 背景层 (高度 440px，不占据下方文字区) --- */
         .bg-layer {
             position: absolute;
             top: 0;
@@ -53,7 +53,7 @@
             z-index: 2;
         }
 
-        /* --- 4. 立绘层 (修改：高度限制在 440px 内) --- */
+        /* --- 4. 立绘层 (高度限制在 440px 内) --- */
         #character-layer {
             position: absolute;
             top: 0;
@@ -69,7 +69,7 @@
             pointer-events: none;
         }
 
-        /* --- 5. UI 容器 (修改：占据底部 200px，全宽) --- */
+        /* --- 5. UI 容器 (占据底部 200px，全宽) --- */
         #ui-container {
             position: absolute;
             bottom: 0;
@@ -81,7 +81,7 @@
             overflow: visible; /* 允许头像头部稍微突出到上方 */
         }
 
-        /* --- 6. 头像组件 (修改：定位到左下角) --- */
+        /* --- 6. 头像组件 (定位到左下角) --- */
         #avatar-box {
             position: absolute;
             bottom: 0px; 
@@ -111,18 +111,18 @@
             opacity: 1; 
         }
 
-        /* --- 7. 对话框组件 (修改：全宽，且为头像留出 padding) --- */
+        /* --- 7. 对话框组件 (全宽，且为头像留出 padding) --- */
         #text-box {
             position: absolute;
             bottom: 0;
             left: 0;
             width: 100%; 
             height: 100%; /* 填满 UI 容器 */
-            /* 背景改为深色纯色或渐变，作为底部通栏 */
+            /* 背景为深色纯色或渐变，作为底部通栏 */
             background: linear-gradient(to bottom, #1f1a1a, #110e0e);
             border-top: 4px solid #8b5a2b; /* 顶部装饰线 */
             
-            /* 关键修改：左侧 padding 避开头像，右侧留余地 */
+            /* 左侧 padding 避开头像，右侧留余地 */
             padding: 35px 40px 35px 240px; 
             
             box-sizing: border-box;
@@ -132,7 +132,7 @@
             z-index: 10; 
         }
 
-        /* 装饰性边框（可选，这里改为只在内部画一个框，或者去掉）
+        /* 装饰性边框（可选，这里只在内部画一个框，或者去掉）
         #text-box::after {
             content: "";
             position: absolute;
