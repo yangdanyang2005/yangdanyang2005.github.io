@@ -18,7 +18,7 @@ title: 关于我
 ## 联系方式
 - 电子邮件：yangdanyang2005@qq.com 或 yangdanyang@whu.edu.cn
 - [GitHub主页](https://github.com/yangdanyang2005)
-- [CSDN主页](https://blog.csdn.net/Zlyzjiabjw547479)
+- [CSDN主页](https://yangdanyang.blog.csdn.net)
 
 ---
 
