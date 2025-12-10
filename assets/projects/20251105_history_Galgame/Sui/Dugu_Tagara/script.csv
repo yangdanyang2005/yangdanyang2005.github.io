@@ -1,0 +1,4 @@
+bg,char,avatar,name,text
+images/bg_camp.jpg,images/char_xb.png,images/face_xb.png,项伯,"不行，我必须去告诉张良！"
+images/bg_camp.jpg,images/char_zl.jpg,images/face_zl.jpg,张良,"项伯兄深夜造访，所为何事？"
+images/bg_room.jpg,,images/face_xb.png,项伯,"沛公明日就要大难临头了！"
