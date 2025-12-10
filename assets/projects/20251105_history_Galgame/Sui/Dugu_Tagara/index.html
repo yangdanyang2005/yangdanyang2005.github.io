@@ -30,21 +30,22 @@
             position: relative;
             box-shadow: 0 0 30px rgba(0,0,0,0.8);
             border: 4px double #5c4033;
-            overflow: hidden;
+            overflow: hidden; /* 确保整体不溢出 */
         }
 
-        /* --- 3. 背景层 (双缓冲) --- */
+        /* --- 3. 背景层 (修改：高度改为 440px，不占据下方文字区) --- */
         .bg-layer {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
+            height: 440px; /* 留出底部 200px 给文字 */
             background-size: cover;
             background-position: center;
             opacity: 0;
             transition: opacity 1.5s ease-in-out;
             z-index: 1;
+            border-bottom: 2px solid #3a2a2a; /* 分割线 */
         }
 
         .bg-layer.active {
@@ -52,117 +53,120 @@
             z-index: 2;
         }
 
-        /* --- 4. 立绘层 (全屏大立绘，保留原逻辑) --- */
+        /* --- 4. 立绘层 (修改：高度限制在 440px 内) --- */
         #character-layer {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
+            height: 440px; /* 限制在背景区域内 */
             background-size: contain;
             background-repeat: no-repeat;
-            background-position: center bottom;
+            background-position: center bottom; /* 立绘站在分割线上 */
             transform: scale(0.95);
             transition: opacity 0.3s;
             z-index: 5;
+            pointer-events: none;
         }
 
-        /* --- 5. UI 容器 --- */
+        /* --- 5. UI 容器 (修改：占据底部 200px，全宽) --- */
         #ui-container {
             position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90%;
+            bottom: 0;
+            left: 0;
+            width: 100%;
             height: 200px;
-            pointer-events: none;
             z-index: 10;
             display: none;
+            overflow: visible; /* 允许头像头部稍微突出到上方 */
         }
 
-        /* --- 6. 头像组件 (支持双缓冲淡入淡出) --- */
+        /* --- 6. 头像组件 (修改：定位到左下角) --- */
         #avatar-box {
             position: absolute;
             bottom: 0px; 
-            left: -20px; 
+            left: 10px; /* 靠左放置 */
             width: 220px; 
             height: 220px; 
             z-index: 100; 
-            border: none;
-            background: transparent;
-            box-shadow: none;
-            border-radius: 0;
-            overflow: visible; 
+            overflow: visible;
+            pointer-events: none;
         }
 
         /* 头像层通用样式 */
         .avatar-layer {
             position: absolute;
-            top: 0;
+            bottom: 0;
             left: 0;
             width: 100%;
             height: 100%;
             object-fit: contain;
-            opacity: 0; /* 默认隐藏 */
-            transition: opacity 0.5s ease-in-out; /* 头像切换速度，比背景快一点 */
+            object-position: bottom center;
+            opacity: 0; 
+            transition: opacity 0.5s ease-in-out; 
             filter: drop-shadow(5px 5px 8px rgba(0,0,0,0.6));
         }
 
         .avatar-layer.active {
-            opacity: 1; /* 激活显示 */
+            opacity: 1; 
         }
 
-        /* --- 7. 对话框组件 --- */
+        /* --- 7. 对话框组件 (修改：全宽，且为头像留出 padding) --- */
         #text-box {
             position: absolute;
             bottom: 0;
-            right: 0;
-            width: 86%; 
-            height: 160px;
-            background: linear-gradient(to bottom, rgba(43, 30, 30, 0.95), rgba(20, 15, 15, 1));
-            border: 2px solid #8b5a2b;
-            border-left: none;
-            padding: 25px 30px 25px 80px;
+            left: 0;
+            width: 100%; 
+            height: 100%; /* 填满 UI 容器 */
+            /* 背景改为深色纯色或渐变，作为底部通栏 */
+            background: linear-gradient(to bottom, #1f1a1a, #110e0e);
+            border-top: 4px solid #8b5a2b; /* 顶部装饰线 */
+            
+            /* 关键修改：左侧 padding 避开头像，右侧留余地 */
+            padding: 35px 40px 35px 240px; 
+            
             box-sizing: border-box;
             color: #e0d0b0;
             cursor: pointer;
             pointer-events: auto;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
             z-index: 10; 
         }
 
+        /* 装饰性边框（可选，这里改为只在内部画一个框，或者去掉）
         #text-box::after {
             content: "";
             position: absolute;
-            top: 5px; right: 5px; bottom: 5px; left: 5px;
-            border: 1px solid rgba(139, 90, 43, 0.3);
+            top: 10px; right: 10px; bottom: 10px; left: 230px;  左边避开头像 
+            border: 1px solid rgba(139, 90, 43, 0.2);
             pointer-events: none;
-        }
+            border-radius: 4px;
+        } */
 
         #name-tag {
-            font-size: 26px;
+            font-size: 28px;
             font-weight: bold;
-            color: #ff4500;
-            text-shadow: 1px 1px 2px #000;
-            margin-bottom: 12px;
+            color: #ffb366; /* 稍微调亮一点颜色以便在深底色上看清 */
+            text-shadow: 2px 2px 4px #000;
+            margin-bottom: 15px;
             letter-spacing: 2px;
             display: inline-block;
             border-bottom: 2px solid #5c2020;
-            padding-bottom: 2px;
+            padding-bottom: 4px;
         }
 
         #dialog-text {
-            font-size: 20px;
-            line-height: 1.7;
-            letter-spacing: 1px;
+            font-size: 22px;
+            line-height: 1.6;
+            letter-spacing: 1.5px;
             font-family: 'AncientFont', serif;
+            text-shadow: 1px 1px 2px #000;
         }
 
         #next-indicator {
             position: absolute;
-            bottom: 15px;
-            right: 25px;
-            font-size: 14px;
+            bottom: 20px;
+            right: 30px;
+            font-size: 16px;
             color: #8b5a2b;
             animation: pulse 1.5s infinite;
         }
@@ -173,12 +177,12 @@
             100% { opacity: 0.3; }
         }
 
-        /* --- 8. 开始遮罩层 --- */
+        /* --- 8. 开始遮罩层 (调整z-index确保在最上) --- */
         #start-screen {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
             background: #000;
-            z-index: 999;
+            z-index: 2000;
             display: flex;
             flex-direction: column;
             justify-content: center;
