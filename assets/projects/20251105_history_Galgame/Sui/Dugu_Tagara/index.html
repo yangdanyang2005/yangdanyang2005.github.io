@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>宫中二圣</title>
+    <title>历史剧场</title>
     <style>
         /* --- 1. 全局与字体设置 --- */
         @font-face {
@@ -20,6 +20,7 @@
             margin: 0;
             font-family: 'AncientFont', serif;
             overflow: hidden;
+            user-select: none;
         }
 
         /* --- 2. 游戏舞台 --- */
@@ -33,33 +34,22 @@
             overflow: hidden;
         }
 
-        /* --- 3. 背景层 --- */
+        /* --- 3. 游戏内背景层 --- */
         .bg-layer {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 440px; 
+            top: 0; left: 0; width: 100%; height: 100%;
             background-size: cover;
             background-position: center;
             opacity: 0;
             transition: opacity 1.5s ease-in-out;
             z-index: 1;
-            border-bottom: 2px solid #3a2a2a;
         }
-
-        .bg-layer.active {
-            opacity: 1;
-            z-index: 2;
-        }
+        .bg-layer.active { opacity: 1; z-index: 2; }
 
         /* --- 4. 立绘层 --- */
         #character-layer {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 440px;
+            top: 0; left: 0; width: 100%; height: 440px;
             background-size: contain;
             background-repeat: no-repeat;
             background-position: center bottom;
@@ -69,13 +59,10 @@
             pointer-events: none;
         }
 
-        /* --- 5. UI 容器 --- */
+        /* --- 5. 游戏内 UI 容器 (对话框) --- */
         #ui-container {
             position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 200px;
+            bottom: 0; left: 0; width: 100%; height: 200px;
             z-index: 10;
             display: none;
             overflow: visible;
@@ -84,119 +71,149 @@
         /* --- 6. 头像组件 --- */
         #avatar-box {
             position: absolute;
-            /* 让头像稍稍浮起，看起来更生动 */
-            bottom: 50px; 
-            left: 10px;
-            width: 220px; 
-            height: 220px; 
-            z-index: 100; 
-            overflow: visible;
+            bottom: 50px; left: 10px;
+            width: 220px; height: 220px;
+            z-index: 100;
             pointer-events: none;
         }
-
         .avatar-layer {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            object-position: bottom center;
-            opacity: 0; 
-            transition: opacity 0.5s ease-in-out; 
+            position: absolute; bottom: 0; left: 0; width: 100%; height: 100%;
+            object-fit: contain; object-position: bottom center;
+            opacity: 0; transition: opacity 0.5s ease-in-out;
             filter: drop-shadow(5px 5px 8px rgba(0,0,0,0.6));
         }
-
-        .avatar-layer.active {
-            opacity: 1; 
-        }
+        .avatar-layer.active { opacity: 1; }
 
         /* --- 7. 对话框组件 --- */
         #text-box {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%; 
-            height: 100%;
+            position: absolute; bottom: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(to bottom, #1f1a1a, #110e0e);
             border-top: 4px solid #8b5a2b;
-            
-            padding: 35px 40px 35px 240px; 
-            
+            padding: 35px 40px 35px 240px;
             box-sizing: border-box;
             color: #e0d0b0;
             cursor: pointer;
             pointer-events: auto;
-            z-index: 10; 
-
-            /* opacity 过渡实现淡入淡出效果 */
-            transition: opacity 0.5s ease-in-out;
-            opacity: 1; 
+            z-index: 10;
         }
 
         #name-tag {
-            font-size: 28px;
-            font-weight: bold;
-            color: #ffb366;
-            text-shadow: 2px 2px 4px #000;
-            margin-bottom: 15px;
-            letter-spacing: 2px;
-            display: inline-block;
-            border-bottom: 2px solid #5c2020;
-            padding-bottom: 4px;
+            font-size: 28px; font-weight: bold; color: #ffb366;
+            text-shadow: 2px 2px 4px #000; margin-bottom: 15px;
+            letter-spacing: 2px; display: inline-block;
+            border-bottom: 2px solid #5c2020; padding-bottom: 4px;
         }
 
         #dialog-text {
-            font-size: 22px;
-            line-height: 1.6;
-            letter-spacing: 1.5px;
-            font-family: 'AncientFont', serif;
+            font-size: 22px; line-height: 1.6; letter-spacing: 1.5px;
             text-shadow: 1px 1px 2px #000;
         }
 
         #next-indicator {
-            position: absolute;
-            bottom: 20px;
-            right: 30px;
-            font-size: 16px;
-            color: #8b5a2b;
-            animation: pulse 1.5s infinite;
+            position: absolute; bottom: 20px; right: 30px;
+            font-size: 16px; color: #8b5a2b; animation: pulse 1.5s infinite;
         }
 
-        @keyframes pulse {
-            0% { opacity: 0.3; }
-            50% { opacity: 1; }
-            100% { opacity: 0.3; }
-        }
-
-        /* --- 8. 开始遮罩层 --- */
-        #start-screen {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: #000;
+        /* --- 8. 全屏覆盖层通用样式 (Start & End Screen) --- */
+        .full-screen-layer {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            display: flex; flex-direction: column; /* 垂直排列 */
             z-index: 2000;
+        }
+
+        /* 上半部分：图片区域 */
+        .top-visual-area {
+            width: 100%;
+            height: 440px; /* 固定高度 */
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            background-color: #000;
+        }
+
+        /* 下半部分：文字区域 */
+        .bottom-text-area {
+            width: 100%;
+            height: 200px; /* 固定高度 */
+            background: linear-gradient(to bottom, #2a2020, #110e0e);
+            border-top: 4px solid #8b5a2b;
+            box-sizing: border-box;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            color: #fff;
+            color: #e0d0b0;
+            position: relative;
+        }
+
+        /* --- 特定页面样式 --- */
+        
+        /* 开始界面 */
+        #start-screen {
             cursor: pointer;
             transition: opacity 1s;
         }
-        
+
         #start-title {
-            font-size: 48px;
-            margin-bottom: 20px;
-            color: #a58f6e;
-            letter-spacing: 10px;
+            font-size: 48px; /* 稍微调小以适应底部空间 */
+            margin-bottom: 10px;
+            color: #ffb366;
+            letter-spacing: 8px;
+            font-weight: bold;
+            text-shadow: 2px 2px 5px #000;
+        }
+
+        #start-info {
+            font-size: 20px;
+            color: #ccc;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
         }
 
         #start-hint {
-            font-size: 18px;
-            color: #666;
+            font-size: 16px;
+            color: #a58f6e;
             animation: pulse 2s infinite;
+            border: 1px solid #5c4033;
+            padding: 5px 15px;
+            border-radius: 4px;
         }
 
+        /* 结束界面 */
+        #end-screen {
+            display: none;
+            opacity: 0;
+            transition: opacity 2s;
+            z-index: 1500;
+        }
+
+        #end-content {
+            font-size: 22px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+            text-align: center;
+            padding: 0 40px;
+            color: #e0e0e0;
+        }
+
+        #restart-btn {
+            border: 1px solid #8b5a2b;
+            background: #3a2a2a;
+            color: #d0b090;
+            padding: 8px 25px;
+            font-family: 'AncientFont', serif;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        #restart-btn:hover { background: #5c4033; }
+
+        @keyframes pulse {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; }
+            100% { opacity: 0.5; }
+        }
     </style>
 </head>
 <body>
@@ -220,9 +237,21 @@
             </div>
         </div>
 
-        <div id="start-screen" onclick="initGame()">
-            <div id="start-title">历史剧场</div>
-            <div id="start-hint">◆ 点击屏幕开启篇章 ◆</div>
+        <div id="start-screen" class="full-screen-layer" onclick="startGame()">
+            <div id="start-bg-layer" class="top-visual-area"></div>
+            <div class="bottom-text-area">
+                <div id="start-title">加载中...</div>
+                <div id="start-info"></div>
+                <div id="start-hint">◆ 点击开始 ◆</div>
+            </div>
+        </div>
+
+        <div id="end-screen" class="full-screen-layer">
+            <div id="end-bg-layer" class="top-visual-area"></div>
+            <div class="bottom-text-area">
+                <div id="end-content"></div>
+                <button id="restart-btn" onclick="location.reload()">重新开始</button>
+            </div>
         </div>
     </div>
 
@@ -235,46 +264,40 @@
         let scriptData = [];
         let currentIndex = -1;
         let typeWriterTimer = null;
-        
+        let isGameStarted = false;
+
         let currentBgUrl = "";
         let activeBgIndex = 1;
-
         let currentAvatarUrl = "";
         let activeAvatarIndex = 1;
 
-        // DOM 元素
+        // DOM 元素获取
         const bgLayer1 = document.getElementById('bg-layer-1');
         const bgLayer2 = document.getElementById('bg-layer-2');
-        
+        const charEl = document.getElementById('character-layer');
+        const uiContainer = document.getElementById('ui-container');
         const avatar1 = document.getElementById('avatar-1');
         const avatar2 = document.getElementById('avatar-2');
-
-        const charEl = document.getElementById('character-layer');
-        
-        // 获取 text-box 本身，以便控制它的透明度
         const textBoxEl = document.getElementById('text-box'); 
         const nameEl = document.getElementById('name-tag');
         const textEl = document.getElementById('dialog-text');
-        
-        const uiContainer = document.getElementById('ui-container');
-        const startScreen = document.getElementById('start-screen');
         const audioPlayer = document.getElementById('bgm-player');
 
-        // --- 1. 初始化游戏 ---
-        function initGame() {
-            audioPlayer.volume = 0.5;
-            audioPlayer.play().catch(e => console.log("音频播放需交互:", e));
+        // 开始/结束页相关元素
+        const startScreen = document.getElementById('start-screen');
+        const startBgLayer = document.getElementById('start-bg-layer'); // 新增
+        const startTitle = document.getElementById('start-title');
+        const startInfo = document.getElementById('start-info');
 
-            startScreen.style.opacity = 0;
-            setTimeout(() => {
-                startScreen.style.display = 'none';
-                uiContainer.style.display = 'block';
-            }, 1000);
-
+        const endScreen = document.getElementById('end-screen');
+        const endBgLayer = document.getElementById('end-bg-layer'); // 新增
+        const endContent = document.getElementById('end-content');
+        
+        // --- 1. 加载 CSV ---
+        window.onload = function() {
             loadScript();
         }
 
-        // --- 2. 加载 CSV ---
         function loadScript() {
             fetch('script.csv')
                 .then(res => {
@@ -283,11 +306,12 @@
                 })
                 .then(text => {
                     scriptData = parseCSV(text);
-                    nextStep();
+                    initCover(); 
                 })
                 .catch(err => {
                     console.error(err);
-                    textEl.innerText = "错误：请确保 script.csv 存在。";
+                    startTitle.innerText = "错误";
+                    startInfo.innerText = "未找到 script.csv";
                 });
         }
 
@@ -297,77 +321,121 @@
             for (let i = 1; i < lines.length; i++) {
                 const line = lines[i].trim();
                 if (!line) continue;
-                const parts = line.split(',');
+                const parts = line.split(','); 
+                
+                const rawBg = parts[1] || "";
+                const rawChar = parts[2] || "";
+                const rawAvatar = parts[3] || "";
+
                 result.push({
-                    bg: parts[0] || "",
-                    char: parts[1] || "",
-                    avatar: parts[2] || "",
-                    name: parts[3] || "",
-                    text: parts.slice(4).join(',') || ""
+                    type: parts[0] ? parts[0].trim() : "dialog",
+                    bg: rawBg.replace(/\\/g, '/').trim(),      
+                    char: rawChar.replace(/\\/g, '/').trim(),  
+                    avatar: rawAvatar.replace(/\\/g, '/').trim(),
+                    name: parts[4] || "",
+                    text: parts.slice(5).join(',') || ""
                 });
             }
             return result;
         }
 
-        // --- 3. 推进剧情 ---
-        function nextStep() {
-            if (scriptData.length === 0) return;
-
-            currentIndex++;
-            if (currentIndex >= scriptData.length) {
-                if(confirm("剧情结束，是否重头开始？")) {
-                    currentIndex = 0;
-                } else {
-                    return;
+        // --- 2. 初始化封面 ---
+        function initCover() {
+            const startScene = scriptData.find(s => s.type === 'start');
+            
+            if (startScene) {
+                // 修改：背景图设置在上面的 div
+                if (startScene.bg) {
+                    startBgLayer.style.backgroundImage = `url('${startScene.bg}')`;
                 }
+                startTitle.innerText = startScene.name;
+                startInfo.innerText = startScene.text;
+            } else {
+                startTitle.innerText = "历史剧场";
+                startInfo.innerText = "默认剧本";
             }
-            renderScene(scriptData[currentIndex]);
         }
 
-        // --- 4. 渲染场景 ---
-        function renderScene(scene) {
-            const newBg = scene.bg ? scene.bg.trim() : "";
-            const newAvatar = scene.avatar ? scene.avatar.trim() : "";
-            // 预处理文字内容，去除两端空格
-            const newText = scene.text ? scene.text.trim() : "";
+        // --- 3. 开始游戏 ---
+        function startGame() {
+            if (isGameStarted) return;
+            isGameStarted = true;
 
-            // 4.1 背景切换检测
+            audioPlayer.volume = 0.5;
+            audioPlayer.play().catch(e => console.log("音频需交互:", e));
+
+            startScreen.style.opacity = 0;
+            setTimeout(() => {
+                startScreen.style.display = 'none';
+                uiContainer.style.display = 'block';
+                currentIndex = scriptData.findIndex(s => s.type !== 'start') - 1;
+                nextStep();
+            }, 1000);
+        }
+
+        // --- 4. 推进剧情 ---
+        function nextStep() {
+            if (!isGameStarted) return;
+            currentIndex++;
+            if (currentIndex >= scriptData.length) return;
+
+            const scene = scriptData[currentIndex];
+
+            if (scene.type === 'end') {
+                showEnding(scene);
+            } else if (scene.type === 'dialog' || scene.type === '') {
+                renderDialog(scene);
+            } else if (scene.type === 'start') {
+                nextStep();
+            }
+        }
+
+        function renderDialog(scene) {
+            const newBg = scene.bg;
+            const newAvatar = scene.avatar;
+            const newText = scene.text;
+
             if (newBg && newBg !== currentBgUrl) {
                 switchBackground(newBg);
                 currentBgUrl = newBg;
             }
-
-            // 4.2 头像切换检测
             if (newAvatar !== currentAvatarUrl) {
                 switchAvatar(newAvatar);
                 currentAvatarUrl = newAvatar;
             }
-
-            // 4.3 立绘更新
-            if (scene.char && scene.char.trim() !== "") {
-                charEl.style.backgroundImage = `url('${scene.char.trim()}')`;
+            if (scene.char && scene.char !== "") {
+                charEl.style.backgroundImage = `url('${scene.char}')`;
                 charEl.style.opacity = 1;
             } else {
                 charEl.style.opacity = 0;
             }
 
-            // 4.4 文本框隐显控制
-            if (newText === "") {
-                // 如果没有文字，文本框淡出（变透明）
-                textBoxEl.style.opacity = "0";
-                // 清空内容防止残留
-                nameEl.innerText = "";
-                textEl.innerText = "";
-                // 注意：这里没有设置 display:none，所以 opacity:0 的区域依然可以被点击
-                // 这样玩家点击屏幕底部时，依然可以触发 nextStep() 进入下一步
-            } else {
-                // 如果有文字，文本框淡入
-                textBoxEl.style.opacity = "1";
-                nameEl.innerText = scene.name;
-                runTypewriter(newText);
-            }
+            textBoxEl.style.opacity = "1";
+            uiContainer.style.display = "block"; 
+            nameEl.innerText = scene.name;
+            runTypewriter(newText);
         }
 
+        // --- 5. 渲染结局 ---
+        function showEnding(scene) {
+            uiContainer.style.display = 'none';
+            charEl.style.opacity = 0;
+
+            // 修改：背景图设置在 endScreen 的上层 div
+            if (scene.bg) {
+                endBgLayer.style.backgroundImage = `url('${scene.bg}')`;
+            }
+
+            endScreen.style.display = 'flex';
+            setTimeout(() => {
+                endScreen.style.opacity = 1;
+            }, 50);
+
+            endContent.innerText = scene.text;
+            isGameStarted = false;
+        }
+
+        // --- 辅助函数 ---
         function switchBackground(url) {
             const activeLayer = activeBgIndex === 1 ? bgLayer1 : bgLayer2;
             const nextLayer = activeBgIndex === 1 ? bgLayer2 : bgLayer1;
@@ -375,7 +443,6 @@
             nextLayer.style.backgroundImage = `url('${url}')`;
             nextLayer.classList.add('active');
             activeLayer.classList.remove('active');
-
             activeBgIndex = activeBgIndex === 1 ? 2 : 1;
         }
 
@@ -391,7 +458,6 @@
                 nextEl.classList.add('active');
                 activeEl.classList.remove('active');
             }
-
             activeAvatarIndex = activeAvatarIndex === 1 ? 2 : 1;
         }
 
