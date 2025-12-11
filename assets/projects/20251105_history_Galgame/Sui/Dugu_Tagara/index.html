@@ -514,12 +514,26 @@
                 startTitle.innerText = startScene.name;
                 startInfo.innerText = startScene.text;
 
-                // --- 新增：读取 BGM ---
-                // 我们约定 CSV 中 start 行的 char (第3列) 为 BGM 路径
+                // --- 读取 BGM 并添加交互监听 ---
+                // 约定 CSV 中 start 行的 char (第3列) 为 BGM 路径
                 if (startScene.char && startScene.char.trim() !== "") {
                     audioPlayer.src = startScene.char;
-                    audioPlayer.load(); // 重新加载音频资源
+                    audioPlayer.load(); 
+
+                    // 定义一个触发函数：尝试播放，成功后移除监听
+                    const playOnInteraction = () => {
+                        initBGM();
+                        // 移除监听器，确保只触发一次
+                        document.removeEventListener('click', playOnInteraction);
+                        document.removeEventListener('keydown', playOnInteraction);
+                    };
+
+                    // 在文档层面监听点击和按键
+                    // 这样用户只要点击页面任何地方（或者按任意键），BGM 就会开始播放
+                    document.addEventListener('click', playOnInteraction);
+                    document.addEventListener('keydown', playOnInteraction);
                 }
+
             } else {
                 startTitle.innerText = "魂入华夏";
                 startInfo.innerText = "准备就绪";
