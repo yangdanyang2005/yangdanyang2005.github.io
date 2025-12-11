@@ -268,19 +268,30 @@
         }
 
         #echo-subtitle-box {
-            height: 120px;
-            background: rgba(0,0,0,0.8);
-            border-top: 2px solid #5c4033;
+            /* 高度为 200px，与游戏内 ui-container 高度一致 */
+            height: 200px; 
+            /* 背景为与 #text-box 一致的黑红渐变 */
+            background: linear-gradient(to bottom, #1f1a1a, #110e0e);
+            /* 边框为与 #text-box 一致的 4px 金棕色 */
+            border-top: 4px solid #8b5a2b;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 0 60px;
             position: relative;
+            box-sizing: border-box; /* 确保 padding 不会撑大盒子 */
         }
 
         #echo-text {
-            color: #fff; font-size: 20px; letter-spacing: 1.5px;
-            text-shadow: 1px 1px 2px #000; text-align: center;
+            /* 字体颜色为 #e0d0b0 (米金色) */
+            color: #e0d0b0; 
+            /* 字号为 22px */
+            font-size: 22px; 
+            /* 行高 */
+            line-height: 1.6;
+            letter-spacing: 1.5px;
+            text-shadow: 1px 1px 2px #000;
+            text-align: center;
         }
 
         /* 回响页面的导航按钮 */
