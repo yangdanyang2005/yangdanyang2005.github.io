@@ -1,5 +1,5 @@
 type,bg,char,avatar,name,text
-start,images/start_gongzhongersheng.png,,,宫中二圣,公元581年·隋·长安
+start,images/start_gongzhongersheng.png,voices/bgm_liuychaoheshi.MP3,,宫中二圣,公元581年·隋·长安
 dialog,images/bg_dugujia.png,,,,独孤皇后，名伽罗，河南洛阳人，周大司马独孤信之女
 dialog,images/bg_dugujia.png,,,,周朝鼎盛时，独孤氏之姊为周明帝后，你的长女为周宣帝后，贵戚之盛，历朝历代莫之与比
 dialog,images/bg_dugujia.png,,,,而独孤氏本人却谦卑自守，世人称之
