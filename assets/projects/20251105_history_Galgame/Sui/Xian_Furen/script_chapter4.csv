@@ -1,0 +1,11 @@
+type,bg,char,avatar,name,text
+start,,,,,bgm/chapter3_main.mp3
+dialog,scenes/chapter3_bg1.jpg,,avatar/xianfuren.png,冼夫人,（进入循州府衙，翻阅案卷）这些民间诉讼，为何积压数月不决？
+dialog,scenes/chapter3_bg2.jpg,,avatar/county_magistrate.jpg,县令,夫人恕罪，下官……下官才疏学浅，且王仲宣叛乱时，衙门文书多有散失……
+dialog,scenes/chapter3_bg2.jpg,,avatar/xianfuren.png,冼夫人,才疏学浅可学，文书散失可补。但百姓之事，岂可拖延？这一案，老农状告地主强占田地，已拖了半年！
+dialog,scenes/chapter3_bg3.jpg,,avatar/xianfuren.png,冼夫人,传我令：从今日起，各州县衙门，凡民间诉讼，须一月内结案；积压超过三月者，主官降职查办！
+dialog,scenes/chapter3_bg4.jpg,,avatar/weiguang.jpg,韦洸,夫人整顿吏治，雷厉风行。只是……有些官员是前朝旧吏，盘根错节……
+dialog,scenes/chapter3_bg4.jpg,,avatar/xianfuren.png,冼夫人,前朝旧吏？正因如此，才更要整顿！我已得陛下授权，可置长史以下官属。贪赃枉法者，罢官治罪；玩忽职守者，就地免职！
+dialog,scenes/chapter3_bg5.jpg,,avatar/xianfuren.png,冼夫人,吏治清明，百姓方能安居乐业。岭南初定，若官吏腐败，必生祸乱。望诸位好自为之。
+dialog,scenes/chapter3_bg6.jpg,,avatar/xianfuren.png,冼夫人,韦将军，朝廷所行之“考课法”亦当在岭南推行，每年考核官员政绩，优者升迁，劣者罢黜。
+end,scenes/chapter3_bg7.jpg,,,,冼夫人整饬吏治，罢免数名贪官，岭南官场为之一清。百姓称颂：“谯国夫人至，冤屈得申张”……

@@ -1,0 +1,11 @@
+type,bg,char,avatar,name,text
+start,,,,,bgm/chapter4_main.mp3
+dialog,scenes/chapter4_bg1.jpg,,avatar/xianfuren.png,冼夫人,（视察泷州河堤，手指溃堤处）去年水患，淹没良田千顷，百姓流离失所。必须修建水利，防范未然。
+dialog,scenes/chapter4_bg2.jpg,,avatar/engineer.jpg,泷州官员,夫人，若要重修河堤、开凿水渠，需征发民夫三千，耗时半年，耗费钱粮巨大。
+dialog,scenes/chapter4_bg2.jpg,,avatar/xianfuren.png,冼夫人,不可强征民夫！传我令：自愿参加修渠者，免一年赋税，每日供饭食两餐，另给工钱。
+dialog,scenes/chapter4_bg3.jpg,,avatar/farmer.jpg,老农,夫人体恤民情，我等愿出力修渠！修好水渠，子孙后代都受益！
+dialog,scenes/chapter4_bg4.jpg,,avatar/xianfuren.png,冼夫人,水渠关乎万民生计，务必坚固耐用。此处要加宽，此处要加深，还要建闸门调控水流。
+dialog,scenes/chapter4_bg5.jpg,,avatar/weiguang.jpg,韦洸,夫人，朝廷为泷州水利所拨之款项已到，可再建三处陂塘，灌溉周边万亩良田。
+dialog,scenes/chapter4_bg5.jpg,,avatar/xianfuren.png,冼夫人,甚好！记住：水利工程，质量第一。若有偷工减料者，严惩不贷！
+dialog,scenes/chapter4_bg6.jpg,,avatar/xianfuren.png,冼夫人,我还要你们设计一种“龙骨水车”，可将低处之水引往高处，解决丘陵地带的灌溉难题。
+end,scenes/chapter4_bg7.jpg,,,,冼夫人推动水利建设，动员数万百姓兴修水利，岭南农业生产得到保障……

@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>魂入华夏</title>
+    <link rel="icon" href="favicon.png" type="image/png">
+    <style>
+        /* --- 1. 全局与字体设置 --- */
+        @font-face {
+            font-family: 'AncientFont';
+            src: local('KaiTi'), local('STKaiti'), local('SimSun'), serif;
+        }
+
+        body {
+            background-color: #1a1a1a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'AncientFont', serif;
+            overflow: hidden;
+            user-select: none;
+        }
+
+        /* --- 2. 游戏舞台 --- */
+        #game-stage {
+            width: 960px;
+            height: 640px;
+            background-color: #000;
+            position: relative;
+            box-shadow: 0 0 30px rgba(0,0,0,0.8);
+            border: 4px double #5c4033;
+            overflow: hidden;
+        }
+
+        /* --- 3. 游戏内背景层 --- */
+        .bg-layer {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+            z-index: 1;
+        }
+        .bg-layer.active { opacity: 1; z-index: 2; }
+
+        /* --- 4. 立绘层 --- */
+        #character-layer {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 440px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center bottom;
+            transform: scale(0.95);
+            transition: opacity 0.3s;
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        /* --- 5. 游戏内 UI 容器 (对话框) --- */
+        #ui-container {
+            position: absolute;
+            bottom: 0; left: 0; width: 100%; height: 200px;
+            z-index: 10;
+            display: none;
+            overflow: visible;
+        }
+
+        /* --- 6. 头像组件 --- */
+        #avatar-box {
+            position: absolute;
+            bottom: 50px; left: 10px;
+            width: 220px; height: 220px;
+            z-index: 100;
+            pointer-events: none;
+        }
+        .avatar-layer {
+            position: absolute; bottom: 0; left: 0; width: 100%; height: 100%;
+            object-fit: contain; object-position: bottom center;
+            opacity: 0; transition: opacity 0.5s ease-in-out;
+            filter: drop-shadow(5px 5px 8px rgba(0,0,0,0.6));
+        }
+        .avatar-layer.active { opacity: 1; }
+
+        /* --- 7. 对话框组件 --- */
+        #text-box {
+            position: absolute; bottom: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, #1f1a1a, #110e0e);
+            border-top: 4px solid #8b5a2b;
+            padding: 35px 40px 35px 240px;
+            box-sizing: border-box;
+            color: #e0d0b0;
+            cursor: pointer;
+            pointer-events: auto;
+            z-index: 10;
+        }
+
+        #name-tag {
+            font-size: 28px; font-weight: bold; color: #ffb366;
+            text-shadow: 2px 2px 4px #000; margin-bottom: 15px;
+            letter-spacing: 2px; display: inline-block;
+            border-bottom: 2px solid #5c2020; padding-bottom: 4px;
+        }
+
+        #dialog-text {
+            font-size: 22px; line-height: 1.6; letter-spacing: 1.5px;
+            text-shadow: 1px 1px 2px #000;
+        }
+
+        #next-indicator {
+            position: absolute; bottom: 20px; right: 30px;
+            font-size: 16px; color: #8b5a2b; animation: pulse 1.5s infinite;
+        }
+
+        /* --- 8. 全屏覆盖层通用样式 --- */
+        .full-screen-layer {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            display: flex; flex-direction: column; 
+            z-index: 2000;
+            background: #000;
+        }
+
+        .top-visual-area {
+            width: 100%;
+            height: 440px; 
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            background-color: #000;
+        }
+
+        .bottom-text-area {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(to bottom, #2a2020, #110e0e);
+            border-top: 4px solid #8b5a2b;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #e0d0b0;
+            position: relative;
+        }
+
+        /* --- 特定页面样式 --- */
+        #start-screen {
+            cursor: default;
+            transition: opacity 1s;
+        }
+        
+        #start-content-wrapper {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 10;
+            width: 100%;
+            max-height: 90%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #start-title {
+            font-size: 56px;
+            margin-bottom: 10px;
+            color: #ffb366;
+            letter-spacing: 10px;
+            font-weight: bold;
+            text-shadow: 0 0 10px #8b4513;
+        }
+
+        #start-info {
+            font-size: 20px; color: #ccc; letter-spacing: 2px; margin-bottom: 30px;
+        }
+
+        /* --- 章节选择列表样式 --- */
+        #chapter-list-container {
+            width: 60%;
+            max-height: 300px;
+            overflow-y: auto;
+            padding-right: 10px;
+            /* 自定义滚动条样式 */
+            scrollbar-width: thin;
+            scrollbar-color: #8b5a2b #1a1a1a;
+        }
+        
+        #chapter-list-container::-webkit-scrollbar { width: 8px; }
+        #chapter-list-container::-webkit-scrollbar-track { background: #1a1a1a; }
+        #chapter-list-container::-webkit-scrollbar-thumb { background-color: #8b5a2b; border-radius: 4px; }
+
+        .chapter-card {
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid #5c4033;
+            border-left: 4px solid #8b5a2b;
+            padding: 15px 20px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.3s ease;
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chapter-card:hover {
+            background: rgba(139, 90, 43, 0.2);
+            border-color: #d0b090;
+            transform: translateX(5px);
+        }
+
+        .chapter-title {
+            font-size: 22px; color: #e0d0b0; font-weight: bold; letter-spacing: 1px;
+        }
+        .chapter-subtitle {
+            font-size: 16px; color: #888; margin-top: 5px; font-style: italic;
+        }
+        .chapter-arrow { font-size: 20px; color: #5c4033; }
+
+        /* 通用按钮样式微调 */
+        .menu-btn {
+            background: transparent;
+            border: 2px solid #8b5a2b;
+            color: #d0b090;
+            padding: 10px 40px;
+            font-family: 'AncientFont', serif;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin: 10px;
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+        }
+        .menu-btn:hover {
+            background: rgba(139, 90, 43, 0.3);
+            color: #fff;
+            box-shadow: 0 0 15px #8b5a2b;
+        }
+        .menu-btn::before {
+            content: "◆"; margin-right: 8px; font-size: 14px; opacity: 0.6;
+        }
+
+        #end-screen {
+            display: none; opacity: 0; transition: opacity 2s; z-index: 1500;
+        }
+        #end-content {
+            font-size: 22px; line-height: 1.6; margin-bottom: 20px;
+            letter-spacing: 2px; text-align: center; padding: 0 40px; color: #e0e0e0;
+        }
+
+        /* --- 9. 聆听回响页面 (Echo Screen) --- */
+        #echo-screen {
+            display: none;
+            z-index: 3000;
+        }
+        
+        #echo-visual {
+            flex: 1; 
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        #echo-subtitle-box {
+            /* 高度为 200px，与游戏内 ui-container 高度一致 */
+            height: 200px; 
+            /* 背景为与 #text-box 一致的黑红渐变 */
+            background: linear-gradient(to bottom, #1f1a1a, #110e0e);
+            /* 边框为与 #text-box 一致的 4px 金棕色 */
+            border-top: 4px solid #8b5a2b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 60px;
+            position: relative;
+            box-sizing: border-box; /* 确保 padding 不会撑大盒子 */
+        }
+
+        #echo-text {
+            /* 字体颜色为 #e0d0b0 (米金色) */
+            color: #e0d0b0; 
+            /* 字号为 22px */
+            font-size: 22px; 
+            /* 行高 */
+            line-height: 1.6;
+            letter-spacing: 1.5px;
+            text-shadow: 1px 1px 2px #000;
+            text-align: center;
+        }
+
+        /* 回响页面的导航按钮 */
+        .echo-nav-btn {
+            position: absolute; top: 50%; transform: translateY(-50%);
+            background: rgba(0,0,0,0.5); color: #b09070;
+            border: 1px solid #5c4033; font-size: 24px;
+            padding: 10px 15px; cursor: pointer; transition: 0.2s; z-index: 100;
+        }
+        .echo-nav-btn:hover { background: #3a2a2a; color: #fff; }
+        #echo-prev { left: 20px; }
+        #echo-next { right: 20px; }
+
+        #echo-close {
+            position: absolute; top: 20px; right: 20px;
+            background: rgba(0,0,0,0.6); border: 1px solid #8b5a2b;
+            color: #d0b090; padding: 5px 15px; cursor: pointer; z-index: 110;
+        }
+
+        /* === 返回封面按钮样式 === */
+        #home-btn {
+            position: absolute; top: 20px; right: 20px;
+            z-index: 1000; 
+            background: rgba(0, 0, 0, 0.5); border: 1px solid #8b5a2b;
+            color: #d0b090; padding: 8px 15px;
+            font-family: 'AncientFont', serif; font-size: 16px;
+            cursor: pointer; transition: all 0.3s; display: none; 
+        }
+
+        #home-btn:hover {
+            background: #3a2a2a; color: #fff; box-shadow: 0 0 10px #8b5a2b;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; }
+            100% { opacity: 0.5; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="game-stage">
+        <div id="bg-layer-1" class="bg-layer active"></div>
+        <div id="bg-layer-2" class="bg-layer"></div>
+
+        <div id="character-layer"></div>
+
+        <button id="home-btn" onclick="returnToTitle()">☖ 返回主页</button>
+
+        <div id="ui-container">
+            <div id="avatar-box">
+                <img id="avatar-1" class="avatar-layer" src="" alt="">
+                <img id="avatar-2" class="avatar-layer" src="" alt="">
+            </div>
+            
+            <div id="text-box" onclick="nextStep()">
+                <div id="name-tag"></div>
+                <div id="dialog-text"></div>
+                <div id="next-indicator">▼</div>
+            </div>
+        </div>
+
+        <div id="start-screen" class="full-screen-layer">
+            <div id="start-bg-layer" class="bg-layer active" style="opacity: 0.5;"></div>
+            <div id="start-content-wrapper">
+                <div id="start-title">冼夫人巡游岭南</div>
+                <div id="start-info">选择一段记忆以开始</div>
+                
+                <div id="chapter-list-container">
+                    <div style="color:#666; margin-top:20px;">正在读取记忆索引...</div>
+                </div>
+
+                <div style="margin-top: 30px;">
+                    <button class="menu-btn" onclick="openEchoMode()">聆听回响</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="end-screen" class="full-screen-layer">
+            <div id="end-bg-layer" class="top-visual-area"></div>
+            <div class="bottom-text-area">
+                <div id="end-content"></div>
+                <div style="margin-top: 15px;">
+                    <button class="menu-btn" onclick="returnToTitle()">返回目录</button>
+                    <button class="menu-btn" onclick="openEchoMode('end')">聆听回响</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="echo-screen" class="full-screen-layer">
+            <button id="echo-close" onclick="closeEchoMode()">✕ 返回</button>
+            <div id="echo-visual">
+                <button id="echo-prev" class="echo-nav-btn" onclick="changeEcho(-1)">❮</button>
+                <button id="echo-next" class="echo-nav-btn" onclick="changeEcho(1)">❯</button>
+            </div>
+            <div id="echo-subtitle-box">
+                <div id="echo-text"></div>
+            </div>
+        </div>
+    </div>
+
+    <audio id="bgm-player" loop></audio>
+    <audio id="voice-player"></audio> 
+    
+    <script>
+        // --- 变量声明 ---
+        let scriptData = [];
+        let echoData = [];
+        let chaptersData = []; // 存储章节列表
+        let currentIndex = -1;
+        let typeWriterTimer = null;
+        
+        // 状态标记
+        let isGameStarted = false;
+        let isEchoMode = false;
+        let currentEchoIndex = 0;
+        let echoSource = 'start';
+
+        // 渲染缓存
+        let currentBgUrl = "";
+        let activeBgIndex = 1;
+        let currentAvatarUrl = "";
+        let activeAvatarIndex = 1;
+
+        // DOM 元素
+        const bgLayer1 = document.getElementById('bg-layer-1');
+        const bgLayer2 = document.getElementById('bg-layer-2');
+        const charEl = document.getElementById('character-layer');
+        const homeBtn = document.getElementById('home-btn');
+        const uiContainer = document.getElementById('ui-container');
+        const avatar1 = document.getElementById('avatar-1');
+        const avatar2 = document.getElementById('avatar-2');
+        const textBoxEl = document.getElementById('text-box'); 
+        const nameEl = document.getElementById('name-tag');
+        const textEl = document.getElementById('dialog-text');
+        
+        const audioPlayer = document.getElementById('bgm-player');
+        const voicePlayer = document.getElementById('voice-player');
+
+        // 界面层
+        const startScreen = document.getElementById('start-screen');
+        const startBgLayer = document.getElementById('start-bg-layer'); 
+        const startTitle = document.getElementById('start-title');
+        const chapterListContainer = document.getElementById('chapter-list-container');
+
+        const endScreen = document.getElementById('end-screen');
+        const endBgLayer = document.getElementById('end-bg-layer'); 
+        const endContent = document.getElementById('end-content');
+
+        // 回想层元素
+        const echoScreen = document.getElementById('echo-screen');
+        const echoVisual = document.getElementById('echo-visual');
+        const echoText = document.getElementById('echo-text');
+
+        // --- 1. 初始化 ---
+        window.onload = function() {
+            loadChapters(); // 先加载章节列表
+            loadEchoes(); 
+            document.addEventListener('keydown', handleKeyPress);
+            
+            // 简单的交互以激活音频上下文
+            document.addEventListener('click', initAudioContext, { once: true });
+        }
+        
+        function initAudioContext() {
+            if(audioPlayer.paused && audioPlayer.src) {
+                audioPlayer.play().catch(e=>{});
+            }
+        }
+
+        // --- 键盘控制逻辑 ---
+        function handleKeyPress(e) {
+            if(["ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].includes(e.code)) {
+                // 在章节列表中允许上下键选择暂未实现，为了简单防止滚动
+                 if(!isGameStarted) return; 
+                 e.preventDefault();
+            }
+
+            if (isEchoMode) {
+                if (e.key === 'Escape') closeEchoMode();
+                if (e.key === 'ArrowRight') changeEcho(1);
+                if (e.key === 'ArrowLeft') changeEcho(-1);
+                return;
+            }
+
+            const nextKeys = ['ArrowRight', 'ArrowDown', ' ', 'Enter'];
+            const prevKeys = ['ArrowLeft', 'ArrowUp'];
+
+            if (!isGameStarted) return; // 未开始游戏时不响应剧情按键
+
+            if (nextKeys.includes(e.key)) nextStep();
+            else if (prevKeys.includes(e.key)) prevStep();
+        }
+
+        // --- 数据加载 ---
+        
+        // 1. 加载章节列表
+        function loadChapters() {
+            fetch('chapters.csv')
+                .then(res => res.ok ? res.text() : Promise.reject("chapters.csv 404"))
+                .then(text => {
+                    chaptersData = parseCSV(text); // 复用 CSV 解析
+                    renderChapterMenu();
+                })
+                .catch(err => {
+                    console.error(err);
+                    chapterListContainer.innerHTML = `<div style="color:red">无法读取记忆索引 (chapters.csv)</div>`;
+                });
+        }
+
+        // 2. 加载具体剧本
+        function loadScriptAndStart(scriptFile) {
+            startTitle.innerText = "读取中...";
+            console.log("正在尝试加载:", scriptFile); // 在控制台打印路径
+
+            fetch(scriptFile)
+                .then(res => {
+                    if (res.ok) {
+                        return res.text();
+                    } else {
+                        // 如果是 404，说明文件名错了或者文件不在那里
+                        throw new Error(`文件未找到 (404): ${scriptFile}`);
+                    }
+                })
+                .then(text => {
+                    scriptData = parseCSV(text);
+                    startGameLogic();
+                })
+                .catch(err => {
+                    console.error(err);
+                    // 区分错误类型
+                    if (err.message.includes("Failed to fetch")) {
+                        alert(`读取失败：浏览器禁止直接读取本地文件。\n请尝试使用 VS Code Live Server 或 Firefox 运行。`);
+                    } else {
+                        alert(`读取失败：${err.message}`);
+                    }
+                    startTitle.innerText = "魂入华夏";
+                });
+        }
+
+        function loadEchoes() {
+            fetch('echoes.csv')
+                .then(res => res.ok ? res.text() : Promise.reject("echoes.csv 404"))
+                .then(text => { echoData = parseEchoCSV(text); })
+                .catch(err => { echoData = []; });
+        }
+
+        // CSV 解析 (通用)
+        function parseCSV(csvText) {
+            const lines = csvText.trim().split('\n');
+            const result = [];
+            // 假设第一行是标题，从第二行开始
+            for (let i = 1; i < lines.length; i++) {
+                const line = lines[i].trim();
+                if (!line) continue;
+                const parts = line.split(','); 
+                // 创建一个通用对象，按索引访问
+                // 对于 script: type, bg, char, avatar, name, text
+                // 对于 chapters: title, subtitle, file, cover_bg, bgm
+                result.push({
+                    // 剧本常用字段
+                    type: parts[0] ? parts[0].trim() : "",
+                    bg: (parts[1] || "").replace(/\\/g, '/').trim(),      
+                    char: (parts[2] || "").replace(/\\/g, '/').trim(),  
+                    avatar: (parts[3] || "").replace(/\\/g, '/').trim(),
+                    name: parts[4] || "",
+                    text: parts.slice(5).join(',') || "",
+                    
+                    // 章节列表常用字段映射 (复用同一解析器)
+                    c_title: parts[0],
+                    c_subtitle: parts[1],
+                    c_file: parts[2],
+                    c_bg: parts[3],
+                    c_bgm: parts[4]
+                });
+            }
+            return result;
+        }
+
+        function parseEchoCSV(csvText) {
+            const lines = csvText.trim().split('\n');
+            const result = [];
+            for (let i = 0; i < lines.length; i++) {
+                const line = lines[i].trim();
+                if (!line || line.startsWith('img')) continue;
+                const parts = line.split(',');
+                result.push({
+                    img: (parts[0] || "").replace(/\\/g, '/').trim(),
+                    text: parts[1] || "...",
+                    voice: (parts[2] || "").replace(/\\/g, '/').trim()
+                });
+            }
+            return result;
+        }
+
+        // --- 渲染章节菜单 ---
+        function renderChapterMenu() {
+            chapterListContainer.innerHTML = ""; // 清空
+            
+            if (chaptersData.length === 0) {
+                chapterListContainer.innerHTML = "暂无章节";
+                return;
+            }
+
+            // 设置封面背景（使用第一个章节的背景，或者默认背景）
+            if (chaptersData[0].c_bg) {
+                startBgLayer.style.backgroundImage = `url('${chaptersData[0].c_bg}')`;
+            }
+
+            // 播放主页音乐（如果有定义）
+            if (chaptersData[0].c_bgm) {
+                if (audioPlayer.src.indexOf(chaptersData[0].c_bgm) === -1) {
+                    audioPlayer.src = chaptersData[0].c_bgm;
+                    audioPlayer.volume = 0.5;
+                }
+            }
+
+            chaptersData.forEach((chapter, index) => {
+                const card = document.createElement('div');
+                card.className = 'chapter-card';
+                card.onclick = () => {
+                    // 点击后加载该章节脚本
+                    loadScriptAndStart(chapter.c_file);
+                };
+
+                const infoDiv = document.createElement('div');
+                
+                const titleDiv = document.createElement('div');
+                titleDiv.className = 'chapter-title';
+                titleDiv.innerText = chapter.c_title;
+
+                const subDiv = document.createElement('div');
+                subDiv.className = 'chapter-subtitle';
+                subDiv.innerText = chapter.c_subtitle || "未知的时间与地点";
+
+                infoDiv.appendChild(titleDiv);
+                infoDiv.appendChild(subDiv);
+
+                const arrow = document.createElement('div');
+                arrow.className = 'chapter-arrow';
+                arrow.innerText = '▶';
+
+                card.appendChild(infoDiv);
+                card.appendChild(arrow);
+                
+                chapterListContainer.appendChild(card);
+            });
+        }
+
+        // --- 2. 游戏流程控制 ---
+        
+        // 真正的开始游戏逻辑（数据加载完毕后调用）
+        function startGameLogic() {
+            if (isGameStarted) return;
+            
+            // 检查脚本中是否有 start 类型行来初始化 BGM (覆盖主菜单 BGM)
+            const startScene = scriptData.find(s => s.type === 'start');
+            if (startScene && startScene.char && startScene.char.trim() !== "") {
+                 audioPlayer.src = startScene.char;
+                 audioPlayer.play().catch(e=>{});
+            }
+
+            isGameStarted = true;
+            // 显示返回按钮
+            homeBtn.style.display = 'block';
+
+            startScreen.style.opacity = 0;
+            setTimeout(() => {
+                startScreen.style.display = 'none';
+                uiContainer.style.display = 'block';
+                
+                // 重置索引
+                currentIndex = -1;
+                // 找到第一个非 start 类型的行作为开始
+                const firstDialogIndex = scriptData.findIndex(s => s.type !== 'start');
+                if (firstDialogIndex !== -1) {
+                   currentIndex = firstDialogIndex;
+                   renderSceneState(currentIndex);
+                }
+            }, 1000);
+        }
+
+        function returnToTitle() {
+            // 1. 停止游戏状态
+            isGameStarted = false;
+            
+            // 2. 隐藏游戏 UI / 结束 UI
+            uiContainer.style.display = 'none';
+            endScreen.style.display = 'none';
+            endScreen.style.opacity = 0;
+            homeBtn.style.display = 'none';
+            
+            // 3. 清理画面
+            charEl.style.opacity = 0;
+            switchAvatar(""); 
+            
+            // 4. 显示封面
+            startScreen.style.display = 'flex';
+            startTitle.innerText = "魂入华夏"; // 恢复标题
+            
+            // 重新渲染菜单（可能需要重置背景音乐到主页音乐）
+            renderChapterMenu();
+
+            setTimeout(() => {
+                startScreen.style.opacity = 1;
+            }, 50);
+        }
+
+        function nextStep() {
+            if (!isGameStarted) return;
+            if (currentIndex >= 0 && scriptData[currentIndex] && scriptData[currentIndex].type === 'end') return;
+
+            const nextIndex = currentIndex + 1;
+            if (nextIndex >= scriptData.length) return;
+
+            currentIndex = nextIndex;
+            const scene = scriptData[currentIndex];
+
+            if (scene.type === 'end') {
+                showEnding(scene);
+            } else if (scene.type === 'start') {
+                nextStep(); // 跳过配置行
+            } else {
+                renderSceneState(currentIndex);
+            }
+        }
+
+        function prevStep() {
+            if (!isGameStarted) return;
+            let targetIndex = currentIndex - 1;
+            // 跳过 start 行
+            while (targetIndex >= 0 && scriptData[targetIndex].type === 'start') targetIndex--; 
+            
+            if (targetIndex < 0) return; // 不能回退到开始之前
+
+            // 如果在结局页面回退
+            if (endScreen.style.display === 'flex') {
+                endScreen.style.opacity = 0;
+                setTimeout(() => { endScreen.style.display = 'none'; }, 500);
+                uiContainer.style.display = 'block';
+                // 恢复返回按钮
+                homeBtn.style.display = 'block'; 
+            }
+
+            currentIndex = targetIndex;
+            renderSceneState(currentIndex);
+        }
+
+        // --- 状态渲染核心 ---
+        function renderSceneState(index) {
+            const scene = scriptData[index];
+
+            // 1. 背景
+            let effectiveBg = "";
+            for (let i = index; i >= 0; i--) {
+                if (scriptData[i].bg && scriptData[i].bg !== "") {
+                    effectiveBg = scriptData[i].bg;
+                    break;
+                }
+            }
+            if (effectiveBg !== currentBgUrl) {
+                switchBackground(effectiveBg);
+                currentBgUrl = effectiveBg;
+            }
+
+            // 2. 头像
+            let effectiveAvatar = scene.avatar; 
+            if (effectiveAvatar !== currentAvatarUrl) {
+                switchAvatar(effectiveAvatar);
+                currentAvatarUrl = effectiveAvatar;
+            }
+
+            // 3. 立绘
+            if (scene.char && scene.char !== "") {
+                charEl.style.backgroundImage = `url('${scene.char}')`;
+                charEl.style.opacity = 1;
+            } else {
+                charEl.style.opacity = 0;
+            }
+
+            // 4. 文本
+            textBoxEl.style.opacity = "1";
+            nameEl.innerText = scene.name || "";
+            runTypewriter(scene.text);
+        }
+
+        function showEnding(scene) {
+            uiContainer.style.display = 'none';
+            // 结局时不隐藏返回按钮，或者你可以选择隐藏让用户专注结局
+            // 这里选择隐藏左上角按钮，由结局页面的大按钮接管
+            homeBtn.style.display = 'none'; 
+            
+            charEl.style.opacity = 0;
+            if (scene.bg) endBgLayer.style.backgroundImage = `url('${scene.bg}')`;
+            
+            endScreen.style.display = 'flex';
+            setTimeout(() => { endScreen.style.opacity = 1; }, 50);
+            endContent.innerText = scene.text;
+        }
+
+        // --- 3. 聆听回响 (Echo Mode) ---
+        function openEchoMode(source = 'start') {
+            if (echoData.length === 0) {
+                alert("未找到回想数据"); return;
+            }
+            echoSource = source; 
+            isEchoMode = true;
+            currentEchoIndex = 0;
+
+            if (echoSource === 'start') startScreen.style.display = 'none';
+            else if (echoSource === 'end') endScreen.style.display = 'none';
+
+            echoScreen.style.display = 'flex';
+            renderEcho(currentEchoIndex);
+        }
+
+        function closeEchoMode() {
+            isEchoMode = false;
+            voicePlayer.pause();
+            echoScreen.style.display = 'none';
+
+            if (echoSource === 'end') {
+                endScreen.style.display = 'flex';
+                endScreen.style.opacity = 1; 
+            } else {
+                startScreen.style.display = 'flex';
+                startScreen.style.opacity = 1;
+            }
+        }
+
+        function changeEcho(direction) {
+            if (echoData.length === 0) return;
+            let newIndex = currentEchoIndex + direction;
+            const total = echoData.length;
+            if (newIndex < 0) newIndex = total - 1;
+            else if (newIndex >= total) newIndex = 0;
+            currentEchoIndex = newIndex;
+            renderEcho(currentEchoIndex);
+        }
+
+        function renderEcho(index) {
+            const data = echoData[index];
+            if (data.img) echoVisual.style.backgroundImage = `url('${data.img}')`;
+            else echoVisual.style.backgroundImage = 'none';
+            echoText.innerText = data.text;
+            if (data.voice) {
+                voicePlayer.src = data.voice;
+                voicePlayer.play().catch(e => console.log(e));
+            } else {
+                voicePlayer.pause();
+            }
+        }
+
+        // --- 辅助显示函数 ---
+        function switchBackground(url) {
+            if (!url) return; 
+            const activeLayer = activeBgIndex === 1 ? bgLayer1 : bgLayer2;
+            const nextLayer = activeBgIndex === 1 ? bgLayer2 : bgLayer1;
+
+            nextLayer.style.backgroundImage = `url('${url}')`;
+            nextLayer.classList.add('active');
+            activeLayer.classList.remove('active');
+            activeBgIndex = activeBgIndex === 1 ? 2 : 1;
+        }
+
+        function switchAvatar(url) {
+            const activeEl = activeAvatarIndex === 1 ? avatar1 : avatar2;
+            const nextEl = activeAvatarIndex === 1 ? avatar2 : avatar1;
+
+            if (!url || url === "") {
+                activeEl.classList.remove('active');
+                nextEl.classList.remove('active');
+                setTimeout(() => {
+                    activeEl.src = "";
+                    nextEl.src = "";
+                }, 500); 
+            } else {
+                nextEl.src = url;
+                nextEl.classList.add('active');
+                activeEl.classList.remove('active');
+            }
+            activeAvatarIndex = activeAvatarIndex === 1 ? 2 : 1;
+        }
+
+        function runTypewriter(text) {
+            textEl.innerText = "";
+            if (typeWriterTimer) clearInterval(typeWriterTimer);
+            let i = 0;
+            const content = text ? text.replace(/^"|"$/g, '') : "";
+            typeWriterTimer = setInterval(() => {
+                if (i < content.length) {
+                    textEl.innerText += content.charAt(i);
+                    i++;
+                } else {
+                    clearInterval(typeWriterTimer);
+                }
+            }, 30);
+        }
+    </script>
+</body>
+</html>
