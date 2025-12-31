@@ -2,7 +2,7 @@ type,bg,char,avatar,name,text
 start,,,,,
 dialog,scenes/lizhai.png,,,,平定叛乱后，冼夫人骑马进入高凉俚僚村寨
 dialog,scenes/lizhai.png,,avatar/xianfuren.png,冼夫人,（叛乱虽平，但百姓之心仍需安抚。这里的百姓生活清苦，房屋简陋，土地贫瘠。王仲宣叛乱时，此地是否也遭波及……）
-dialog,scenes/lizhai.png,,avatar/LiQiuZhang.png,俚酋长,夫人亲临，我等惶恐。叛乱之时，叛军曾在此强征粮草，百姓困苦更甚。
+dialog,scenes/lizhai.png,,avatar/LiQiuZhang.png,俚族长老,夫人亲临，我等惶恐。叛乱之时，叛军曾在此强征粮草，百姓困苦更甚。
 dialog,scenes/lizhai.png,,avatar/xianfuren.png,冼夫人,前朝战乱，非百姓之过。今叛乱已平，朝廷不会再追究从叛者。陛下有令：轻徭薄赋，与民休息。
 dialog,scenes/lizhai.png,,avatar/xianfuren.png,冼夫人,我带来朝廷下发的耕牛百头、稻种千石。凡愿归顺朝廷者，免赋税三年，分发耕牛种子。
 dialog,scenes/lizhai.png,,avatar/LiQiuZhang.png,俚族长老,夫人大恩！我等俚人受尽战乱之苦，今日方见天日。愿归顺大隋，永不为乱！
