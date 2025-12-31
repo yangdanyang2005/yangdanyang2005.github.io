@@ -1,5 +1,5 @@
 type,bg,char,avatar,name,text
-start,sscenes/xianfuren_chujian.png,,,冼夫人巡游岭南,voices/bgm_liuychaoheshi.MP3
+start,scenes/xianfuren_chujian.png,,,冼夫人巡游岭南,voices/bgm_liuychaoheshi.MP3
 dialog,scenes/lizhai.png,,avatar/LiQiuZhang.png,俚族长老,夫人！番州总管赵讷贪虐无度，强征赋税，掠夺民财，我族已有数百人逃入深山！
 dialog,scenes/lizhai.png,,avatar/xianfuren.png,冼夫人,竟有此事？赵讷是朝廷命官，怎敢如此！
 dialog,scenes/lizhai.png,,avatar/FengXuan.png,长史张融,夫人，下官已查明：赵讷到任两年，贪污军饷、克扣赈灾粮款，数额巨大。各地部落多有逃亡。

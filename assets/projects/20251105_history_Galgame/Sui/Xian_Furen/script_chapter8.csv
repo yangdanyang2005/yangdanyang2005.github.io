@@ -1,5 +1,5 @@
 type,bg,char,avatar,name,text
-start,sscenes/xianfuren_chujian.png,,,冼夫人巡游岭南,voices/bgm_liuychaoheshi.MP3
+start,scenes/xianfuren_chujian.png,,,冼夫人巡游岭南,voices/bgm_liuychaoheshi.MP3
 dialog,scenes/LingNan.png,,avatar/xianfuren.png,冼夫人,（登上五岭，眺望岭南大地）六年巡游，岭南已定。百姓安居，官吏清廉，水利通达，教化盛行。
 dialog,scenes/LingNan.png,,avatar/WeiGuang.png,韦洸,夫人之功，可比大禹治水。陛下特颁嘉奖，赐布帛五千段，赞夫人“忠心朝廷，立功边陲”。
 dialog,scenes/LingNan.png,,avatar/xianfuren.png,冼夫人,非我一人之功，乃岭南百姓同心，朝廷支持之果。陛下圣明，方有今日太平。

@@ -1,5 +1,5 @@
 type,bg,char,avatar,name,text
-start,sscenes/xianfuren_chujian.png,,,冼夫人巡游岭南,voices/bgm_liuychaoheshi.MP3
+start,scenes/xianfuren_chujian.png,,,冼夫人巡游岭南,voices/bgm_liuychaoheshi.MP3
 dialog,scenes/FuYa.png,,avatar/xianfuren.png,冼夫人,（进入循州府衙，翻阅案卷）这些民间诉讼，为何积压数月不决？
 dialog,scenes/FuYa.png,,avatar/PeiJu.png,县令,夫人恕罪，下官……下官才疏学浅，且王仲宣叛乱时，衙门文书多有散失……
 dialog,scenes/FuYa.png,,avatar/xianfuren.png,冼夫人,才疏学浅可学，文书散失可补。但百姓之事，岂可拖延？这一案，老农状告地主强占田地，已拖了半年！

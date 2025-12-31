@@ -1,5 +1,5 @@
 type,bg,char,avatar,name,text
-start,sscenes/xianfuren_chujian.png,,,冼夫人巡游岭南,voices/bgm_XianFuren_fighting.MP3
+start,scenes/xianfuren_chujian.png,,,冼夫人巡游岭南,voices/bgm_XianFuren_fighting.MP3
 dialog,scenes/war.png,,,,番禺王仲宣叛乱，围困广州，韦总管被困州城，岭南各地首领纷纷响应。
 dialog,scenes/start_gongzhongersheng.png,,avatar/xianfuren.png,冼夫人,冯暄听令！命你率三千精兵驰援广州，解韦总管之围。
 dialog,scenes/start_gongzhongersheng.png,,avatar/FengXuan.png,冯暄,孙儿领命！（迟疑）只是……叛将陈佛智与我素有交情，能否……

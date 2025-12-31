@@ -1,5 +1,5 @@
 type,bg,char,avatar,name,text
-start,sscenes/xianfuren_chujian.png,,,冼夫人巡游岭南,voices/bgm_liuychaoheshi.MP3
+start,scenes/xianfuren_chujian.png,,,冼夫人巡游岭南,voices/bgm_liuychaoheshi.MP3
 dialog,scenes/school.png,,avatar/xianfuren.png,冼夫人,（参观新州乡）这里的学生，多是俚僚子弟？
 dialog,scenes/school.png,,avatar/Student.png,乡学先生,回夫人，正是。自夫人推行教化以来，各族子弟纷纷入学，现有学生二百余人。
 dialog,scenes/cschool.png,,avatar/xianfuren.png,冼夫人,学好汉文，通达事理，将来可为官为吏，造福乡里。我俚人子弟，也要读书明理。

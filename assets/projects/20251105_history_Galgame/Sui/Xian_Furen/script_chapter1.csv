@@ -1,5 +1,5 @@
 type,bg,char,avatar,name,text
-start,sscenes/xianfuren_chujian.png,,,冼夫人巡游岭南,voices/bgm_liuychaoheshi.MP3
+start,scenes/xianfuren_chujian.png,,,冼夫人巡游岭南,voices/bgm_liuychaoheshi.MP3
 dialog,scenes/bg_shanzhong.png,,,,隋开皇九年，隋军渡江灭陈，南北归一。隋文帝命韦洸安抚岭外，岭南俚族首领冼夫人迎接韦洸进入广州，平定岭南。冼夫人立于高台，手持隋文帝册封诏书。
 dialog,scenes/cxianfuren_people.png,,avatar/xianfuren.png,冼夫人,陛下恩典，册封我为宋康郡夫人，今日起，我将巡视各州，安抚百姓，推行新政。
 dialog,scenes/xianfuren_people.png,,avatar/xianfuren.png,冼夫人,（对族人）我等虽为俚人，但既受朝廷册封，当以忠义为本。岭南初定，百废待兴，各族百姓饱受战乱之苦，我等当以仁德安抚，不可苛待。
