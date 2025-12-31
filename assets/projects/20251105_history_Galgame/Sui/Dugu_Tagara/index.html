@@ -795,7 +795,7 @@
         function handleKeyPress(e) {
             // 在剧情模式下，方向键用于推进/回退；避免页面滚动
             if (["ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].includes(e.code)) {
-                if (!isGameStarted) return;
+                if (!isGameStarted)
                 e.preventDefault();
             }
 
