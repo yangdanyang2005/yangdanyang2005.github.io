@@ -1,2 +1,2 @@
-title,subtitle,file,cover_bg,bgm
-宫中二圣,公元581年·隋·长安,script_gongzhongersheng.csv,images/start_gongzhongersheng.png,voices/bgm_liuychaoheshi.MP3
+game_title,index_bg,index_bgm,title,subtitle,file,cover_bg,bgm,end_bg,end_text
+当朝二圣,images/start_gongzhongersheng.png,voices/bgm_liuychaoheshi.MP3,宫中二圣,公元581年·隋·长安,script_gongzhongersheng.csv,images/start_gongzhongersheng.png,voices/bgm_liuychaoheshi.MP3,images/end_shichengersheng.png,世称二圣

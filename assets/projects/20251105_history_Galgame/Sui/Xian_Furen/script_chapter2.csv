@@ -1,5 +1,5 @@
 type,bg,char,avatar,name,text
-start,scenes/xianfuren_chujian.png,,,冼夫人巡游岭南,voices/bgm_XianFuren_fighting.MP3
+start,,,,,
 dialog,scenes/war.png,,,,番禺王仲宣叛乱，围困广州，韦总管被困州城，岭南各地首领纷纷响应。
 dialog,scenes/start_gongzhongersheng.png,,avatar/xianfuren.png,冼夫人,冯暄听令！命你率三千精兵驰援广州，解韦总管之围。
 dialog,scenes/start_gongzhongersheng.png,,avatar/FengXuan.png,冯暄,孙儿领命！（迟疑）只是……叛将陈佛智与我素有交情，能否……
@@ -17,4 +17,4 @@ dialog,scenes/war.png,,avatar/WeiGuang.png,陈坦,（率众跪拜）我等愿归
 dialog,scenes/war.png,,avatar/xianfuren.png,冼夫人,岭南安定，各族和睦，方是百姓之福。望诸位谨记今日誓言。
 dialog,scenes/xian_war.png,,avatar/PeiJu.png,裴矩,奉天承运，皇帝诏曰：冼夫人忠勇可嘉，平叛有功，封为谯国夫人，开幕府，赐印章！
 dialog,scenes/xian_war.png,,avatar/xianfuren.png,冼夫人,臣妇谢陛下隆恩！必当尽心竭力，镇守岭南，保境安民！
-end,scenes/bg_shanzhong.png,,,,冼夫人平定王仲宣叛乱，岭南再次安定。隋文帝赐冯盎为高州刺史，赦冯暄为罗州刺史，岭南军政大权皆归冼夫人统领……
+end,,,,,
